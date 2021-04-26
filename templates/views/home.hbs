@@ -1,0 +1,11 @@
+{{!< default}}
+{{#contentFor 'title'}}Home{{/contentFor}}
+{{#contentFor 'style'}}
+  <link rel="stylesheet" type="text/css" href="{{cache_busting '/assets/styles/home.css' baseUrl}}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{baseUrl}}/assets/styles/home.css"> -->
+{{/contentFor}}
+{{#contentFor 'script'}}
+  <script src="{{cache_busting '/assets/scripts/home.js' baseUrl}}"></script>
+  <!-- <script src="{{baseUrl}}/assets/scripts/home.js"></script> -->
+{{/contentFor}}
+<h1 class="mt-5 text-center">Welcome to Express Sweet</h1>

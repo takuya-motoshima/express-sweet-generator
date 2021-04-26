@@ -1,0 +1,30 @@
+{{!< default}}
+{{#contentFor 'title'}}Dashboard{{/contentFor}}
+{{#contentFor 'style'}}
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" type="text/css" href="{{cache_busting '/assets/styles/users.css' baseUrl}}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{baseUrl}}/assets/styles/users.css"> -->
+{{/contentFor}}
+{{#contentFor 'script'}}
+  <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+  <script src="{{cache_busting '/assets/scripts/users.js' baseUrl}}"></script>
+  <!-- <script src="{{baseUrl}}/assets/scripts/users.js"></script> -->
+{{/contentFor}}
+
+<div class="d-flex mb-4">
+  <h3 class="font-weight-bold text-dark">User list:</h3>
+  <a href="/users/new" class="btn btn-primary" style="margin-left: auto;">Add New</a>
+</div>
+
+<table class="table w-100" id="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Email</th>
+      <th scope="col">Name</th>
+      <th scope="col">Modified</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+</table>

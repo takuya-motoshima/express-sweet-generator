@@ -1,0 +1,44 @@
+{
+  "name": "express-sweet-generator",
+  "version": "1.0.0",
+  "description": "Express Sweet application generator.",
+  "main": "bin/express-sweet-cli.js",
+  "files": [
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "bin/",
+    "templates/"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "express-sweet": "bin/express-sweet-cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takuya-motoshima/express-sweet-generator.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "framework",
+    "web",
+    "rest",
+    "restful",
+    "router",
+    "app",
+    "api"
+  ],
+  "author": "Takuya Motoshima <developer.takuyamotoshima@gmail.com> (https://twitter.com/TakuyaMotoshima)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/takuya-motoshima/express-sweet-generator/issues",
+    "email": "developer.takuyamotoshima@gmail.com"
+  },
+  "homepage": "https://github.com/takuya-motoshima/express-sweet-generator#readme",
+  "dependencies": {
+    "commander": "2.15.1",
+    "ejs": "2.6.1",
+    "fs-extra": "^9.1.0"
+  }
+}
