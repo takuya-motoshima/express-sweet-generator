@@ -10,6 +10,8 @@ In addition, some packages have been customized to make them easier for develope
 * Framework  
     The framework uses Expess v4.  
     Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+* URI Routing  
+    Express Sweet automatically maps the URL to express.Router defined in the routes directory.
 * Model  
     The model uses Sequelize v6.  
     Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.
