@@ -41,7 +41,7 @@ The quickest way to get started with Express Sweet is to utilize the executable 
 The application created here includes the following screens from the beginning.  
 
 <table>
-    <tr>
+    <tr style="background: #fff;">
         <td valign="top">
             <div>Login</div>
             <img src="https://raw.githubusercontent.com/takuya-motoshima/express-sweet-generator/main/screencaps/login.png" width="400" style="border: 1px solid rgba(0,0,0,.1);">
@@ -51,7 +51,7 @@ The application created here includes the following screens from the beginning.
             <img src="https://raw.githubusercontent.com/takuya-motoshima/express-sweet-generator/main/screencaps/home.png" width="400" style="border: 1px solid rgba(0,0,0,.1);">
         </td>
     </tr>
-    <tr>
+    <tr style="background: #fff;">
         <td valign="top">
             <div>User list</div>
             <img src="https://raw.githubusercontent.com/takuya-motoshima/express-sweet-generator/main/screencaps/user-list.png" width="400" style="border: 1px solid rgba(0,0,0,.1);">
@@ -61,7 +61,7 @@ The application created here includes the following screens from the beginning.
             <img src="https://raw.githubusercontent.com/takuya-motoshima/express-sweet-generator/main/screencaps/new-user.png" width="400" style="border: 1px solid rgba(0,0,0,.1);">
         </td>
     </tr>
-    <tr>
+    <tr style="background: #fff;">
         <td valign="top">
             <div>Edit user</div>
             <img src="https://raw.githubusercontent.com/takuya-motoshima/express-sweet-generator/main/screencaps/edit-user.png" width="400" style="border: 1px solid rgba(0,0,0,.1);">
