@@ -1,5 +1,5 @@
 /**
- * DB connection options.
+ * Database configuration.
  */
 module.exports = {
   development: {
