@@ -48,7 +48,7 @@
 
   // User session.
   {{#if session}}
-    globalThis.$$session = {{{json session}}};
+    globalThis.$$session = {{{json_stringify session}}};
   {{/if}}
 </script>
 
