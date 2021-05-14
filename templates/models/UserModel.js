@@ -5,27 +5,27 @@ const Model = require('express-sweet').database.Model;
  */
 module.exports = (class extends Model {
   /**
-   * Table name used by the model.
+   * The name of the table that the model accesses.
    */
   static get table() {
     return 'user';
   }
 
   /**
-   * Table column list.
+   * List of columns in the table accessed by this model.
    */
   static get attributes() {
     return {
       id: {
-        type: Model.DataTypes.INTEGER,
+        type: this.DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      email: Model.DataTypes.STRING,
-      password: Model.DataTypes.STRING,
-      name: Model.DataTypes.STRING,
-      created: Model.DataTypes.DATE,
-      modified: Model.DataTypes.DATE
+      email: this.DataTypes.STRING,
+      password: this.DataTypes.STRING,
+      name: this.DataTypes.STRING,
+      created: this.DataTypes.DATE,
+      modified: this.DataTypes.DATE
     };
   }
 
@@ -49,11 +49,11 @@ module.exports = (class extends Model {
     let where = undefined;
     if (options.search != null && options.search.length)
       where = {
-        [Model.Op.or]: [
-          {id: {[Model.Op.like]: `%${options.search}%`}},
-          {email: {[Model.Op.like]: `%${options.search}%`}},
-          {name: {[Model.Op.like]: `%${options.search}%`}},
-          {modified: {[Model.Op.like]: `%${options.search}%`}}
+        [this.Op.or]: [
+          {id: {[this.Op.like]: `%${options.search}%`}},
+          {email: {[this.Op.like]: `%${options.search}%`}},
+          {name: {[this.Op.like]: `%${options.search}%`}},
+          {modified: {[this.Op.like]: `%${options.search}%`}}
         ]
       };
 
