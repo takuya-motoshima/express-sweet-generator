@@ -90,6 +90,7 @@ CREATE DATABASE IF NOT EXISTS `example` DEFAULT CHARACTER SET utf8mb4;
 
 USE `example`;
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -101,15 +102,37 @@ CREATE TABLE `user` (
   UNIQUE KEY `ukAccount1` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `user` (`email`, `password`, `name`) VALUES
-  ('robin@example.com', 'password', 'Robin'),
-  ('taylor@example.com', 'password', 'Taylor'),
-  ('vivian@example.com', 'password', 'Vivian'),
-  ('harry@example.com', 'password', 'Harry'),
-  ('eliza@example.com', 'password', 'Eliza'),
-  ('nancy@example.com', 'password', 'Nancy'),
-  ('melinda@example.com', 'password', 'Melinda'),
-  ('harley@example.com', 'password', 'Harley');
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE `profile` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(10) unsigned NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `tel` varchar(14) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fkUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `user` (`id`, `email`, `password`, `name`) VALUES
+  (1, 'robin@example.com', 'password', 'Robin'),
+  (2, 'taylor@example.com', 'password', 'Taylor'),
+  (3, 'vivian@example.com', 'password', 'Vivian'),
+  (4, 'harry@example.com', 'password', 'Harry'),
+  (5, 'eliza@example.com', 'password', 'Eliza'),
+  (6, 'nancy@example.com', 'password', 'Nancy'),
+  (7, 'melinda@example.com', 'password', 'Melinda'),
+  (8, 'harley@example.com', 'password', 'Harley');
+
+INSERT INTO `profile` (`userId`, `address`, `tel`) VALUES
+  (1, '777 Brockton Avenue, Abington MA 2351', '202-555-0105'),
+  (2, '30 Memorial Drive, Avon MA 2322', ''),
+  (3, '250 Hartford Avenue, Bellingham MA 2019', '202-555-0175'),
+  (4, '700 Oak Street, Brockton MA 2301', '202-555-0167'),
+  (5, '66-4 Parkhurst Rd, Chelmsford MA 1824', '202-555-0154'),
+  (6, '591 Memorial Dr, Chicopee MA 1020', '202-555-0141'),
+  (7, '55 Brooksby Village Way, Danvers MA 1923', '202-555-0196'),
+  (8, '137 Teaticket Hwy, East Falmouth MA 2536', '202-555-0167');
 ```
 
 Start your Express Sweet app at `http://localhost:3000/`.

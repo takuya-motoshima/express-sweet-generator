@@ -1,4 +1,5 @@
 const Model = require('express-sweet').database.Model;
+const ProfileModel = require('./ProfileModel');
 
 /**
  * User model.
@@ -27,6 +28,15 @@ module.exports = (class extends Model {
       created: this.DataTypes.DATE,
       modified: this.DataTypes.DATE
     };
+  }
+
+  /**
+   * This method defines the handling of hasOne, hasMany, belongsTo, belongsToMany, etc. associations with other models that will be executed when the subclass is loaded.
+   * 
+   * @see https://sequelize.org/master/manual/assocs.html
+   */
+  static association() {
+    this.hasOne(ProfileModel, {foreignKey: 'userId', as: 'profile'});
   }
 
   /**
@@ -74,7 +84,6 @@ module.exports = (class extends Model {
 
     // Get the total record count that matches the condition.
     let recordsFiltered = await this.count({where});
-
     return {recordsTotal, recordsFiltered, data};
   }
-}).mount();
+}).factory();

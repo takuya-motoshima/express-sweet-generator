@@ -10,9 +10,9 @@ module.exports = {
     port: undefined,
     dialect: 'mariadb',
     timezone: '+09:00',
-    // timezone: 'Etc/GMT-9',
-    logging: false,
-    // dialectOptions: {useUTC: false, timezone: 'Etc/GMT-9'}
+    logging: false
+    // ,timezone: 'Etc/GMT-9'
+    // ,dialectOptions: {useUTC: false, timezone: 'Etc/GMT-9'}
   },
   test: {
     username: 'root',
@@ -22,9 +22,9 @@ module.exports = {
     port: undefined,
     dialect: 'mariadb',
     timezone: '+09:00',
-    // timezone: 'Etc/GMT-9',
-    logging: false,
-    // dialectOptions: {useUTC: false, timezone: 'Etc/GMT-9'}
+    logging: false
+    // ,timezone: 'Etc/GMT-9'
+    // ,dialectOptions: {useUTC: false, timezone: 'Etc/GMT-9'}
   },
   production: {
     username: 'root',
@@ -34,8 +34,8 @@ module.exports = {
     port: undefined,
     dialect: 'mariadb',
     timezone: '+09:00',
-    // timezone: 'Etc/GMT-9',
-    logging: false,
-    // dialectOptions: {useUTC: false, timezone: 'Etc/GMT-9'}
+    logging: false
+    // ,timezone: 'Etc/GMT-9'
+    // ,dialectOptions: {useUTC: false, timezone: 'Etc/GMT-9'}
   }
 }
