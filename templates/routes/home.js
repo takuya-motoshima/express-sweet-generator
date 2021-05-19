@@ -4,12 +4,8 @@ const router = express.Router();
 /**
  * Home page.
  */
-router.get('/', async (req, res, next) => {
-  try {
-    res.render('home');
-  } catch(e) {
-    next(e);
-  }
+router.get('/', (req, res) => {
+  res.render('home');
 });
 
 module.exports = router;

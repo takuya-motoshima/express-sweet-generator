@@ -4,12 +4,8 @@ const router = express.Router();
 /**
  * Login page.
  */
-router.get('/', async (req, res, next) => {
-  try {
-    res.render('login');
-  } catch(e) {
-    next(e);
-  }
+router.get('/', (req, res) => {
+  res.render('login');
 });
 
 module.exports = router;

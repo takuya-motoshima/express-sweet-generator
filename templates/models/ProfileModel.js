@@ -1,7 +1,7 @@
 const Model = require('express-sweet').database.Model;
 
 /**
- * User model.
+ * Profile model.
  */
 module.exports = class extends Model {
   /**
@@ -30,12 +30,18 @@ module.exports = class extends Model {
   }
 
   /**
-   * This method defines the handling of hasOne, hasMany, belongsTo, belongsToMany, etc. associations with other models that will be executed when the subclass is loaded.
+   * Associate the model.
+   * Define associations with other models such as "hasOne", "hasMany", "belongsTo", "belongsToMany".
+   * This method is called automatically from within the "express-sweet.mount" method, so you don't have to run it yourself.
    * 
    * @see https://sequelize.org/master/manual/assocs.html
    */
   static association() {
+    // Profile belongs to one user.
     const UserModel = require('./UserModel');
-    this.belongsTo(UserModel, {foreignKey: 'userId'});
+    this.belongsTo(UserModel, {
+      foreignKey: 'userId', // profile.userId,
+      targetKey: 'id'       // user.id
+    });
   }
 }
