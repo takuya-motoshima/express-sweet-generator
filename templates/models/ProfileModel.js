@@ -1,10 +1,9 @@
 const Model = require('express-sweet').database.Model;
-const UserModel = require('./UserModel');
 
 /**
  * User model.
  */
-module.exports = (class extends Model {
+module.exports = class extends Model {
   /**
    * The name of the table that the model accesses.
    */
@@ -36,6 +35,7 @@ module.exports = (class extends Model {
    * @see https://sequelize.org/master/manual/assocs.html
    */
   static association() {
+    const UserModel = require('./UserModel');
     this.belongsTo(UserModel, {foreignKey: 'userId'});
   }
-}).factory();
+}
