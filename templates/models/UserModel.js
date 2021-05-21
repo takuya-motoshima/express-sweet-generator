@@ -40,8 +40,8 @@ module.exports = class extends Model {
     // User has one profile.
     const ProfileModel = require('./ProfileModel');
     this.hasOne(ProfileModel, {
-      foreignKey: 'userId', // profile.userId
-      sourceKey: 'id'       // user.id
+      foreignKey: 'userId',  // profile.userId
+      sourceKey: 'id'        // user.id
     });
   }
 

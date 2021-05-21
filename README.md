@@ -99,7 +99,7 @@ CREATE TABLE `user` (
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ukAccount1` (`email`)
+  UNIQUE KEY `ukUserEmail` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 DROP TABLE IF EXISTS `profile`;
@@ -111,7 +111,19 @@ CREATE TABLE `profile` (
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  CONSTRAINT `fkUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+  UNIQUE KEY `ukProfileUserId` (`userId`),
+  CONSTRAINT `fkProfileUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(10) unsigned NOT NULL,
+  `text` text NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fkCommentUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `user` (`id`, `email`, `password`, `name`) VALUES
@@ -133,6 +145,11 @@ INSERT INTO `profile` (`userId`, `address`, `tel`) VALUES
   (6, '591 Memorial Dr, Chicopee MA 1020', '202-555-0141'),
   (7, '55 Brooksby Village Way, Danvers MA 1923', '202-555-0196'),
   (8, '137 Teaticket Hwy, East Falmouth MA 2536', '202-555-0167');
+
+INSERT INTO `comment` (`userId`, `text`) VALUES
+  (1, 'First comment from Robin'),
+  (1, 'Second comment from Robin'),
+  (2, 'First comment from Taylor');
 ```
 
 Start your Express Sweet app at `http://localhost:3000/`.

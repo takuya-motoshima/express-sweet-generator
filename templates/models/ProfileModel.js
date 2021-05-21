@@ -40,8 +40,8 @@ module.exports = class extends Model {
     // Profile belongs to one user.
     const UserModel = require('./UserModel');
     this.belongsTo(UserModel, {
-      foreignKey: 'userId', // profile.userId,
-      targetKey: 'id'       // user.id
+      foreignKey: 'userId',  // profile.userId,
+      targetKey: 'id'        // user.id
     });
   }
 }
