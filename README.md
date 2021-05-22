@@ -85,7 +85,7 @@ npm install;
 
 Create DB.
 
-```sh
+```sql
 CREATE DATABASE IF NOT EXISTS `example` DEFAULT CHARACTER SET utf8mb4;
 
 USE `example`;
@@ -102,6 +102,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `ukUserEmail` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- User has one profile
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -115,6 +116,7 @@ CREATE TABLE `profile` (
   CONSTRAINT `fkProfileUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- User has many comments
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -126,6 +128,20 @@ CREATE TABLE `comment` (
   CONSTRAINT `fkCommentUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Users and books have a many-to-many relationship
+DROP TABLE IF EXISTS `book`;
+CREATE TABLE `book` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `userId` int(10) unsigned NOT NULL,
+  `title` text NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ukBookTitle` (`userId`, `title`(255)),
+  CONSTRAINT `fkBookUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Add sample user record
 INSERT INTO `user` (`id`, `email`, `password`, `name`) VALUES
   (1, 'robin@example.com', 'password', 'Robin'),
   (2, 'taylor@example.com', 'password', 'Taylor'),
@@ -136,6 +152,7 @@ INSERT INTO `user` (`id`, `email`, `password`, `name`) VALUES
   (7, 'melinda@example.com', 'password', 'Melinda'),
   (8, 'harley@example.com', 'password', 'Harley');
 
+-- Add sample profile record
 INSERT INTO `profile` (`userId`, `address`, `tel`) VALUES
   (1, '777 Brockton Avenue, Abington MA 2351', '202-555-0105'),
   (2, '30 Memorial Drive, Avon MA 2322', ''),
@@ -146,10 +163,19 @@ INSERT INTO `profile` (`userId`, `address`, `tel`) VALUES
   (7, '55 Brooksby Village Way, Danvers MA 1923', '202-555-0196'),
   (8, '137 Teaticket Hwy, East Falmouth MA 2536', '202-555-0167');
 
+-- Add a sample user comment record
 INSERT INTO `comment` (`userId`, `text`) VALUES
   (1, 'First comment from Robin'),
   (1, 'Second comment from Robin'),
   (2, 'First comment from Taylor');
+
+-- Add sample book record
+INSERT INTO `book` (`userId`, `title`) VALUES
+  (1, 'The Stars Tonight'),
+  (1, 'A Guide to Courteous Thievery'),
+  (1, 'The Sound of Light'),
+  (2, 'The Stars Tonight'),
+  (2, 'Why She Said Yes');
 ```
 
 Start your Express Sweet app at `http://localhost:3000/`.

@@ -32,6 +32,7 @@ module.exports = class extends Model {
   /**
    * Associate the model.
    * Define associations with other models such as "hasOne", "hasMany", "belongsTo", "belongsToMany".
+   * If you omit the alias (as) option, the associated name will be hasOne, singular for belongsTo, and plural for hasMany.
    * This method is called automatically from within the "express-sweet.mount" method, so you don't have to run it yourself.
    * 
    * @see https://sequelize.org/master/manual/assocs.html
@@ -40,8 +41,17 @@ module.exports = class extends Model {
     // User has one profile.
     const ProfileModel = require('./ProfileModel');
     this.hasOne(ProfileModel, {
-      foreignKey: 'userId',  // profile.userId
-      sourceKey: 'id'        // user.id
+      foreignKey: 'userId', // profile.userId
+      sourceKey: 'id', // user.id
+      as: 'profile'
+    });
+
+     // User has many comments.
+    const CommentModel = require('./CommentModel');
+    this.hasMany(CommentModel, {
+      foreignKey: 'userId',  // comment.userId
+      sourceKey: 'id',  // user.id
+      as: 'comments'
     });
   }
 
