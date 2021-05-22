@@ -53,6 +53,14 @@ module.exports = class extends Model {
       sourceKey: 'id',  // user.id
       as: 'comments'
     });
+
+     // Users have many books, and books belong to many users.
+    const BookModel = require('./BookModel');
+    this.hasMany(BookModel, {
+      foreignKey: 'userId',  // book.userId
+      sourceKey: 'id',  // user.id
+      as: 'books'
+    });
   }
 
   /**
