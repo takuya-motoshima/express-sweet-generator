@@ -47,7 +47,7 @@ module.exports = {
   allow_unauthenticated: ['/api'],
 
   /**
-   * .Authenticated user session expiration, defaults to 24 hours (24 * 3600000).
+   * Authenticated user session expiration, defaults to 24 hours (24 * 3600000).
    * @type {number}
    */
   expiration: 24 * 3600000

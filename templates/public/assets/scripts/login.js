@@ -14,17 +14,14 @@ $('#form').validate({
       event.preventDefault();
 
       // Send an authentication request.
-      const res = await $.ajax({
-        type: 'POST',
-        url: '/api/users/login',
-        data: new FormData(form),
-        contentType: false,
-        processData: false
-      });
+      const res = await fetch('/api/users/login', {method: 'POST', body: new FormData(form)});
+
+      // Authentication result.
+      const isAuthenticated = await res.json();
 
       // If login fails.
-      if (res.error)
-        return void alert(res.error);
+      if (!isAuthenticated)
+        return void alert('The user name or password is incorrect.');
 
       // After logging in successfully, you will be taken to the top page.
       location.href = '/';

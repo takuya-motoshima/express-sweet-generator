@@ -7,16 +7,24 @@ const Authentication = require('express-sweet').services.Authentication;
  * Login.
  */
 router.post('/login', async (req, res, next) => {
-  const success = await Authentication.signin(req, res, next);
-  if (success) res.json({result: true});
-  else res.json({error: 'The user name or password is incorrect.'});
+  // Authenticate with username and password.
+  const isAuthenticated = await Authentication.authenticate(req, res, next);
+
+  // For asynchronous requests.Returns the authentication result and executes subsequent processing on the front end.
+  res.json(isAuthenticated);
+
+  // // For sync request.If the authentication is successful, you will be redirected to the authentication success page, and if it is unsuccessful, you will be redirected to the login page.
+  // if (isAuthenticated) 
+  //   Authentication.successRedirect(res);
+  // else
+  //   Authentication.failureRedirect(res);
 });
 
 /**
  * Logout.
  */
-router.get('/logout', (req, res, next) => {
-  Authentication.signout(req, res, next);
+router.get('/logout', (req, res) => {
+  Authentication.logout(req);
   res.redirect('/');
 });
 
