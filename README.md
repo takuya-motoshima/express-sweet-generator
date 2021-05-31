@@ -2,34 +2,10 @@
 
 [Express Sweet](https://www.npmjs.com/package/express-sweet) application generator.
 
-## Introduction
-
-The package elements that make up this extension.  
-In addition, some packages have been customized to make them easier for developers to use.  
-
-* Framework  
-    The framework uses Expess v4.  
-    Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
-* URI Routing  
-    Express Sweet automatically maps the URL to express.Router defined in the routes directory.
-* Model  
-    The model uses Sequelize v6.  
-    Sequelize is a promise-based Node.js ORM for Postgres, MySQL, MariaDB, SQLite and Microsoft SQL Server. It features solid transaction support, relations, eager and lazy loading, read replication and more.
-* View  
-    The view template engine uses Handlebars v4.  
-    Handlebars is a simple templating language.  
-    It uses a template and an input object to generate HTML or other text formats. Handlebars templates look like regular text with embedded Handlebars expressions.
-* User authentication  
-    User authentication uses Passport v0.4.1.  
-    Passport is Express-compatible authentication middleware for Node.js.
-* Service  
-    Sweet includes a convenient interface for developing applications using "Amazon Rekognition" and "Google Cloud Vision".
-* Utils  
-    With Sweet, you can quickly use a variety of generic utility classes.
-
 ## Docs
 
-* [Website and Documentation](https://takuya-motoshima.github.io/express-sweet/) - [[website repo](https://github.com/takuya-motoshima/express-sweet)]
+* <a href="https://takuya-motoshima.github.io/express-sweet/" target="_blank">Website and Documentation</a> - <a href="https://github.com/takuya-motoshima/express-sweet" target="_blank">[website repo]</a>
+* <a href="https://github.com/takuya-motoshima/express-sweet-generator/blob/main/CHANGELOG.md" target="_blank">Changelog</a>
 
 ## Installation
 
@@ -39,8 +15,10 @@ npm install -g express-sweet-generator;
 
 ## Quick Start
 
-The quickest way to get started with Express Sweet is to utilize the executable `express-sweet(1)` to generate an application as shown below.  
-The application created here includes the following screens from the beginning.  
+The easiest way to get started with Express Sweet is to install express-sweet-generator and automatically create a template application.  
+From the beginning, the template includes the following screen and sample programs such as router, model class, and authentication.  
+Please refer to these and start developing your application.  
+See <a href="https://takuya-motoshima.github.io/express-sweet/#started-generator" target="_blank">&quot;Express Sweet app generator&quot;</a> for more information on how to use express-sweet-generator.
 
 <table>
     <tr>
@@ -71,118 +49,14 @@ The application created here includes the following screens from the beginning.
     </tr>
 </table>
 
-Create the app.
+## Command Line Options
 
-```sh
-express-sweet /tmp/foo && cd /tmp/foo;
-```
+This generator can also be further configured with the following command line flags.
 
-Install dependencies.
-
-```sh
-npm install;
-```
-
-Create DB.
-
-```sql
-CREATE DATABASE IF NOT EXISTS `example` DEFAULT CHARACTER SET utf8mb4;
-
-USE `example`;
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `created` datetime NOT NULL DEFAULT current_timestamp(),
-  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ukUserEmail` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- User has one profile
-DROP TABLE IF EXISTS `profile`;
-CREATE TABLE `profile` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userId` int(10) unsigned NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `tel` varchar(14) NOT NULL,
-  `created` datetime NOT NULL DEFAULT current_timestamp(),
-  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ukProfileUserId` (`userId`),
-  CONSTRAINT `fkProfileUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- User has many comments
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userId` int(10) unsigned NOT NULL,
-  `text` text NOT NULL,
-  `created` datetime NOT NULL DEFAULT current_timestamp(),
-  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fkCommentUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Users and books have a many-to-many relationship
-DROP TABLE IF EXISTS `book`;
-CREATE TABLE `book` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userId` int(10) unsigned NOT NULL,
-  `title` text NOT NULL,
-  `created` datetime NOT NULL DEFAULT current_timestamp(),
-  `modified` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `ukBookTitle` (`userId`, `title`(255)),
-  CONSTRAINT `fkBookUser` FOREIGN KEY (`userId`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Add sample user record
-INSERT INTO `user` (`id`, `email`, `password`, `name`) VALUES
-  (1, 'robin@example.com', 'password', 'Robin'),
-  (2, 'taylor@example.com', 'password', 'Taylor'),
-  (3, 'vivian@example.com', 'password', 'Vivian'),
-  (4, 'harry@example.com', 'password', 'Harry'),
-  (5, 'eliza@example.com', 'password', 'Eliza'),
-  (6, 'nancy@example.com', 'password', 'Nancy'),
-  (7, 'melinda@example.com', 'password', 'Melinda'),
-  (8, 'harley@example.com', 'password', 'Harley');
-
--- Add sample profile record
-INSERT INTO `profile` (`userId`, `address`, `tel`) VALUES
-  (1, '777 Brockton Avenue, Abington MA 2351', '202-555-0105'),
-  (2, '30 Memorial Drive, Avon MA 2322', ''),
-  (3, '250 Hartford Avenue, Bellingham MA 2019', '202-555-0175'),
-  (4, '700 Oak Street, Brockton MA 2301', '202-555-0167'),
-  (5, '66-4 Parkhurst Rd, Chelmsford MA 1824', '202-555-0154'),
-  (6, '591 Memorial Dr, Chicopee MA 1020', '202-555-0141'),
-  (7, '55 Brooksby Village Way, Danvers MA 1923', '202-555-0196'),
-  (8, '137 Teaticket Hwy, East Falmouth MA 2536', '202-555-0167');
-
--- Add a sample user comment record
-INSERT INTO `comment` (`userId`, `text`) VALUES
-  (1, 'First comment from Robin'),
-  (1, 'Second comment from Robin'),
-  (2, 'First comment from Taylor');
-
--- Add sample book record
-INSERT INTO `book` (`userId`, `title`) VALUES
-  (1, 'The Stars Tonight'),
-  (1, 'A Guide to Courteous Thievery'),
-  (1, 'The Sound of Light'),
-  (2, 'The Stars Tonight'),
-  (2, 'Why She Said Yes');
-```
-
-Start your Express Sweet app at `http://localhost:3000/`.
-
-```bash
-npm start;
-```
+        --version      output the version number
+    -p, --port <port>  application listening port (default: 3000)
+    -f, --force        force on non-empty directory
+    -h, --help         output usage information
 
 ## License
 
