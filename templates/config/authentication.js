@@ -1,5 +1,6 @@
 const UserModel = require('../models/UserModel');
 
+
 /**
  * User authentication configuration interface.
  */
@@ -35,10 +36,37 @@ module.exports = {
   failure_redirect: '/login',
 
   /**
-   * Model class used for authentication, this is a required field.
-   * @type {typeof Model}
+   * This hook is called when authenticating a user.
+   * Please find the user information that owns the credentials based on the user name and password you received and return it.
+   * If the user who owns the credentials cannot be found, return null.
+   *
+   * Note that the user information must include an ID value that can identify the user.
+   * 
+   * @type {(username: string, password: string) => Promise<{[key: string]: any}|null>}
    */
-  model: UserModel,
+  authenticate_user: async (username, password) => {
+    return UserModel.findOne({
+      where: {
+        email: username,
+        password: password
+      },
+      raw: true
+    });
+  },
+
+  /**
+   * This hook is called when user authentication is successful.
+   * Please search and return the authenticated user information to be set in the session based on the user ID of the parameter.
+   * The returned data will be set in the req.user property and the view's session variable.
+   * 
+   * @type {(id: number|string) => Promise<{[key: string]: any}>}
+   */
+  subscribe_user: async (id) => {
+    return UserModel.findOne({
+      where: {id},
+      raw: true
+    });
+  },
 
   /**
    * URL without authentication. If the URL described in the access URL partially matches, authentication will not be performed, defaults to none.
