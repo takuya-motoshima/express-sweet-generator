@@ -53,7 +53,9 @@
   const port = program.port;
 
   // Copy the entire template as a creation application.
-  const templateDir = path.join(__dirname, '..', 'templates');
+  const output = program.output === 'esm' ? 'esm' : 'cjs';
+  const templateDir = path.join(__dirname, '..', `templates/${output}`);
+  // const templateDir = path.join(__dirname, '..', 'templates/cjs');
   fs.copySync(templateDir, destDir);
 
   // Copy bin/www.
@@ -206,7 +208,8 @@
   .name('express-sweet')
   .version(version, '    --version')
   .usage('[options] [dir]')
-  .option('-p, --port <port>', 'application listening port', value => parseInt(value, 10), 3000)
+  .option('-o, --output <output>', 'add output <module> support (esm|cjs) (defaults to cjs)')
+  .option('-p, --port <port>', 'application listening port', value => parseInt(value, 10), 3000)
   .option('-f, --force', 'force on non-empty directory')
   .parse(process.argv);
 

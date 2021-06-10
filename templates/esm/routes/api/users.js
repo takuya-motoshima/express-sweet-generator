@@ -1,0 +1,124 @@
+import {Router} from 'express';
+import * as sweet from 'express-sweet';
+import UserModel from '../../models/UserModel';
+const router = Router();
+const Authentication = sweet.services.Authentication;
+
+/**
+ * Login.
+ */
+router.post('/login', async (req, res, next) => {
+  // Authenticate with username and password.
+  const isAuthenticated = await Authentication.authenticate(req, res, next);
+
+  // For asynchronous requests.Returns the authentication result and executes subsequent processing on the front end.
+  res.json(isAuthenticated);
+
+  // // For sync request.If the authentication is successful, you will be redirected to the authentication success page, and if it is unsuccessful, you will be redirected to the login page.
+  // if (isAuthenticated) 
+  //   Authentication.successRedirect(res);
+  // else
+  //   Authentication.failureRedirect(res);
+});
+
+/**
+ * Logout.
+ */
+router.get('/logout', (req, res) => {
+  Authentication.logout(req);
+  res.redirect('/');
+});
+
+/**
+ * List Users.
+ */
+router.get('/', async (req, res) => {
+  const data = await UserModel.paginate({
+    offset: req.query.offset,
+    limit: req.query.limit,
+    search: req.query.search,
+    order: req.query.order,
+    dir: req.query.dir
+  });
+  data.draw = req.query.draw;
+  res.json(data);
+});
+
+/**
+ * Create a User.
+ */
+router.post('/', async (req, res) => {
+  // Email duplication check.
+  const emailExists = (await UserModel.count({
+    where: {
+      email: req.body.email
+    }
+  })) > 0;
+
+  // Returns an error if the email exists.
+  if (emailExists)
+    return void res.json({error: 'Email is already in use.'});
+
+  // Add new user.
+  const result = await UserModel.create({
+    email: req.body.email,
+    password: req.body.password,
+    name: req.body.name
+  });
+
+  // Returns the ID of the added user.
+  res.json({id: result.id});
+});
+
+/**
+ * Update a User.
+ */
+router.put('/:id(\\d+)', async (req, res) => {
+  // Email duplication check.
+  const emailExists = (await UserModel.count({
+    where: {
+      id: {[UserModel.Op.ne]: req.params.id},
+      email: req.body.email
+    }
+  })) > 0;
+
+  // Returns an error if the email exists.
+  if (emailExists)
+    return void res.json({error: 'Email is already in use.'});
+
+  // Update data.
+  const set = {
+    email: req.body.email,
+    name: req.body.name
+  };
+
+  // Password with leading and trailing spaces removed.
+  const password = req.body.password.replace(/(^[\s　]+)|([\s　]+$)/g, '');
+
+  // If there is a password entered, set the password in the update data.
+  if (password)
+    set.password = password;
+
+  // Update user data.
+  await UserModel.update(set, {
+    where: {
+      id: req.params.id
+    }
+  });
+  res.json(true);
+});
+
+/**
+ * Delete a User.
+ */
+router.delete('/:id(\\d+)', async (req, res) => {
+  // Delete user data that matches the ID.
+  await UserModel.destroy({
+    where: {
+      id: req.params.id
+    }
+  });
+  res.json(true);
+});
+
+export default router;

@@ -54,6 +54,7 @@ See <a href="https://takuya-motoshima.github.io/express-sweet/#started-generator
 This generator can also be further configured with the following command line flags.
 
         --version      output the version number
+    -o, --output <output>  add output <module> support (esm|cjs) (defaults to cjs)
     -p, --port <port>  application listening port (default: 3000)
     -f, --force        force on non-empty directory
     -h, --help         output usage information

@@ -1,0 +1,27 @@
+{{!< default}}
+{{#contentFor 'title'}}Login{{/contentFor}}
+{{#contentFor 'style'}}
+  <link rel="stylesheet" type="text/css" href="{{cache_busting '/assets/styles/login.css' baseUrl}}">
+  <!-- <link rel="stylesheet" type="text/css" href="{{baseUrl}}/assets/styles/login.css"> -->
+{{/contentFor}}
+{{#contentFor 'script'}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+  <script src="{{cache_busting '/assets/scripts/login.js' baseUrl}}"></script>
+  <!-- <script src="{{baseUrl}}/assets/scripts/login.js"></script> -->
+{{/contentFor}}
+<form id="form" class="w-100 mx-auto my-0 login-form needs-validation">
+<!-- <form method="post" action="/api/users/login" class="w-100 mx-auto my-0 login-form needs-validation"> -->
+  <div class="text-center">
+    <img class="mb-4" src="{{baseUrl}}/assets/images/logo.svg" height="100">
+  </div>
+  <h1 class="h3 mb-3 font-weight-normal text-center">Please login</h1>
+  <div class="mb-3">
+    <label class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" required autofocus value="robin@example.com" placeholder="name@example.com">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" name="password" required value="password">
+  </div>
+  <button class="btn btn-primary d-block w-100" type="submit">Login</button>
+</form>
