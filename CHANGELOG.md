@@ -19,4 +19,4 @@ All notable changes to this project will be documented in this file.
     express-sweet -o cjs myapp;
     ```
 
-[1.0.1]:
+[1.0.1]: https://github.com/takuya-motoshima/express-sweet-generator/commit/ccada599b932455590608ba8acd5a56448d737c1
