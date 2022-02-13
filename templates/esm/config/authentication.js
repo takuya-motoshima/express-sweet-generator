@@ -69,7 +69,7 @@ export default {
 
   /**
    * URL without authentication. If the URL described in the access URL partially matches, authentication will not be performed, defaults to none.
-   * @type {string}
+   * @type {(string|RegExp)[]}
    */
   allow_unauthenticated: ['/api'],
 
