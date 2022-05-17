@@ -1,6 +1,9 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
+
+## [1.0.3] - 2022-05-17
+### Fixed
+- Fix UX of template views.
 
 ## [1.0.2] - 2022-02-13
 ### Fixed
@@ -25,3 +28,4 @@ All notable changes to this project will be documented in this file.
 
 [1.0.1]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.0...v1.0.1
 [1.0.2]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.1...v1.0.2
+[1.0.3]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.2...v1.0.3

@@ -4,34 +4,19 @@ import UserModel from '../../models/UserModel';
 const router = Router();
 const Authentication = sweet.services.Authentication;
 
-/**
- * Login.
- */
+// Login.
 router.post('/login', async (req, res, next) => {
-  // Authenticate with username and password.
   const isAuthenticated = await Authentication.authenticate(req, res, next);
-
-  // For asynchronous requests.Returns the authentication result and executes subsequent processing on the front end.
   res.json(isAuthenticated);
-
-  // // For sync request.If the authentication is successful, you will be redirected to the authentication success page, and if it is unsuccessful, you will be redirected to the login page.
-  // if (isAuthenticated) 
-  //   Authentication.successRedirect(res);
-  // else
-  //   Authentication.failureRedirect(res);
 });
 
-/**
- * Logout.
- */
+// Logout.
 router.get('/logout', (req, res) => {
   Authentication.logout(req);
   res.redirect('/');
 });
 
-/**
- * List Users.
- */
+// Get a list of users.
 router.get('/', async (req, res) => {
   const data = await UserModel.paginate({
     offset: req.query.offset,
@@ -44,9 +29,7 @@ router.get('/', async (req, res) => {
   res.json(data);
 });
 
-/**
- * Create a User.
- */
+// Create User.
 router.post('/', async (req, res) => {
   // Email duplication check.
   const emailExists = (await UserModel.count({
@@ -70,9 +53,7 @@ router.post('/', async (req, res) => {
   res.json({id: result.id});
 });
 
-/**
- * Update a User.
- */
+// Update User.
 router.put('/:id(\\d+)', async (req, res) => {
   // Email duplication check.
   const emailExists = (await UserModel.count({
@@ -108,16 +89,9 @@ router.put('/:id(\\d+)', async (req, res) => {
   res.json(true);
 });
 
-/**
- * Delete a User.
- */
+// Delete user.
 router.delete('/:id(\\d+)', async (req, res) => {
-  // Delete user data that matches the ID.
-  await UserModel.destroy({
-    where: {
-      id: req.params.id
-    }
-  });
+  await UserModel.destroy({where: {id: req.params.id}});
   res.json(true);
 });
 

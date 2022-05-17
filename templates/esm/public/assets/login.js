@@ -1,6 +1,3 @@
-/*Login page script*/
-
-// Main processing.
 // Form validation.
 $('#form').validate({
   validClass: 'is-valid', 

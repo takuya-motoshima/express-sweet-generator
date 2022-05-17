@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const UserModel = require('../models/UserModel');
 
-/**
- * User edit page.
- */
+// Edit User.
 router.get('/:id(\\d+)', async (req, res) => {
   // Find a user that matches your ID.
   const user = await UserModel.findByPk(req.params.id, {
@@ -20,16 +18,12 @@ router.get('/:id(\\d+)', async (req, res) => {
   res.render('user', {user, edit: true});
 });
 
-/**
- * User addition page.
- */
+// Create User.
 router.get('/new', async (req, res) => {
   res.render('user', {edit: false});
 });
 
-/**
- * Users page.
- */
+// User List.
 router.get('/', async (req, res) => {
   res.render('users');
 });

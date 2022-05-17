@@ -1,6 +1,3 @@
-/*User add/edit page script*/
-
-// Main processing.
 // Edit flag. If it is 1, edit the user, if it is 0, add the user.
 const edit = $('#edit').val() == 1;
 

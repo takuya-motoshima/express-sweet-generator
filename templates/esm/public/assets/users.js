@@ -1,6 +1,3 @@
-/*User list page script*/
-
-// Main processing.
 // Set up data table.
 const dt = $('#table')
   .on('draw.dt', () => {
@@ -14,23 +11,28 @@ const dt = $('#table')
       // URL to get list data.
       url: '/api/users',
       // Set action column elements.
-      dataSrc: res => res.data.map(row => Object.assign(row, {actions: ''})),
+      dataSrc: res => {
+        return res.data.map(row => Object.assign(row, {actions: ''}));
+      },
       // For Ajax, send a cookie.
-      xhrFields: {withCredentials: true}
+      xhrFields: {
+        withCredentials: true
+      }
     },
     columns: [
-      {data: 'id', width: 30},
+      {data: 'id', width: 100},
       {data: 'email'},
       {data: 'name'},
       {data: 'modified', width: 200},
-      {data: 'actions', width: 150}
+      {data: 'actions', width: 200}
     ],
     columnDefs: [
       {
         targets: -1,
         orderable: false,
-        render: (data, type, row) => `<a href="/users/${row.id}" class="btn btn-success">Edit</a>
-                                      <button on-delete data-id="${row.id}" type="button" class="btn btn-danger mx-2">Delete</button>`
+        render: (data, type, row) =>
+          `<a href="/users/${row.id}" class="btn btn-success">Edit</a>
+          <button on-delete data-id="${row.id}" type="button" class="btn btn-danger mx-2">Delete</button>`
       }
     ],
     dom: `<'row'<'col-12'f>><'row'<'col-12'tr>><'row'<'col-12 dataTables_pager'p>>`,
