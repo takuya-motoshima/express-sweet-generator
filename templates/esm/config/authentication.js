@@ -11,6 +11,21 @@ export default {
   enabled: true,
 
   /**
+   * The session store instance, defaults to a new MemoryStore(memory) instance.
+   * @type {'memory|redis'}
+   */
+  session_store: 'memory',
+
+  /**
+   * If the session is stored in "redis", this field is required and should be set to the hostname of the Redis server.
+   * For example, to connect to redis on localhost on port 6379, set "redis://localhost:6379".
+   * To connect to a different host or port, use a connection string in the format "redis[s]://[[username][:password]@][host][:port][/db-number]".
+   * For example, "redis://alice:foobared@awesome.redis.server:6380".
+   * @type {string|undefined}
+   */
+  redis_host: undefined,
+
+  /**
    * Authentication user ID field name, defaults to `username`.
    * @type {string}
    */
