@@ -15,13 +15,13 @@ All notable changes to this project will be documented in this file.
      * @example
      * // The message set here can be referenced in the view as {{message}}.
      * beforeRender: res => {
-     *   res.loclas.message = 'Hello World';
+     *   res.locals.message = 'Hello World';
      * }
      *
      * @type {(res: express.Response) => void}
      */
     beforeRender: res => {
-      res.loclas.message = 'Hello World';
+      res.locals.message = 'Hello World';
     }
     ```
 
