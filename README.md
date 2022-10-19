@@ -1,9 +1,13 @@
 # express-sweet-generator
 [Express Sweet](https://www.npmjs.com/package/express-sweet) application generator.
 
+## Documentation
+* [Express Sweet Documentation](https://takuya-motoshima.github.io/express-sweet/)
+* [Changelog](CHANGELOG.md)
+
 ## Installation
 ```sh
-npm install -g express-sweet-generator;
+npm install -g express-sweet-generator
 ```
 
 ## Quick Start
@@ -12,9 +16,7 @@ The easiest way to get started with Express Sweet is to install express-sweet-ge
 From the beginning, the template includes views and sample programs for routers, model classes, authentication, etc., as shown below in the template.
 Please use these as a reference to get started.
 
-See <a href="https://takuya-motoshima.github.io/express-sweet/#quick-start" target="_blank">here</a> for instructions on using express-sweet-generator.
-
-<img src="screencaps/login&users.jfif">
+See <a href="https://takuya-motoshima.github.io/express-sweet/#install" target="_blank">here</a> for instructions on using express-sweet-generator.
 
 ## Command Line Options
 This generator can also be further configured with the following command line flags.
