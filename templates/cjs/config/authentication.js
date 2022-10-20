@@ -56,13 +56,13 @@ module.exports = {
    *
    * Note that the user information must include an ID value that can identify the user.
    * 
-   * @type {(username: string, password: string) => Promise<{[key: string]: any}|null>}
+   * @type {(username: string, password: string, req: express.Request) => Promise<{[key: string]: any}|null>}
    */
-  authenticate_user: async (username, password) => {
+  authenticate_user: async (username, password, req) => {
     return UserModel.findOne({
       where: {
         email: username,
-        password: password
+        password
       },
       raw: true
     });
@@ -86,7 +86,9 @@ module.exports = {
    * URL without authentication. If the URL described in the access URL partially matches, authentication will not be performed, defaults to none.
    * @type {(string|RegExp)[]}
    */
-  allow_unauthenticated: ['/api'],
+  allow_unauthenticated: [
+    '/api/users/login'
+  ],
 
   /**
    * Authenticated user session expiration, defaults to 24 hours (24 * 3600000).

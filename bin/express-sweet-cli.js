@@ -41,12 +41,10 @@ function confirm(message, callback) {
 
 /**
  * Create application at the given directory.
- *
- * @param {string} name
- * @param {string} destDir
  */
-function createApplication(name, destDir) {
-  console.log();// Output blank line.
+function createApplication(appName, installDir) {
+  // Output blank line.
+  console.log();
 
   // Application listening port.
   const port = program.port;
@@ -54,57 +52,66 @@ function createApplication(name, destDir) {
   // Copy the entire template as a creation application.
   const output = program.output === 'esm' ? 'esm' : 'cjs';
   const templateDir = path.join(__dirname, '..', `templates/${output}`);
-  // const templateDir = path.join(__dirname, '..', 'templates/cjs');
-  fs.copySync(templateDir, destDir);
+  fs.copySync(templateDir, installDir);
 
   // Copy bin/www.
-  compile(path.join(destDir, 'bin/www'), {name});
+  compile(path.join(installDir, 'bin/www'), {name: appName});
 
   // Copy ecosystem.config.js.
-  compile(path.join(destDir, 'ecosystem.config.js'), {name, port});
+  compile(path.join(installDir, 'ecosystem.config.js'), {name: appName, port});
 
   // Copy nginx.sample.conf.
-  compile(path.join(destDir, 'nginx.sample.conf'), {name, port});
+  compile(path.join(installDir, 'nginx.sample.conf'), {name: appName, port});
 
   // Copy package.json.
-  compile(path.join(destDir, 'package.json'), {name});
+  compile(path.join(installDir, 'package.json'), {name: appName});
+
+  // Copy the front-end module (template/client) to the installation directory.
+  const templateClientDir = path.join(__dirname, '../templates/client');
+  fs.copySync(templateClientDir, `${installDir.replace(/\/$/, '')}/client`);
+
   const prompt = launchedFromCmd() ? '>' : '$'
-  if (destDir !== '.') {
-    console.log();// Output blank line.
+  if (installDir !== '.') {
+    // Output blank line.
+    console.log();
     console.log('   change directory:');
-    console.log(`     ${prompt} cd ${destDir}`);
-  }  
-  console.log();// Output blank line.
+    console.log(`     ${prompt} cd ${installDir}`);
+  }
+
+  // Output blank line.
+  console.log();
   console.log('   install dependencies:');
   console.log(`     ${prompt} npm install`);
-  console.log();// Output blank line.
+
+  // Output blank line.
+  console.log();
   console.log('   run the app:');
   if (launchedFromCmd())
-    console.log(`     ${prompt} SET DEBUG=${name}:* & npm start`);
+    console.log(`     ${prompt} SET DEBUG=${appName}:* & npm start`);
   else
-    console.log(`     ${prompt} DEBUG=${name}:* npm start`);
-  console.log();// Output blank line.
+    console.log(`     ${prompt} DEBUG=${appName}:* npm start`);
+
+  // Output blank line.
+  console.log();
 }
 
 /**
- * Create an app name from a directory path, fitting npm naming requirements.
- *
- * @param {String} destDir
+ * Get the application name based on the installation directory.
  */
-function createAppName(destDir) {
-  return path.basename(destDir)
+function getAppName(installDir) {
+  return path.basename(installDir)
     .replace(/[^A-Za-z0-9.-]+/g, '-')
     .replace(/^[-_.]+|-+$/g, '')
     .toLowerCase();
 }
 
 /**
- * Check if the given directory `dir` is empty.
+ * Does the installation directory already exist?
  *
  * @param {String} dir
  * @param {Function} fn
  */
-function emptyDirectory(dir, fn) {
+function existsInstallationDirectory(dir, fn) {
   fs.readdir(dir, (err, files) => {
     if (err && err.code !== 'ENOENT')
       throw err;
@@ -157,21 +164,16 @@ function compile(file, locals) {
  * Main program.
  */
 function main() {
-  // Path.
-  const destDir = program.args.shift() || '.'
-
-  // App name.
-  const name = createAppName(path.resolve(destDir)) || 'hello-world'
-
-  // Generate application.
-  emptyDirectory(destDir, empty => {
-    if (empty || program.force)
-      createApplication(name, destDir);
+  const installDir = program.args.shift() || '.'
+  const appName = getAppName(path.resolve(installDir)) || 'myapp'
+  existsInstallationDirectory(installDir, notexists => {
+    if (notexists || program.force)
+      createApplication(appName, installDir);
     else
       confirm('destination is not empty, continue? [y/N] ', ok => {
         if (ok) {
           process.stdin.destroy()
-          createApplication(name, destDir)
+          createApplication(appName, installDir)
         } else {
           console.error('aborting')
           exit(1)

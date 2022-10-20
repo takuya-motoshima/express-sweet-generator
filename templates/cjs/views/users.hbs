@@ -1,18 +1,62 @@
 {{!< default}}
-{{#contentFor 'title'}}User Management{{/contentFor}}
-{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cache_busting '/assets/users.css' baseUrl}}">{{/contentFor}}
-{{#contentFor 'script'}}<script src="{{cache_busting '/assets/users.js' baseUrl}}"></script>{{/contentFor}}
-<div class="d-flex mb-4">
-  <a href="/users/new" class="btn btn-primary ms-auto">Create new user</a>
+{{#contentFor 'title'}}List of users{{/contentFor}}
+{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cache_busting '/build/users.css' ''}}">{{/contentFor}}
+{{#contentFor 'script'}}<script src="{{cache_busting '/build/users.js' ''}}"></script>{{/contentFor}}
+{{#contentFor 'actions'}}
+  <button data-on-create-user class="btn btn-sm fw-bolder btn-primary" type="button">Create a user</button>
+{{/contentFor}}
+<!--begin::Card-->
+<div class="card">
+  <!--begin::Card header-->
+  <div class="card-header border-0">
+    <!--begin::Card title-->
+    <div class="card-title">
+      <h2></h2>
+    </div>
+    <!--end::Card title-->
+    <!--begin::Card toolbar-->
+    <div class="card-toolbar">
+      <div class="my-1 me-4">
+        <div class="position-relative">
+          <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+          <span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-700 position-absolute top-50 translate-middle-y ms-0">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="currentColor"></rect>
+              <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="currentColor"></path>
+            </svg>
+          </span>
+          <!--end::Svg Icon-->
+          <input data-ref="keyword" data-on-search-change type="text" class="form-control form-control-sm form-control-solid ps-10" placeholder="Name or email">
+        </div>
+      </div>
+    </div>
+    <!--end::Card toolbar-->
+  </div>
+  <!--end::Card header-->
+  <!--begin::Card body-->
+  <div class="card-body py-0">
+    <!--begin::Table wrapper-->
+    <div class="table-responsive">
+      <!--begin::Table-->
+      <table data-ref="userTable" class="table align-middle table-row-dashed fs-6 gy-5">
+        <!--begin::Thead-->
+        <thead>
+          <tr class="text-start text-gray-700 fw-bolder fs-7 gs-0 text-uppercase">
+            <th>Name</th>
+            <th>Email</th>
+            <th>Update Date</th>
+            <th class="text-end">Actions</th>
+          </tr>
+        </thead>
+        <!--end::Thead-->
+        <!--begin::Tbody-->
+        <tbody class="fw-bolder text-gray-800"></tbody>
+        <!--end::Tbody-->
+      </table>
+      <!--end::Table-->
+    </div>
+    <!--end::Table wrapper-->
+  </div>
+  <!--end::Card body-->
 </div>
-<table class="table w-100" id="table">
-  <thead>
-    <tr>
-      <th scope="col">User ID</th>
-      <th scope="col">Email</th>
-      <th scope="col">Name</th>
-      <th scope="col">Modified</th>
-      <th scope="col">#</th>
-    </tr>
-  </thead>
-</table>
+<!--end::Card-->
