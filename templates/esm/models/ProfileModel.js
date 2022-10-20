@@ -1,20 +1,11 @@
 import * as sweet from 'express-sweet';
 import UserModel from './UserModel';
 
-/**
- * Profile model.
- */
 export default class extends sweet.database.Model {
-  /**
-   * The name of the table that the model accesses.
-   */
   static get table() {
     return 'profile';
   }
 
-  /**
-   * List of columns in the table accessed by this model.
-   */
   static get attributes() {
     return {
       id: {
@@ -31,11 +22,6 @@ export default class extends sweet.database.Model {
   }
 
   /**
-   * Associate the model.
-   * Define associations with other models such as "hasOne", "hasMany", "belongsTo", "belongsToMany".
-   * If you omit the alias (as) option, the associated name will be hasOne, singular for belongsTo, and plural for hasMany.
-   * This method is called automatically from within the "express-sweet.mount" method, so you don't have to run it yourself.
-   * 
    * @see https://sequelize.org/master/manual/assocs.html
    */
   static association() {

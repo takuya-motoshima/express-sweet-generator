@@ -5,7 +5,8 @@ module.exports = {
     {
       name: '<%- name %>',
       script: 'bin/www',
-      node_args: '-r esm',
+      node_args: '-r esm-wallaby',
+      // node_args: '-r esm',
       exec_mode: 'cluster_mode',
       watch: '.',
       watch_delay: 3000,

@@ -20,7 +20,7 @@ export default {
    * Maximum body size you can request, defaults to `100kb`.
    * @type {string|number}
    */
-  max_body_size: '100kb',
+  max_body_size: '100mb',
 
   /**
    * Absolute path to the router directory, defaults to `<application root directory>/routes`.
@@ -32,7 +32,7 @@ export default {
    * The endpoint to run when the root URL is requested, defaults to none (undefined).
    * @type {string}
    */
-  default_router: '/home',
+  default_router: '/users',
 
   /**
    * This is a hook that rewrites the base URL.

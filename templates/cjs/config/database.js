@@ -4,8 +4,8 @@
 module.exports = {
   development: {
     username: 'root',
-    password: 'password',
-    database: 'mydb',
+    // password: 'password',
+    database: 'sampledb',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
@@ -14,8 +14,8 @@ module.exports = {
   },
   test: {
     username: 'root',
-    password: 'password',
-    database: 'mydb',
+    // password: 'password',
+    database: 'sampledb',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
@@ -24,8 +24,8 @@ module.exports = {
   },
   production: {
     username: 'root',
-    password: 'password',
-    database: 'mydb',
+    // password: 'password',
+    database: 'sampledb',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
