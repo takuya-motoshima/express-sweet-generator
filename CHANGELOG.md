@@ -1,6 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.8] - 2023/6/12
+### Changed
+- In the latest express-sweet v1.0.27, an express.Request object has been added to the arguments of the beforeRender function in the view configuration (config/view.js).  
+    The view settings of the template have also been changed along with this update. (templates/cjs/config/view.js, templates/esm/config/view.js)  
+
+    express-sweet v1.0.27 or later (current):
+    ```js
+    beforeRender: (req, res) => {}
+    ```
+
+    express-sweet v1.0.26 or earlier:
+    ```js
+    beforeRender: res => {}
+    ```
+
 ## [1.0.7] - 2022/10/24
 ### Fixed
 - Added is_ajax option to user authentication.
@@ -124,3 +139,4 @@ All notable changes to this project will be documented in this file.
 [1.0.5]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.4...v1.0.5
 [1.0.6]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.5...v1.0.6
 [1.0.7]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.6...v1.0.7
+[1.0.8]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.7...v1.0.8
