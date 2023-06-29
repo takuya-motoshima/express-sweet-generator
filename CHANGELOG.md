@@ -1,6 +1,27 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.9] - 2023/6/29
+### Changed
+- Changed helper function names in the view (Handlebars) from SnakeCase to CamelCase.
+    |After|Before|Description|
+    |--|--|--|
+    |notEmpty|not_empty|Check that it is not empty.|
+    |formatDate|format_date|Use moment to format the date.|
+    |cacheBusting|cache_busting|Returns the Assets path containing the file update time parameter.|
+    |jsonStringify|json_stringify|Stringify an object using JSON.stringify.|
+    |jsonParse|json_parse|Parses the given string using JSON.parse.|
+    |formatBytes|format_bytes|Convert bytes to just the right units(KB, MB, GB, TB, PB, EB, ZB, YB).|
+
+### Added
+- Added view helper to convert numeric values to strings with language-sensitive representations.
+    ```html
+    {{number2locale 123456.789}} => 123,456.789
+
+    {{!-- German uses comma as decimal separator and period for thousands. --}}
+    {{number2locale 123456.789 'de-DE'}} => 123.456,789
+    ```
+
 ## [1.0.8] - 2023/6/12
 ### Changed
 - In the latest express-sweet v1.0.27, an express.Request object has been added to the arguments of the beforeRender function in the view configuration (config/view.js).  
@@ -140,3 +161,4 @@ All notable changes to this project will be documented in this file.
 [1.0.6]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.5...v1.0.6
 [1.0.7]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.6...v1.0.7
 [1.0.8]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.7...v1.0.8
+[1.0.9]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.8...v1.0.9

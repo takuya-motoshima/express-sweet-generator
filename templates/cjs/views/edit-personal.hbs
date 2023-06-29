@@ -1,9 +1,9 @@
 {{!< default}}
 {{#contentFor 'title'}}Edit personal settings{{/contentFor}}
-{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cache_busting '/build/editPersonal.css' ''}}">{{/contentFor}}
-{{#contentFor 'script'}}<script src="{{cache_busting '/build/editPersonal.js' ''}}"></script>{{/contentFor}}
+{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cacheBusting '/build/editPersonal.css' ''}}">{{/contentFor}}
+{{#contentFor 'script'}}<script src="{{cacheBusting '/build/editPersonal.js' ''}}"></script>{{/contentFor}}
 <input data-ref="user.iconPath" type="hidden" value="{{user.icon}}">
-<input data-ref="user.modified" type="hidden" value="{{format_date 'x' user.modified}}">
+<input data-ref="user.modified" type="hidden" value="{{formatDate 'x' user.modified}}">
 
 <!--begin::Basic info-->
 <div class="card mb-5 mb-xl-10">

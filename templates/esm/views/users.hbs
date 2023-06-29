@@ -1,7 +1,7 @@
 {{!< default}}
 {{#contentFor 'title'}}List of users{{/contentFor}}
-{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cache_busting '/build/users.css' ''}}">{{/contentFor}}
-{{#contentFor 'script'}}<script src="{{cache_busting '/build/users.js' ''}}"></script>{{/contentFor}}
+{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cacheBusting '/build/users.css' ''}}">{{/contentFor}}
+{{#contentFor 'script'}}<script src="{{cacheBusting '/build/users.js' ''}}"></script>{{/contentFor}}
 {{#contentFor 'actions'}}
   <button data-on-create-user class="btn btn-sm fw-bolder btn-primary" type="button">Create a user</button>
 {{/contentFor}}
