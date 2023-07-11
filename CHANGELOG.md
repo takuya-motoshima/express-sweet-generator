@@ -1,6 +1,41 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.10] - 2023/7/11
+### Changed
+- The URL to redirect to when login fails (failure_redirect) option in the authentication configuration (config/authentication.js) can now be defined with a function.  
+  
+    config/authentication.js:
+    ```js
+    // Set the URL to redirect to in case of login failure as a string.
+    failure_redirect: '/login',
+
+    // Dynamically set the url to redirect to on login failure.
+    failure_redirect: (req, res) => {
+      // If the role stored in the cookie is admin, redirect to the admin login screen.
+      return req.cookies.role === 'admin' ? '/adminlogin' : 'login';
+    },
+    ```
+- The arguments of the failureRedirect method of the authentication service class (services/Authentication) have changed.  
+    The argument to the Authentication.failureRedirect method used to be just express.Response, but now it requires express.Request and express.Response.
+
+    Example of login routes:
+    ```js
+    import {Router} from 'express';
+    import * as sweet from 'express-sweet';
+    const router = Router();
+    const Authentication = sweet.services.Authentication;
+
+    router.post('/login', async (req, res, next) => {
+      const isAuth = await Authentication.authenticate(req, res, next);
+      if (isAuth)
+        Authentication.successRedirect(res);
+      else
+        Authentication.failureRedirect(req, res);
+    });
+    export default router;
+    ```
+
 ## [1.0.9] - 2023/6/29
 ### Changed
 - Changed helper function names in the view (Handlebars) from SnakeCase to CamelCase.
@@ -162,3 +197,4 @@ All notable changes to this project will be documented in this file.
 [1.0.7]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.6...v1.0.7
 [1.0.8]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.7...v1.0.8
 [1.0.9]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.8...v1.0.9
+[1.0.10]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.9...v1.0.10
