@@ -51,28 +51,34 @@ module.exports = {
   },
 
   /**
-   * This is a hook for error handling.
-   * For example, you can use it when you want to send an external notification of the error received by this hook.
-   * 
+  * How to determine if it is an ajax request.
+  * The default is that if there is an XMLHttpRequest in the request header (req.xhr) returns true.
+  * For example, if there is no XMLHttpRequest in req(express.Request) and the Ajax endpoint starts with /api, a custom Ajax decision can be made like "return /^\/api\//.test(req.path)".
+  *
+  * @type {(req: express.Request) => boolean}
+  * @example
+  * is_ajax: req => {
+  *   // If the request URL begins with /api, it is assumed to be Ajax.
+  *   return /^\/api/.test(req.path);
+  *   // return !!req.xhr;
+  * }
+  */
+  is_ajax: req => !!req.xhr,
+
+  /**
+   * Hooks the default behavior on request errors.
+   * If unset, simply returns an error HTTP status. (<code>res.status(err.status||500).end();</code>)
+   *
+   * @type {(err: any, req: express.Request, res: express.Response, next: express.NextFunction) => void}
    * @example
-   * error_handler: async err => {
-   *   // Notify system administrator of error.
-   *   return new Promise((resolve, reject) => {
-   *     const sendmail = require('sendmail')();
-   *     sendmail({
-   *       from: 'no-reply@example.com',
-   *       to: 'administrator@example.com',
-   *       subject: 'Error occurred',
-   *       text: err.message
-   *     }, err => {
-   *       err ? reject(err) : resolve();
-   *     });
-   *   });
-   * }
-   * 
-   * @type {(err: any): void|Promise<void>}
+   * hook_handle_error: (err, req, res, next) => {
+   *   if (err.status === 404)
+   *     // If the URL cannot be found, a 404 error screen (views/error-404.hbs) is displayed.
+   *     res.render('error-404');
+   *   else
+   *     // For other errors, unknown error screen (views/error-unknown.hbs) is displayed.
+   *     res.render('error-unknown');
+   * },
    */
-  error_handler: err => {
-    console.error(`An error has occurred. Error message: ${err.message}`);
-  }
+  hook_handle_error: undefined,
 }

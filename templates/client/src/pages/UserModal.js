@@ -15,7 +15,6 @@ export default class extends Modal {
     let user;
     if (this.#mode === 'update')
       user = (await this.#userApi.getUser(this.#userId)).data;
-    console.log('user=', user);
     const node = this.render(user);
     const instance = new bootstrap.Modal(node);
     this.#ref = selectRef(node);
