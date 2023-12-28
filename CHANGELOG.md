@@ -27,41 +27,24 @@ All notable changes to this project will be documented in this file.
     
     config/config.js:
     ```js
-    /**
-     * How to determine if it is an ajax request.
-     * The default is that if there is an XMLHttpRequest in the request header (req.xhr) returns true.
-     * For example, if there is no XMLHttpRequest in req(express.Request) and the Ajax endpoint starts with /api, a custom Ajax decision can be made like "return /^\/api\//.test(req.path)".
-     *
-     * @type {(req: express.Request) => boolean}
-     * @example
-     * is_ajax: req => {
-     *   // If the request URL begins with /api, it is assumed to be Ajax.
-     *   return /^\/api/.test(req.path);
-     *   // return !!req.xhr;
-     * }
-     */
-    is_ajax: req => !!req.xhr,
+    is_ajax: req => {
+      // If the request URL begins with /api, it is assumed to be Ajax.
+      return /^\/api/.test(req.path);
+      // return !!req.xhr;
+    }
     ```
 - The error handle option (error_handler) in the basic configuration (config/config.js) has been removed and an option to hook error handles (hook_handle_error) added instead.  
     
     config/config.js:
     ```js
-    /**
-     * Hooks the default behavior on request errors.
-     * If unset, simply returns an error HTTP status. (<code>res.status(err.status||500).end();</code>)
-     *
-     * @type {(err: any, req: express.Request, res: express.Response, next: express.NextFunction) => void}
-     * @example
-     * hook_handle_error: (err, req, res, next) => {
-     *   if (err.status === 404)
-     *     // If the URL cannot be found, a 404 error screen (views/error-404.hbs) is displayed.
-     *     res.render('error-404');
-     *   else
-     *     // For other errors, unknown error screen (views/error-unknown.hbs) is displayed.
-     *     res.render('error-unknown');
-     * },
-     */
-    hook_handle_error: undefined,
+    hook_handle_error: (err, req, res, next) => {
+      if (err.status === 404)
+        // If the URL cannot be found, a 404 error screen (views/error-404.hbs) is displayed.
+        res.render('error-404');
+      else
+        // For other errors, unknown error screen (views/error-unknown.hbs) is displayed.
+        res.render('error-unknown');
+    }
     ```
 
 ## [1.0.10] - 2023/7/11
@@ -138,53 +121,31 @@ All notable changes to this project will be documented in this file.
 ## [1.0.7] - 2022/10/24
 ### Fixed
 - Added is_ajax option to user authentication.
+
     config/authentication.js:
     ```js
-    /**
-    * How to determine if it is an ajax request.
-    * The default is that if there is an XMLHttpRequest in the request header (req.xhr) returns true.
-    * For example, if there is no XMLHttpRequest in req(express.Request) and the Ajax endpoint starts with /api, a custom Ajax decision can be made like "return /^\/api\//.test(req.path)".
-    *
-    * @type {(req: express.Request) => boolean}
-    * @example
-    * is_ajax: req => {
-    *   // If the request URL begins with /api, it is assumed to be Ajax.
-    *   return /^\/api/.test(req.path);
-    *   // return !!req.xhr;
-    * }
-    */
-    is_ajax: req => !!req.xhr
+    is_ajax: req => {
+      // If the request URL begins with /api, it is assumed to be Ajax.
+      return /^\/api/.test(req.path);
+      // return !!req.xhr;
+    }
     ```
 
 ## [1.0.6] - 2022/10/20
 ### Fixed
 - A request body object has been added to the parameters of the callback function for user authentication.  
+
     config/authentication.js:
     ```js
-    const UserModel = require('../models/UserModel');
-
-    /**
-    * User authentication configuration interface.
-    */
-    module.exports = {
-      /**
-      * This hook is called when authenticating a user.
-      * Please find the user information that owns the credentials based on the user name and password you received and return it.
-      * If the user who owns the credentials cannot be found, return null.
-      *
-      * Note that the user information must include an ID value that can identify the user.
-      * 
-      * @type {(username: string, password: string, req: express.Request) => Promise<{[key: string]: any}|null>}
-      */
-      authenticate_user: async (username, password, req) => {
-        return UserModel.findOne({
-          where: {
-            email: username,
-            password
-          },
-          raw: true
-        });
-      }
+    authenticate_user: async (username, password, req) => {
+      const UserModel = require('../models/UserModel');
+      return UserModel.findOne({
+        where: {
+          email: username,
+          password
+        },
+        raw: true
+      });
     }
     ```
 - Removed dependent packages(aws-sdk,express,passport,passport-local,sequelize) already included in express-sweet from the template package.json.
@@ -205,20 +166,8 @@ All notable changes to this project will be documented in this file.
     
     To use, add the beforeRender hook function to "config/view.js" as follows.
     ```js
-    /**
-     * Hook function just before the view is rendered.
-     * For example, you can set your own local variables that can be used within the view.
-     *
-     * @example
-     * // The message set here can be referenced in the view as {{message}}.
-     * beforeRender: res => {
-     *   res.locals.message = 'Hello World';
-     * }
-     *
-     * @type {(res: express.Response) => void}
-     */
     beforeRender: res => {
-      res.locals.message = 'Hello World';
+      res.locals.extra = 'Extra';
     }
     ```
 

@@ -41,7 +41,7 @@ module.exports = {
    * @example
    * // The message set here can be referenced in the view as {{message}}.
    * beforeRender: (req, res) => {
-   *   res.locals.message = 'Hello World';
+   *   res.locals.extra = 'Extra';
    * }
    *
    * @type {(res: express.Response) => Promise<void>|void}
