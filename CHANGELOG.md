@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.13] - 2023/12/30
+### Added
+- The cookie name for storing session IDs can now be set in the `cookie_name` field of the authentication configuration file (`config/authentication.js`).  
+
+    config/authentication.js:
+    ```js
+    /**
+    * The name of the session ID cookie to set in the response (and read from in the request).
+    * The default value is 'connect.sid'.
+    * @type {string|undefined}
+    */
+    cookie_name: 'connect.sid'
+    ```
+
 ## [1.0.12] - 2023/7/17
 ### Changed
 - The beforeRender option in the view configuration (config/view.js) can now specify asynchronous functions.
@@ -208,3 +222,4 @@ All notable changes to this project will be documented in this file.
 [1.0.10]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.9...v1.0.10
 [1.0.11]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.10...v1.0.11
 [1.0.12]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.11...v1.0.12
+[1.0.13]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.12...v1.0.13
