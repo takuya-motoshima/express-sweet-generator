@@ -7,10 +7,6 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - New Math-related view helpers have been added.  
-
-    See [here](https://takuya-motoshima.github.io/express-sweet/#view-math-helper) how to use the helper.
-  
-    Added view helpers:  
     |Helper|Description|
     |--|--|
     |add|Calculates the sum of two numbers.|

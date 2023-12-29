@@ -1,15 +1,15 @@
-[![Express Sweet Logo](hero.svg)](https://takuya-motoshima.github.io/express-sweet/#install)
+[![Express Sweet Logo](hero.svg)](https://takuya-motoshima.github.io/express-sweet/v1/install.html)
 
 [Express Sweet](https://www.npmjs.com/package/express-sweet) application generator.
 
 ## Documentation
-* [Express Sweet Documentation](https://takuya-motoshima.github.io/express-sweet/)
+* [Express Sweet Documentation](https://takuya-motoshima.github.io/express-sweet/v1/)
 * [Changelog](CHANGELOG.md)
 
 ## Quick Start
 The easiest way to get started with Express Sweet is to install express-sweet-generator and automatically create a template application.  
 The following application can be started immediately by executing the template.  
-See <a href="https://takuya-motoshima.github.io/express-sweet/" target="_blank">here</a> for instructions on using express-sweet.
+See <a href="https://takuya-motoshima.github.io/express-sweet/v1/" target="_blank">here</a> for instructions on using express-sweet.
 
 <p align="center">
   <img alt="login" src="screencaps/login.png" width="45%">
