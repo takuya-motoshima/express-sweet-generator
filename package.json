@@ -1,6 +1,6 @@
 {
   "name": "express-sweet-generator",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Express Sweet application generator.",
   "main": "bin/express-sweet-cli.js",
   "files": [
