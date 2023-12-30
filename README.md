@@ -1,5 +1,4 @@
-[![Express Sweet Logo](hero.svg)](https://takuya-motoshima.github.io/express-sweet/v1/install.html)
-
+# EXPRESS SWEET
 [Express Sweet](https://www.npmjs.com/package/express-sweet) application generator.
 
 ## Documentation

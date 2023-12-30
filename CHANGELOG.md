@@ -1,17 +1,38 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.14] - 2023/12/30
+### Changed
+- The `Secure` and `HttpOnly` attributes of the session cookie can now be set from the authentication configuration file (`config/authentication.js`).
+
+    config/authentication.js:
+    ```js
+    /**
+     * Specifies the boolean value for the Secure Set-Cookie attribute.
+     * The default is true, which sets the Secure attribute on the cookie.
+     * @type {boolean|undefined}
+     */
+    cookie_secure: true,
+
+    /**
+     * Specifies the boolean value for the HttpOnly Set-Cookie attribute. 
+     * Defaults to true, which sets the HttpOnly attribute on the cookie.
+     * @type {boolean|undefined}
+     */
+    cookie_httpOnly: true,
+    ```
+
 ## [1.0.13] - 2023/12/30
-### Added
+### Changed
 - The cookie name for storing session IDs can now be set in the `cookie_name` field of the authentication configuration file (`config/authentication.js`).  
 
     config/authentication.js:
     ```js
     /**
-    * The name of the session ID cookie to set in the response (and read from in the request).
-    * The default value is 'connect.sid'.
-    * @type {string|undefined}
-    */
+     * The name of the session ID cookie to set in the response (and read from in the request).
+     * The default value is 'connect.sid'.
+     * @type {string|undefined}
+     */
     cookie_name: 'connect.sid'
     ```
 
@@ -223,3 +244,4 @@ All notable changes to this project will be documented in this file.
 [1.0.11]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.10...v1.0.11
 [1.0.12]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.11...v1.0.12
 [1.0.13]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.12...v1.0.13
+[1.0.14]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.13...v1.0.14

@@ -24,6 +24,20 @@ export default {
   cookie_name: 'connect.sid',
 
   /**
+   * Specifies the boolean value for the Secure Set-Cookie attribute.
+   * The default is true, which sets the Secure attribute on the cookie.
+   * @type {boolean|undefined}
+   */
+  cookie_secure: true,
+
+  /**
+   * Specifies the boolean value for the HttpOnly Set-Cookie attribute. 
+   * Defaults to true, which sets the HttpOnly attribute on the cookie.
+   * @type {boolean|undefined}
+   */
+  cookie_httpOnly: true,
+
+  /**
    * If the session is stored in "redis", this field is required and should be set to the hostname of the Redis server.
    * For example, to connect to redis on localhost on port 6379, set "redis://localhost:6379".
    * To connect to a different host or port, use a connection string in the format "redis[s]://[[username][:password]@][host][:port][/db-number]".
