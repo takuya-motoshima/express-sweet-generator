@@ -1,0 +1,80 @@
+/* The following CSS variables are taken from Metronic v8.2.3. */
+:root,[data-bs-theme=light] {
+  --bs-form-invalid-color: #F8285A;
+}
+
+[data-bs-theme=dark] {
+  --bs-form-invalid-color: #ea868f;
+}
+
+body {
+  /* font-family: arial,sans-serif; */
+  font-family: "Noto Sans JP", YuGothic, "Yu Gothic", "Hiragino Sans", Helvetica, sans-serif;
+}
+
+/* Hiding Collapse targets takes precedence over other CSS classes. */
+.collapse:not(.show) {
+  display: none !important;
+}
+
+/* When the Bootstrap Modal backdrop is disabled, the background color is not displayed. I don't like the transparent background, so set a black background. */
+@media (min-width: 576px) {
+  .modal.fade.show {
+    background-color: hsla(0, 0%, 0%, .2);
+  }
+}
+
+/* Font Awesome */
+.fa, .far, .fas {
+  color: inherit
+}
+
+/* Side Navigation. */
+.menu-item .menu-link .menu-title {
+  font-weight: bolder;
+}
+
+/* Sweet alert */
+.swal2-popup {
+  width: 36rem;
+  /* width: 48rem; */
+}
+  .swal2-popup .swal2-title {
+    font-weight: bolder;
+  }
+
+.swal2-container .swal2-html-container {
+  font-weight: bolder;
+}
+
+/* Validation error. */
+.invalid-feedback {
+  font-weight: bolder !important;
+  color: var(--bs-form-invalid-color);
+}
+
+/* Delayed image loading (imagesizes package) */
+.lazyload {
+  opacity: 0;
+}
+
+.lazyloading {
+  opacity: 1;
+  transition: opacity 300ms;
+	background:  url(/build/media/loading.svg) no-repeat center;
+}
+
+/* Form Controller */
+.form-check-input:not(:disabled) + .form-check-label:hover {
+  cursor: pointer;
+}
+
+/* Hint */
+.form-text {
+  color: var(--bs-text-gray-900);
+}
+
+/* Date Range Picker */
+.daterangepicker .drp-selected {
+  display: none;
+}

@@ -1,5 +1,5 @@
 {{!< default}}
-{{#contentFor 'title'}}List of users{{/contentFor}}
+{{#contentFor 'title'}}User Management{{/contentFor}}
 {{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cacheBusting '/build/users.css' ''}}">{{/contentFor}}
 {{#contentFor 'script'}}<script src="{{cacheBusting '/build/users.js' ''}}"></script>{{/contentFor}}
 {{#contentFor 'actions'}}
@@ -38,19 +38,19 @@
     <!--begin::Table wrapper-->
     <div class="table-responsive">
       <!--begin::Table-->
-      <table data-ref="userTable" class="table align-middle table-row-dashed fs-6 gy-5">
+      <table data-ref="userTable" class="table table-row-dashed align-middle gs-0 gy-3 my-0">
         <!--begin::Thead-->
         <thead>
-          <tr class="text-start text-gray-700 fw-bolder fs-7 gs-0 text-uppercase">
+          <tr class="fs-7 fw-bold text-gray-500 border-bottom-0">
             <th>Name</th>
             <th>Email</th>
-            <th>Update Date</th>
+            <th>Updated</th>
             <th class="text-end">Actions</th>
           </tr>
         </thead>
         <!--end::Thead-->
         <!--begin::Tbody-->
-        <tbody class="fw-bolder text-gray-800"></tbody>
+        <tbody></tbody>
         <!--end::Tbody-->
       </table>
       <!--end::Table-->

@@ -55,7 +55,7 @@ function initForm() {
           return void userApi.logout();
         } else
           throw Error('Unknown error');
-      Toast.success('Personal settings have been updated.');
+      Toast.success('Profile Settings have been updated.');
       const currentEmail = trim(ref.user.email.val(), true);
       if (originalEmail !== currentEmail) {
         await Dialog.info('Email address has been changed. Please re-login.');

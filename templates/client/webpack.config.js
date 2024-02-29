@@ -14,7 +14,7 @@ module.exports = {
     ]
   },
   entry: {
-    docs: './src/pages/docs.js',
+    docs: './src/app.js',
     login: './src/pages/login.js',
     users: './src/pages/users.js',
     editPersonal: './src/pages/editPersonal.js'
@@ -28,7 +28,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {from: 'src/media', to: 'media'},
-        {from: 'src/theme', to: 'theme'}
+        {from: 'src/metronic_v8.1.8', to: 'theme'},
       ]
     })
   ],

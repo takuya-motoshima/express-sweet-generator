@@ -15,10 +15,8 @@ function initTable() {
     dom: `<'row'<'col-12 dataTables_pager'p>><'row'<'col-12'tr>><'row'<'col-12 dataTables_pager'p>>`,
     columnDefs: [
       {targets: 0, data: 'name', className: 'd-flex align-items-center', render: (data, type, row) => hbs.compile(
-        `<div class="symbol symbol-50px overflow-hidden me-3">
-          <div class="symbol-label">
-            <img src="{{row.icon}}?{{formatDate 'x' row.modified}}" class="w-100 bg-light">
-          </div>
+        `<div class="symbol symbol-35px me-3">
+          <img src="{{row.icon}}?{{formatDate 'x' row.modified}}">
         </div>
         <span class="text-gray-800">{{row.name}}</span>`)({row})
       },
