@@ -33,9 +33,9 @@ See <a href="https://takuya-motoshima.github.io/express-sweet/v1/" target="_blan
 1. This sample application uses a database.
     Execute the following SQL to create the database.
     ```sql
-    CREATE DATABASE IF NOT EXISTS `sampledb` DEFAULT CHARACTER SET utf8mb4;
+    CREATE DATABASE IF NOT EXISTS `express_sweet_db` DEFAULT CHARACTER SET utf8mb4;
 
-    USE `sampledb`;
+    USE `express_sweet_db`;
 
     CREATE TABLE `user` (
       `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -86,13 +86,16 @@ See <a href="https://takuya-motoshima.github.io/express-sweet/v1/" target="_blan
     INSERT INTO `user` (`id`, `email`, `password`, `name`, `icon`) VALUES
       (1, 'robin@example.com', 'password', 'Robin', '/upload/1.png'),
       (2, 'taylor@example.com', 'password', 'Taylor', '/upload/2.png');
+
     INSERT INTO `profile` (`userId`, `address`, `tel`) VALUES
       (1, '777 Brockton Avenue, Abington MA 2351', '202-555-0105'),
       (2, '30 Memorial Drive, Avon MA 2322', '');
+
     INSERT INTO `comment` (`userId`, `text`) VALUES
       (1, 'From Robin #1'),
       (1, 'From Robin #2'),
       (2, 'From Taylor #1');
+
     INSERT INTO `book` (`userId`, `title`) VALUES
       (1, 'Beautiful'),
       (1, 'Lose Yourself'),
@@ -114,21 +117,21 @@ See <a href="https://takuya-motoshima.github.io/express-sweet/v1/" target="_blan
       development: {
         username: 'root',
         password: 'password',
-        database: 'sampledb',
+        database: 'express_sweet_db',
         host: 'localhost',
         dialect: 'mariadb'
       },
       test: {
         username: 'root',
         password: 'password',
-        database: 'sampledb',
+        database: 'express_sweet_db',
         host: 'localhost',
         dialect: 'mariadb'
       },
       production: {
         username: 'root',
         password: 'password',
-        database: 'sampledb',
+        database: 'express_sweet_db',
         host: 'localhost',
         dialect: 'mariadb'
       }

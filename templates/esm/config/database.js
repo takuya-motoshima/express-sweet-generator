@@ -5,7 +5,7 @@ export default {
   development: {
     username: 'root',
     // password: 'password',
-    database: 'sampledb',
+    database: 'express_sweet_db',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
@@ -15,7 +15,7 @@ export default {
   test: {
     username: 'root',
     // password: 'password',
-    database: 'sampledb',
+    database: 'express_sweet_db',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
@@ -25,7 +25,7 @@ export default {
   production: {
     username: 'root',
     // password: 'password',
-    database: 'sampledb',
+    database: 'express_sweet_db',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',

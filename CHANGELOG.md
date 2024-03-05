@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.16] - 2024/3/5
+### Changed
+- Changed sample DB name from `sampledb` to `express_sweet_db`.
+
 ## [1.0.15] - 2024/2/29
 ### Changed
 - Added the ability to change color themes in template applications.
@@ -251,3 +255,4 @@ All notable changes to this project will be documented in this file.
 [1.0.13]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.12...v1.0.13
 [1.0.14]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.13...v1.0.14
 [1.0.15]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.14...v1.0.15
+[1.0.16]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.15...v1.0.16
