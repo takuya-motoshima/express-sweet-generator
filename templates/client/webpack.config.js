@@ -14,7 +14,7 @@ module.exports = {
     ]
   },
   entry: {
-    docs: './src/app.js',
+    app: './src/app.js',
     login: './src/pages/login.js',
     users: './src/pages/users.js',
     editPersonal: './src/pages/editPersonal.js'

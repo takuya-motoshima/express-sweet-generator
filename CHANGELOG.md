@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.17] - 2024/3/6
+### Fixed
+- Fixed a typo in the name of the common JS module loaded from the template view.
+
 ## [1.0.16] - 2024/3/5
 ### Changed
 - Changed sample DB name from `sampledb` to `express_sweet_db`.
@@ -256,3 +260,4 @@ All notable changes to this project will be documented in this file.
 [1.0.14]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.13...v1.0.14
 [1.0.15]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.14...v1.0.15
 [1.0.16]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.15...v1.0.16
+[1.0.17]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.16...v1.0.17
