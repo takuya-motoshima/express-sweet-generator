@@ -1,9 +1,9 @@
 import '~/pages/login.css';
-import {selectRef, Validation, Dialog} from 'metronic-extension';
+import {components} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 
 function initValidation() {
-  validation = new Validation(ref.loginForm.get(0), {
+  validation = new components.Validation(ref.loginForm.get(0), {
     email: {
       validators: {
         notEmpty: {message: 'Email is required.'},
@@ -30,14 +30,14 @@ function initForm() {
       location.href = '/';
     } catch (err) {
       validation.offIndicator();
-      Dialog.unknownError();
+      components.Dialog.unknownError();
       throw err;
     }
   });
 }
 
 const userApi = new UserApi();
-const ref = selectRef();
+const ref = components.selectRef();
 let validation;
 initValidation();
 initForm();

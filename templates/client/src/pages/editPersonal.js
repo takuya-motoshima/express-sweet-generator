@@ -1,9 +1,9 @@
 import '~/pages/editPersonal.css';
-import {selectRef, Validation, Toast, Dialog, ImageInput, trim} from 'metronic-extension';
+import {components, utils} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 
 function initValidation() {
-  validation = new Validation(ref.personalForm.get(0), {
+  validation = new components.Validation(ref.personalForm.get(0), {
     'user[email]': {
       validators: {
         notEmpty: {message: 'Email is required.'},
@@ -51,19 +51,19 @@ function initForm() {
       validation.offIndicator();
       if (data.error)
         if (data.error === 'UserNotFound') {
-          await Dialog.warning('The account you are using has been deleted and you will be forcibly logged out.');
+          await components.Dialog.warning('The account you are using has been deleted and you will be forcibly logged out.');
           return void userApi.logout();
         } else
           throw Error('Unknown error');
-      Toast.success('Profile Settings have been updated.');
-      const currentEmail = trim(ref.user.email.val(), true);
+      components.Toast.success('Profile Settings have been updated.');
+      const currentEmail = utils.trim(ref.user.email.val(), true);
       if (originalEmail !== currentEmail) {
-        await Dialog.info('Email address has been changed. Please re-login.');
+        await components.Dialog.info('Email address has been changed. Please re-login.');
         return void userApi.logout();
       }
     } catch (err) {
       validation.offIndicator();
-      Dialog.unknownError();
+      components.Dialog.unknownError();
       throw err;
     }
   });
@@ -89,7 +89,7 @@ function initForm() {
         span.find('.bi-eye-slash').removeClass('d-none');
       }
     });
-  new ImageInput(ref.imageInput.get(0), {
+  new components.ImageInput(ref.imageInput.get(0), {
     current: `${ref.user.iconPath.val()}?${ref.user.modified.val()}`,
     default: '/build/media/misc/users-default-icon.svg',
     hiddenEl: ref.user.icon.get(0)
@@ -97,8 +97,8 @@ function initForm() {
 }
 
 const userApi = new UserApi();
-const ref = selectRef('#kt_app_content_container');
-const originalEmail = trim(ref.user.email.val(), true);
+const ref = components.selectRef('#kt_app_content_container');
+const originalEmail = utils.trim(ref.user.email.val(), true);
 let validation;
 initValidation();
 initForm();

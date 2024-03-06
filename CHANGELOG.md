@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.18] - 2024/3/6
+### Changed
+Updated [metronic-extension](https://www.npmjs.com/package/metronic-extension) of templates from v1.0.1 to v3.0.9.
+
 ## [1.0.17] - 2024/3/6
 ### Fixed
 - Fixed a typo in the name of the common JS module loaded from the template view.
@@ -261,3 +265,4 @@ All notable changes to this project will be documented in this file.
 [1.0.15]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.14...v1.0.15
 [1.0.16]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.15...v1.0.16
 [1.0.17]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.16...v1.0.17
+[1.0.18]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.17...v1.0.18

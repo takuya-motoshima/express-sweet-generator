@@ -1,11 +1,11 @@
 import '~/pages/users.css';
 import hbs from 'handlebars-extd';
-import {selectRef, Toast, Datatable, Dialog} from 'metronic-extension';
+import {components} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 import UserModal from '~/pages/UserModal';
 
 function initTable() {
-  userTable = new Datatable(ref.userTable, {
+  userTable = new components.Datatable(ref.userTable, {
     ajax: {
       url: '/api/users',
       data: d => {
@@ -68,7 +68,7 @@ function initForm() {
       try {
         const tr = evnt.currentTarget.closest('tr');
         const {name} = userTable.getRowData(tr);
-        if (!(await Dialog.confirm(`Do you want to delete ${name}?`, {
+        if (!(await components.Dialog.confirm(`Do you want to delete ${name}?`, {
           icon: 'warning',
           cancelButtonText: 'Cancel',
           confirmButtonText: 'Delete a user',
@@ -80,14 +80,14 @@ function initForm() {
         const {data} = await userApi.deleteUser(evnt.currentTarget.dataset.id);
         if (data.error)
           if (data.error === 'userNotFound') {
-            await Dialog.warning('The user has already been deleted.');
+            await components.Dialog.warning('The user has already been deleted.');
             return void userTable.reload();
           } else
             throw Error('Unknown error');
-        Toast.success(`${name} was deleted.`);
+        components.Toast.success(`${name} was deleted.`);
         userTable.reload();
       } catch (err) {
-        Dialog.unknownError();
+        components.Dialog.unknownError();
         throw err;
       }
     })
@@ -100,7 +100,7 @@ function initForm() {
 
 const userApi = new UserApi();
 const userModal = new UserModal();
-const ref = selectRef('#kt_app_content_container');
+const ref = components.selectRef('#kt_app_content_container');
 let userTable;
 let searchTimer;
 initTable();

@@ -1,32 +1,84 @@
 import hbs from 'handlebars-extd';
-import {selectRef, Validation, Toast, Modal, Dialog, initTooltip, initClipboard, ImageInput} from 'metronic-extension';
+import {components} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 
-export default class extends Modal {
+export default class extends components.Modal {
+  /**
+   * User API.
+   * @type {UserApi}
+   */
   #userApi = new UserApi();
+
+  /**
+   * Processing mode.
+   * @type {'create'|'update'}
+   */
   #mode;
+
+  /**
+   * Update User ID.
+   * @type {number|undefined}
+   */
   #userId = null;
-  #validation;
+
+  /**
+   * Update user object.
+   * @type {object|undefined}
+   */
+  #user;
+
+  /**
+   * Form validation instance.
+   * @type {components.Validation}
+   */
+  #validator;
+
+  /**
+   * Element.
+   * @type {[key: string]: any}
+   */
   #ref;
 
+  /**
+   * Modal initialization.
+   * @param {'create'|'update'} mode Processing mode.
+   * @param {number|undefined} userId Update User ID.
+   */
   async init(mode, userId = null) {
     this.#mode = mode;
     this.#userId = userId;
-    let user;
-    if (this.#mode === 'update')
-      user = (await this.#userApi.getUser(this.#userId)).data;
-    const node = this.render(user);
-    const instance = new bootstrap.Modal(node);
-    this.#ref = selectRef(node);
+
+    // Get elements.
+    this.#ref = components.selectRef(super.element);
+
+    // Form validation initialization.
     this.#initValidation();
-    this.#initForm(user);
-    new KTScroll(this.#ref.scroll.get(0));
-    return [node, instance];
+
+    // Image input component initialization.
+    new components.ImageInput(this.#ref.imageInput.get(0), {
+      current: this.#mode === 'update' ? `${this.#user.icon}?${moment(this.#user.modified).format('x')}` : null,
+      default: '/build/media/misc/users-default-icon.svg',
+      hiddenEl: this.#ref.user.icon.get(0),
+    });
+
+    // Password toggle event.
+    this.#handlePasswordToggle();
+
+    // User creation and update events.
+    this.#mode === 'create' ? this.#handleCreate() : this.#handleUpdate();
   }
 
-  render(user) {
-    const html = hbs.compile(
-      `<div class="modal fade" tabindex="-1" aria-hidden="true">
+  /**
+   * Render Modal.
+   * @param {'create'|'update'} mode Processing mode.
+   * @param {number|undefined} userId Update User ID.
+   * @return {string} Modal HTML.
+   */
+  async render(mode, userId = null) {
+    // In case of update, the target user is retrieved.
+    this.#user = mode === 'update' ? (await this.#userApi.getUser(userId)).data : undefined;
+    return hbs.compile(
+      `<div class="modal fade" id="{{id}}" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <div class="modal-dialog modal-dialog-centered mw-650px">
           <!--begin::Modal content-->
@@ -34,7 +86,7 @@ export default class extends Modal {
             <!--begin::Form-->
             <form data-ref="form" class="form" novalidate="novalidate">
               <!--begin::Modal header-->
-              <div class="modal-header" id="header{{scrollIdentifier}}">
+              <div class="modal-header" id="{{id}}_header">
                 <!--begin::Modal title-->
                 <h2>
                   {{#if (eq mode 'create')}}
@@ -57,16 +109,16 @@ export default class extends Modal {
               </div>
               <!--end::Modal header-->
               <!--begin::Modal body-->
-              <div class="modal-body py-10 px-lg-17">
+              <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                 <!--begin::Scroll-->
                 <div data-ref="scroll"
                   class="scroll-y me-n7 pe-7"
-                  id="scroll{{scrollIdentifier}}"
+                  id="{{id}}_scroll"
                   data-kt-scroll="true"
-                  data-kt-scroll-activate="{default:false,lg:true}"
+                  data-kt-scroll-activate="{default: false, lg: true}"
                   data-kt-scroll-max-height="auto"
-                  data-kt-scroll-dependencies="#header{{scrollIdentifier}}"
-                  data-kt-scroll-wrappers="#scroll{{scrollIdentifier}}"
+                  data-kt-scroll-dependencies="#{{id}}_header"
+                  data-kt-scroll-wrappers="#{{id}}_scroll"
                   data-kt-scroll-offset="300px">
                   <!--begin::Input group-->
                   <div class="fv-row mb-10 d-flex flex-column">
@@ -78,7 +130,7 @@ export default class extends Modal {
                     <input data-ref="user.icon" name="user[icon]" type="hidden">
                     <!--end::Image input-->
                     <!--begin::Hint-->
-                    <div class="form-text text-gray-700">JPG, JPEG, PNG or SVG file formats are accepted.</div>
+                    <div class="form-text">JPG, JPEG, PNG or SVG file formats are accepted.</div>
                     <!--end::Hint-->
                   </div>
                   <!--end::Input group-->
@@ -178,13 +230,64 @@ export default class extends Modal {
           <!--end::Modal content-->
         </div>
         <!--end::Modal dialog-->
-      </div>`)({mode: this.#mode, user, scrollIdentifier: +new Date});
-    return $(html).appendTo('body');
+      </div>`)({
+        id: `modal_${+new Date}`,
+        mode,
+        user: this.#user,
+      });
   }
 
+  /**
+   * User create event.
+   */
+  #handleCreate() {
+    this.#validator.onValid(async () => {
+      try {
+        this.#validator.onIndicator();
+
+        // User creation request.
+        await this.#userApi.createUser(new FormData(this.#validator.form));
+        this.#validator.offIndicator();
+        components.Toast.success('User created.');
+        super.hide(true);
+      } catch (err) {
+        this.#validator.offIndicator();
+        components.Dialog.unknownError();
+        throw err;
+      }
+    });
+  }
+
+  /**
+   * User update event.
+   */
+  #handleUpdate() {
+    this.#validator.onValid(async () => {
+      try {
+        this.#validator.onIndicator();
+
+        // User update request.
+        const {data} = await this.#userApi.updateUser(this.#userId, new FormData(this.#validator.form));
+        this.#validator.offIndicator();
+        if (data?.error === 'UserNotFound') {
+          await components.Dialog.warning('This user has been deleted.');
+          return void super.hide(true);
+        }
+        components.Toast.success('User updated.');
+        super.hide(true);
+      } catch (err) {
+        this.#validator.offIndicator();
+        components.Dialog.unknownError();
+        throw err;
+      }
+    });
+  }
+
+  /**
+   * Form validation initialization.
+   */
   #initValidation() {
-    const enablePasswordValidation = this.#mode === 'create';
-    this.#validation = new Validation(this.#ref.form.get(0), {
+    this.#validator = new components.Validation(this.#ref.form.get(0), {
       'user[email]': {
         validators: {
           notEmpty: {message: 'Email is required.'},
@@ -206,40 +309,22 @@ export default class extends Modal {
         validators: {
           notEmpty: {
             message: 'Password is required.',
-            enabled: enablePasswordValidation
+            enabled: this.#mode === 'create'
           },
           regexp: {
             regexp: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\-\.])[a-z\d@$!%*?&\-\.]{8,}$/i,
             message: 'Alphanumeric symbols (@$!%*?&-.) Please enter at least 8 characters with a mix of.',
-            enabled: enablePasswordValidation
+            enabled: this.#mode === 'create'
           }
         }
       }
     });
   }
 
-  #initForm(user) {
-    this.#validation.onValid(async () => {
-      try {
-        this.#validation.onIndicator();
-        const {data} = this.#mode === 'create' ?
-          await this.#userApi.createUser(new FormData(this.#validation.form)) :
-          await this.#userApi.updateUser(this.#userId, new FormData(this.#validation.form));
-        this.#validation.offIndicator();
-        if (data.error)
-          if (data.error === 'UserNotFound') {
-            await Dialog.warning('This user has been deleted.');
-            return void super.hide(true);
-          } else
-            throw Error('Unknown error');
-        Toast.success(`User ${{create: 'created', update: 'updated'}[this.#mode]}.`);
-        super.hide(true);
-      } catch (err) {
-        this.#validation.offIndicator();
-        Dialog.unknownError();
-        throw err;
-      }
-    });
+  /**
+   * Password toggle event.
+   */
+  #handlePasswordToggle() {
     this.#ref.form
       .on('click', '[data-on-toggle-password-visibility]', evnt => {
         const span = $(evnt.currentTarget);
@@ -255,20 +340,20 @@ export default class extends Modal {
       })
       .on('show.bs.collapse hide.bs.collapse', '#passwordCollapse', evnt => {
         if (evnt.type === 'show') {
-          this.#validation.enableValidator('user[password]');
+          this.#validator.enableValidator('user[password]');
           this.#ref.user.password.prop('disabled', false);
         } else {
-          this.#validation.disableValidator('user[password]');
+          this.#validator.disableValidator('user[password]');
           this.#ref.user.password.prop('disabled', true);
         }
       });
-    new ImageInput(this.#ref.imageInput.get(0), {
-      current: this.#mode === 'update' ? `${user.icon}?${moment(user.modified).format('x')}` : null,
-      default: '/build/media/misc/users-default-icon.svg',
-      hiddenEl: this.#ref.user.icon.get(0),
-      // readonly: this.#mode === 'delete'
-    });
-    initClipboard(this.#ref.form);
-    initTooltip(this.#ref.form);
+  }
+
+  /**
+   * Dispose Modal.
+   */
+  dispose() {
+    super.dispose();
+    components.Dialog.close();
   }
 }

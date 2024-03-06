@@ -20,7 +20,7 @@
     "deep-fusion": "^1.0.0",
     "handlebars-extd": "^1.0.4",
     "js-shared": "^1.0.4",
-    "metronic-extension": "^1.0.1",
+    "metronic-extension": "^3.0.9",
     "moment": "^2.29.1"
   },
   "devDependencies": {

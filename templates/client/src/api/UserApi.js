@@ -1,6 +1,6 @@
-import {Api} from 'metronic-extension';
+import {components} from 'metronic-extension';
 
-export default class extends Api {
+export default class extends components.Api {
   constructor() {
     super('/api/users');
   }
