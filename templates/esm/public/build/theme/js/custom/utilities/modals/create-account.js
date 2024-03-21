@@ -107,25 +107,7 @@ var KTCreateAccount = function () {
 						// Enable button
 						formSubmitButton.disabled = false;
 
-						// Redirect
-						if (form.hasAttribute("data-kt-redirect-url")) {
-							// Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
-							Swal.fire({
-								text: "Your account has been successfully created.",
-								icon: "success",
-								buttonsStyling: false,
-								confirmButtonText: "Ok, got it!",
-								customClass: {
-									confirmButton: "btn btn-primary"
-								}
-							}).then(function (result) {
-								if (result.isConfirmed) { 	
-									location.href = form.getAttribute('data-kt-redirect-url');
-								}
-							});
-						} else {
-							stepperObj.goNext();
-						}
+						stepperObj.goNext();
 					}, 2000);
 				} else {
 					Swal.fire({
@@ -250,13 +232,6 @@ var KTCreateAccount = function () {
 						validators: {
 							notEmpty: {
 								message: 'Busines type is required'
-							}
-						}
-					},
-					'business_description': {
-						validators: {
-							notEmpty: {
-								message: 'Busines description is required'
 							}
 						}
 					},

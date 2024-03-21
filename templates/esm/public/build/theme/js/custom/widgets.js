@@ -15,9 +15,9 @@ var KTWidgets = function () {
 
             var color = element.getAttribute('data-kt-chart-color');
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light');
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light');
 
             var options = {
                 series: [{
@@ -155,9 +155,9 @@ var KTWidgets = function () {
 
             var color = element.getAttribute('data-kt-chart-color');
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light' );
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light' );
 
             var options = {
                 series: [{
@@ -298,10 +298,10 @@ var KTWidgets = function () {
 
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-            var baseColor = KTUtil.getCssVariableValue('--kt-primary');
-            var secondaryColor = KTUtil.getCssVariableValue('--kt-gray-300');        
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
+            var baseColor = KTUtil.getCssVariableValue('--bs-primary');
+            var secondaryColor = KTUtil.getCssVariableValue('--bs-gray-300');        
 
             var options = {
                 series: [{
@@ -323,7 +323,7 @@ var KTWidgets = function () {
                     bar: {
                         horizontal: false,
                         columnWidth: ['30%'],
-                        borderRadius: 4
+                        borderRadius: [6]
                     },
                 },
                 legend: {
@@ -438,10 +438,10 @@ var KTWidgets = function () {
 
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-            var baseColor = KTUtil.getCssVariableValue('--kt-warning');
-            var secondaryColor = KTUtil.getCssVariableValue('--kt-gray-300');
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
+            var baseColor = KTUtil.getCssVariableValue('--bs-warning');
+            var secondaryColor = KTUtil.getCssVariableValue('--bs-gray-300');
 
             var options = {
                 series: [{
@@ -578,10 +578,10 @@ var KTWidgets = function () {
 
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-            var baseColor = KTUtil.getCssVariableValue('--kt-info');
-            var lightColor = KTUtil.getCssVariableValue('--kt-info-light');              
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
+            var baseColor = KTUtil.getCssVariableValue('--bs-info');
+            var lightColor = KTUtil.getCssVariableValue('--bs-info-light');              
 
             var options = {
                 series: [{
@@ -733,13 +733,13 @@ var KTWidgets = function () {
 
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
 
-            var baseColor = KTUtil.getCssVariableValue('--kt-success');
-            var baseLightColor = KTUtil.getCssVariableValue('--kt-success-light');
-            var secondaryColor = KTUtil.getCssVariableValue('--kt-warning');
-            var secondaryLightColor = KTUtil.getCssVariableValue('--kt-warning-light');        
+            var baseColor = KTUtil.getCssVariableValue('--bs-success');
+            var baseLightColor = KTUtil.getCssVariableValue('--bs-success-light');
+            var secondaryColor = KTUtil.getCssVariableValue('--bs-warning');
+            var secondaryLightColor = KTUtil.getCssVariableValue('--bs-warning-light');        
 
             var options = {
                 series: [{
@@ -890,11 +890,11 @@ var KTWidgets = function () {
 
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
 
-            var baseColor = KTUtil.getCssVariableValue('--kt-primary');
-            var secondaryColor = KTUtil.getCssVariableValue('--kt-info'); 
+            var baseColor = KTUtil.getCssVariableValue('--bs-primary');
+            var secondaryColor = KTUtil.getCssVariableValue('--bs-info'); 
 
             var options = {
                 series: [{
@@ -1034,12 +1034,12 @@ var KTWidgets = function () {
 
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
 
-            var baseColor = KTUtil.getCssVariableValue('--kt-primary');
-            var baseLightColor = KTUtil.getCssVariableValue('--kt-primary-light');
-            var secondaryColor = KTUtil.getCssVariableValue('--kt-info');              
+            var baseColor = KTUtil.getCssVariableValue('--bs-primary');
+            var baseLightColor = KTUtil.getCssVariableValue('--bs-primary-light');
+            var secondaryColor = KTUtil.getCssVariableValue('--bs-info');              
 
             var options = {
                 series: [{
@@ -1195,18 +1195,18 @@ var KTWidgets = function () {
 
             var height = parseInt(KTUtil.css(element, 'height'));
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-gray-300');
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-gray-300');
 
-            var color1 = KTUtil.getCssVariableValue('--kt-warning');
-            var color1Light = KTUtil.getCssVariableValue('--kt-warning-light');
+            var color1 = KTUtil.getCssVariableValue('--bs-warning');
+            var color1Light = KTUtil.getCssVariableValue('--bs-warning-light');
 
-            var color2 = KTUtil.getCssVariableValue('--kt-success');
-            var color2Light = KTUtil.getCssVariableValue('--kt-success-light');
+            var color2 = KTUtil.getCssVariableValue('--bs-success');
+            var color2Light = KTUtil.getCssVariableValue('--bs-success-light');
 
-            var color3 = KTUtil.getCssVariableValue('--kt-primary');  
-            var color3Light = KTUtil.getCssVariableValue('--kt-primary-light');         
+            var color3 = KTUtil.getCssVariableValue('--bs-primary');  
+            var color3Light = KTUtil.getCssVariableValue('--bs-primary-light');         
 
             var options = {
                 series: [{
@@ -1373,18 +1373,18 @@ var KTWidgets = function () {
         var initChart = function() {
             var height = parseInt(KTUtil.css(element, 'height'));
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-            var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-gray-300');
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+            var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-gray-300');
 
-            var color1 = KTUtil.getCssVariableValue('--kt-warning');
-            var color1Light = KTUtil.getCssVariableValue('--kt-warning-light');
+            var color1 = KTUtil.getCssVariableValue('--bs-warning');
+            var color1Light = KTUtil.getCssVariableValue('--bs-warning-light');
 
-            var color2 = KTUtil.getCssVariableValue('--kt-success');
-            var color2Light = KTUtil.getCssVariableValue('--kt-success-light');
+            var color2 = KTUtil.getCssVariableValue('--bs-success');
+            var color2Light = KTUtil.getCssVariableValue('--bs-success-light');
 
-            var color3 = KTUtil.getCssVariableValue('--kt-primary');  
-            var color3Light = KTUtil.getCssVariableValue('--kt-primary-light');  
+            var color3 = KTUtil.getCssVariableValue('--bs-primary');  
+            var color3Light = KTUtil.getCssVariableValue('--bs-primary-light');  
     
             var options = {
                 series: [{
@@ -1559,14 +1559,14 @@ var KTWidgets = function () {
         var color;
         var strokeColor;
         var height;
-        var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-        var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+        var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+        var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
         var options;
         var chart;
 
         [].slice.call(charts).map(function(element) {
             height = parseInt(KTUtil.css(element, 'height'));
-            color = KTUtil.getCssVariableValue('--kt-' + element.getAttribute("data-kt-color"));
+            color = KTUtil.getCssVariableValue('--bs-' + element.getAttribute("data-kt-color"));
             strokeColor = KTUtil.colorDarken(color, 15);
 
             options = {
@@ -1709,10 +1709,10 @@ var KTWidgets = function () {
 
             var color = element.getAttribute('data-kt-chart-color');
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'gray-300');
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light' );
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'gray-300');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light' );
 
             var options = {
                 series: [{
@@ -1850,9 +1850,9 @@ var KTWidgets = function () {
 
             var color = element.getAttribute('data-kt-chart-color');
 
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light' );
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-700');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light' );
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-700');
 
             var options = {
                 series: [74],
@@ -1905,7 +1905,7 @@ var KTWidgets = function () {
     var initMixedWidget5 = function() {
         var charts = document.querySelectorAll('.mixed-widget-5-chart');
 
-        [].slice.call(charts).map(function(element) {
+        var initChart = function(chart, element) {
             var height = parseInt(KTUtil.css(element, 'height'));
 
             if ( !element ) {
@@ -1913,11 +1913,10 @@ var KTWidgets = function () {
             }
 
             var color = element.getAttribute('data-kt-chart-color');
-
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'gray-300');
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light' );
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'gray-300');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light' );
 
             var options = {
                 series: [{
@@ -2052,8 +2051,27 @@ var KTWidgets = function () {
                 }
             };
 
-            var chart = new ApexCharts(element, options);
-            chart.render();
+            chart.self = new ApexCharts(element, options);
+            chart.self.render();   
+            chart.rendered = true;
+        };
+
+        [].slice.call(charts).map(function(element) {
+            var chart = {
+                self: null,
+                rendered: false
+            };
+
+            initChart(chart, element);
+            
+            // Update chart on theme mode change
+            KTThemeMode.on("kt.thememode.change", function() {                
+                if (chart.rendered) {
+                    chart.self.destroy();
+                }
+
+                initChart(chart, element);
+            });            
         });        
     }
 
@@ -2069,10 +2087,10 @@ var KTWidgets = function () {
 
             var color = element.getAttribute('data-kt-chart-color');
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'gray-300');
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light' );
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'gray-300');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light' );
 
             var options = {
                 series: [{
@@ -2210,10 +2228,10 @@ var KTWidgets = function () {
 
             var color = element.getAttribute('data-kt-chart-color');
 
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'gray-300');
-            var baseColor = KTUtil.getCssVariableValue('--kt-' + color);
-            var lightColor = KTUtil.getCssVariableValue('--kt-' + color + '-light');
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'gray-300');
+            var baseColor = KTUtil.getCssVariableValue('--bs-' + color);
+            var lightColor = KTUtil.getCssVariableValue('--bs-' + color + '-light');
 
             var options = {
                 series: [{
@@ -2344,10 +2362,10 @@ var KTWidgets = function () {
 
         var color;
         var height;
-        var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-        var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+        var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+        var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
         var baseLightColor;
-        var secondaryColor = KTUtil.getCssVariableValue('--kt-gray-300');
+        var secondaryColor = KTUtil.getCssVariableValue('--bs-gray-300');
         var baseColor;
         var options;
         var chart;
@@ -2355,7 +2373,7 @@ var KTWidgets = function () {
         [].slice.call(charts).map(function(element) {
             color = element.getAttribute("data-kt-color");
             height = parseInt(KTUtil.css(element, 'height'));
-            baseColor = KTUtil.getCssVariableValue('--kt-' + color);
+            baseColor = KTUtil.getCssVariableValue('--bs-' + color);
 
             options = {
                 series: [{
@@ -2477,8 +2495,8 @@ var KTWidgets = function () {
         var color;
         var strokeColor;
         var height;
-        var labelColor = KTUtil.getCssVariableValue('--kt-gray-500');
-        var borderColor = KTUtil.getCssVariableValue('--kt-gray-200');
+        var labelColor = KTUtil.getCssVariableValue('--bs-gray-500');
+        var borderColor = KTUtil.getCssVariableValue('--bs-gray-200');
         var options;
         var chart;
 
@@ -2617,8 +2635,8 @@ var KTWidgets = function () {
                 return;
             }
                    
-            var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-            var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'gray-300');
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'gray-300');
 
             var options = {
                 series: [{
@@ -2765,7 +2783,7 @@ var KTWidgets = function () {
 
         [].slice.call(charts).map(function(element) {
             height = parseInt(KTUtil.css(element, 'height'));      
-            var labelColor = KTUtil.getCssVariableValue('--kt-gray-800');      
+            var labelColor = KTUtil.getCssVariableValue('--bs-gray-800');      
 
             options = {
                 series: [{
@@ -2885,10 +2903,10 @@ var KTWidgets = function () {
                             fontSize: "13px",
                             fontWeight: "700",
                             offsetY: -5,
-                            color: KTUtil.getCssVariableValue('--kt-gray-500')
+                            color: KTUtil.getCssVariableValue('--bs-gray-500')
                         },
                         value: {
-                            color: KTUtil.getCssVariableValue('--kt-gray-700'),
+                            color: KTUtil.getCssVariableValue('--bs-gray-700'),
                             fontSize: "30px",
                             fontWeight: "700",
                             offsetY: -40,
@@ -2896,12 +2914,12 @@ var KTWidgets = function () {
                         }
                     },
                     track: {
-                        background: KTUtil.getCssVariableValue('--kt-primary-light'),
+                        background: KTUtil.getCssVariableValue('--bs-primary-light'),
                         strokeWidth: '100%'
                     }
                 }
             },
-            colors: [KTUtil.getCssVariableValue('--kt-primary')],
+            colors: [KTUtil.getCssVariableValue('--bs-primary')],
             stroke: {
                 lineCap: "round",
             }            
@@ -2947,10 +2965,10 @@ var KTWidgets = function () {
                                 fontSize: "12px",
                                 fontWeight: "700",
                                 offsetY: -5,
-                                color: KTUtil.getCssVariableValue('--kt-gray-500')
+                                color: KTUtil.getCssVariableValue('--bs-gray-500')
                             },
                             value: {
-                                color: KTUtil.getCssVariableValue('--kt-gray-900'),
+                                color: KTUtil.getCssVariableValue('--bs-gray-900'),
                                 fontSize: "24px",
                                 fontWeight: "600",
                                 offsetY: -40,
@@ -2961,12 +2979,12 @@ var KTWidgets = function () {
                             }
                         },
                         track: {
-                            background: KTUtil.getCssVariableValue('--kt-gray-300'),
+                            background: KTUtil.getCssVariableValue('--bs-gray-300'),
                             strokeWidth: '100%'
                         }
                     }
                 },
-                colors: [KTUtil.getCssVariableValue('--kt-' + color)],
+                colors: [KTUtil.getCssVariableValue('--bs-' + color)],
                 stroke: {
                     lineCap: "round",
                 }            
@@ -2985,9 +3003,9 @@ var KTWidgets = function () {
             return;
         }
 
-        var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-        var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-        var fillColor = KTThemeMode.getMode() === "dark" ? KTUtil.getCssVariableValue('--kt-gray-200') : '#D6D6E0';
+        var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+        var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+        var fillColor = KTThemeMode.getMode() === "dark" ? KTUtil.getCssVariableValue('--bs-gray-200') : '#D6D6E0';
 
         var options = {
             series: [{
@@ -3113,138 +3131,161 @@ var KTWidgets = function () {
     }
 
     var initMixedWidget19 = function() {
-        var element = document.getElementById("kt_charts_mixed_widget_19_chart");  
-        var height = parseInt(KTUtil.css(element, 'height'));
+        var chart = {
+            self: null,
+            rendered: false
+        };
 
-        if ( !element ) {
-            return;
-        }
+        function initChart() {
+            var element = document.getElementById("kt_charts_mixed_widget_19_chart");  
+            var height = parseInt(KTUtil.css(element, 'height'));
 
-        var labelColor = KTUtil.getCssVariableValue('--kt-' + 'gray-800');
-        var strokeColor = KTUtil.getCssVariableValue('--kt-' + 'info');
-        var fillColor = KTUtil.getCssVariableValue('--kt-info-light')
+            if ( !element ) {
+                return;
+            }
 
-        var options = {
-            series: [{
-                name: 'Net Profit',
-                data: [30, 25, 45, 30, 55, 55]
-            }],
-            chart: {
-                fontFamily: 'inherit',
-                type: 'area',
-                height: height,
-                toolbar: {
-                    show: false
-                },
-                zoom: {
-                    enabled: false
-                },
-                sparkline: {
-                    enabled: true
-                }
-            },
-            plotOptions: {},
-            legend: {
-                show: false
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill: {
-                type: 'solid',
-                opacity: 1
-            },
-            stroke: {
-                curve: 'smooth',
-                show: true,
-                width: 3,
-                colors: [strokeColor]
-            },
-            xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                axisBorder: {
-                    show: false,
-                },
-                axisTicks: {
-                    show: false
-                },
-                labels: {
-                    show: false,
-                    style: {
-                        colors: labelColor,
-                        fontSize: '12px'
+            var labelColor = KTUtil.getCssVariableValue('--bs-' + 'gray-800');
+            var strokeColor = KTUtil.getCssVariableValue('--bs-' + 'info');
+            var fillColor = KTUtil.getCssVariableValue('--bs-info-light')
+
+            var options = {
+                series: [{
+                    name: 'Net Profit',
+                    data: [30, 25, 45, 30, 55, 55]
+                }],
+                chart: {
+                    fontFamily: 'inherit',
+                    type: 'area',
+                    height: height,
+                    toolbar: {
+                        show: false
+                    },
+                    zoom: {
+                        enabled: false
+                    },
+                    sparkline: {
+                        enabled: true
                     }
                 },
-                crosshairs: {
-                    show: false,
-                    position: 'front',
-                    stroke: {
-                        color: strokeColor,
-                        width: 1,
-                        dashArray: 3
+                plotOptions: {},
+                legend: {
+                    show: false
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                fill: {
+                    type: 'solid',
+                    opacity: 1
+                },
+                stroke: {
+                    curve: 'smooth',
+                    show: true,
+                    width: 3,
+                    colors: [strokeColor]
+                },
+                xaxis: {
+                    categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        show: false,
+                        style: {
+                            colors: labelColor,
+                            fontSize: '12px'
+                        }
+                    },
+                    crosshairs: {
+                        show: false,
+                        position: 'front',
+                        stroke: {
+                            color: strokeColor,
+                            width: 1,
+                            dashArray: 3
+                        }
+                    },
+                    tooltip: {
+                        enabled: true,
+                        formatter: undefined,
+                        offsetY: 0,
+                        style: {
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yaxis: {
+                    min: 0,
+                    max: 60,
+                    labels: {
+                        show: false,
+                        style: {
+                            colors: labelColor,
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                states: {
+                    normal: {
+                        filter: {
+                            type: 'none',
+                            value: 0
+                        }
+                    },
+                    hover: {
+                        filter: {
+                            type: 'none',
+                            value: 0
+                        }
+                    },
+                    active: {
+                        allowMultipleDataPointsSelection: false,
+                        filter: {
+                            type: 'none',
+                            value: 0
+                        }
                     }
                 },
                 tooltip: {
-                    enabled: true,
-                    formatter: undefined,
-                    offsetY: 0,
                     style: {
                         fontSize: '12px'
-                    }
-                }
-            },
-            yaxis: {
-                min: 0,
-                max: 60,
-                labels: {
-                    show: false,
-                    style: {
-                        colors: labelColor,
-                        fontSize: '12px'
-                    }
-                }
-            },
-            states: {
-                normal: {
-                    filter: {
-                        type: 'none',
-                        value: 0
+                    },
+                    y: {
+                        formatter: function (val) {
+                            return "$" + val + " thousands"
+                        }
                     }
                 },
-                hover: {
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                },
-                active: {
-                    allowMultipleDataPointsSelection: false,
-                    filter: {
-                        type: 'none',
-                        value: 0
-                    }
-                }
-            },
-            tooltip: {
-                style: {
-                    fontSize: '12px'
-                },
-                y: {
-                    formatter: function (val) {
-                        return "$" + val + " thousands"
-                    }
-                }
-            },
-            colors: [fillColor],
-            markers: {
                 colors: [fillColor],
-                strokeColor: [strokeColor],
-                strokeWidth: 3
-            }
-        };
+                markers: {
+                    colors: [fillColor],
+                    strokeColor: [strokeColor],
+                    strokeWidth: 3
+                }
+            };
 
-        var chart = new ApexCharts(element, options);
-        chart.render();
+            chart.self = new ApexCharts(element, options);
+
+             // Set timeout to properly get the parent elements width
+            setTimeout(function() {
+                chart.self.render();
+                chart.rendered = true;
+            }, 200);
+        }       
+
+        initChart();
+
+        // Update chart on theme mode change
+        KTThemeMode.on("kt.thememode.change", function() {                
+            if (chart.rendered) {
+                chart.self.destroy();
+            }
+
+            initChart();
+        });
     }
 
     // Feeds Widgets

@@ -298,7 +298,7 @@ var KTFileManagerList = function () {
             const rowForm = rowElement.querySelector('#kt_file_manager_add_folder_form');
             const rowButton = rowElement.querySelector('#kt_file_manager_add_folder');
             const cancelButton = rowElement.querySelector('#kt_file_manager_cancel_folder');
-            const folderIcon = rowElement.querySelector('.svg-icon-2x');
+            const folderIcon = rowElement.querySelector('#kt_file_manager_folder_icon');
             const rowInput = rowElement.querySelector('[name="new_folder_name"]');
 
             // Define validator
@@ -487,7 +487,7 @@ var KTFileManagerList = function () {
 
         // Get name column
         const nameCol = parent.querySelectorAll('td')[1];
-        const colIcon = nameCol.querySelector('.svg-icon');
+        const colIcon = nameCol.querySelector('.icon-wrapper');
         nameValue = nameCol.innerText;
 
         // Set rename input template

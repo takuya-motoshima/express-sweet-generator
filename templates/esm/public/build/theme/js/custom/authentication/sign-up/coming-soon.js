@@ -80,6 +80,12 @@ var KTSignupComingSoon = function() {
                             if (result.isConfirmed) { 
                                 form.querySelector('[name="email"]').value= "";                            
                                 //form.submit();
+
+                                //form.submit(); // submit form
+                                var redirectUrl = form.getAttribute('data-kt-redirect-url');
+                                if (redirectUrl) {
+                                    location.href = redirectUrl;
+                                }
                             }
                         });
                     }, 2000);   						

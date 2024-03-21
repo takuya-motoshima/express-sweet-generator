@@ -3,12 +3,12 @@
 // Class definition
 var KTProjectOverview = function () {
     // Colors
-    var primary = KTUtil.getCssVariableValue('--kt-primary');
-    var lightPrimary = KTUtil.getCssVariableValue('--kt-primary-light');
-    var success = KTUtil.getCssVariableValue('--kt-success');
-    var lightSuccess = KTUtil.getCssVariableValue('--kt-success-light');
-    var gray200 = KTUtil.getCssVariableValue('--kt-gray-200');
-    var gray500 = KTUtil.getCssVariableValue('--kt-gray-500');
+    var primary = KTUtil.getCssVariableValue('--bs-primary');
+    var lightPrimary = KTUtil.getCssVariableValue('--bs-primary-light');
+    var success = KTUtil.getCssVariableValue('--bs-success');
+    var lightSuccess = KTUtil.getCssVariableValue('--bs-success-light');
+    var gray200 = KTUtil.getCssVariableValue('--bs-gray-200');
+    var gray500 = KTUtil.getCssVariableValue('--bs-gray-500');
 
     // Private functions
     var initChart = function () {        

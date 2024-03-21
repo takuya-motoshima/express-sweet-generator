@@ -111,7 +111,12 @@ var KTSignupFreeTrial = function() {
                             if (result.isConfirmed) { 
                                 form.reset();  // reset form                    
                                 passwordMeter.reset();  // reset password meter
-                                //form.submit();
+
+                                //form.submit(); // submit form
+                                var redirectUrl = form.getAttribute('data-kt-redirect-url');
+                                if (redirectUrl) {
+                                    location.href = redirectUrl;
+                                }
                             }
                         });
                     }, 1500);   						

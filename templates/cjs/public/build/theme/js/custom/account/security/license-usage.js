@@ -17,8 +17,8 @@ var KTAccountSecurityLicenseUsage = function () {
         
             clipboard.on('success', function(e) {
                 // Icons
-                var svgIcon = button.querySelector('.svg-icon');                
-                var checkIcon = button.querySelector('.bi.bi-check');
+                var copyIcon = button.querySelector('.ki-copy');                
+                var checkIcon = button.querySelector('.ki-check');
                 
                 // exit if check icon is already shown
                 if (checkIcon) {
@@ -27,9 +27,9 @@ var KTAccountSecurityLicenseUsage = function () {
 
                 // Create check icon
                 checkIcon = document.createElement('i');
-                checkIcon.classList.add('bi');
-                checkIcon.classList.add('bi-check');
-                checkIcon.classList.add('fs-2x');
+                checkIcon.classList.add('ki-solid');
+                checkIcon.classList.add('ki-check');
+                checkIcon.classList.add('fs-2');
 
                 // Append check icon
                 button.appendChild(checkIcon);
@@ -38,12 +38,12 @@ var KTAccountSecurityLicenseUsage = function () {
                 license.classList.add('text-success');
 
                 // Hide copy icon
-                svgIcon.classList.add('d-none');
+                copyIcon.classList.add('d-none');
 
                 // Set 3 seconds timeout to hide the check icon and show copy icon back
                 setTimeout(function() {
                     // Remove check icon
-                    svgIcon.classList.remove('d-none');
+                    copyIcon.classList.remove('d-none');
                     // Show check icon back
                     button.removeChild(checkIcon);
 

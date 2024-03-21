@@ -1,6 +1,690 @@
 "use strict";
 
 // Class definition
+var KTApp = function () {
+    var initialized = false;
+    var select2FocusFixInitialized = false;
+    var countUpInitialized = false;
+
+    var createBootstrapTooltip = function (el, options) {
+        if (el.getAttribute("data-kt-initialized") === "1") {
+            return;
+        }
+
+        var delay = {};
+
+        // Handle delay options
+        if (el.hasAttribute('data-bs-delay-hide')) {
+            delay['hide'] = el.getAttribute('data-bs-delay-hide');
+        }
+
+        if (el.hasAttribute('data-bs-delay-show')) {
+            delay['show'] = el.getAttribute('data-bs-delay-show');
+        }
+
+        if (delay) {
+            options['delay'] = delay;
+        }
+
+        // Check dismiss options
+        if (el.hasAttribute('data-bs-dismiss') && el.getAttribute('data-bs-dismiss') == 'click') {
+            options['dismiss'] = 'click';
+        }
+
+        // Initialize popover
+        var tp = new bootstrap.Tooltip(el, options);        
+
+        // Handle dismiss
+        if (options['dismiss'] && options['dismiss'] === 'click') {
+            // Hide popover on element click
+            el.addEventListener("click", function (e) {
+                tp.hide();
+            });
+        }
+
+        el.setAttribute("data-kt-initialized", "1");
+
+        return tp;
+    }
+
+    var createBootstrapTooltips = function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            createBootstrapTooltip(tooltipTriggerEl, {});
+        });
+    }
+
+    var createBootstrapPopover = function (el, options) {
+        if (el.getAttribute("data-kt-initialized") === "1") {
+            return;
+        }
+
+        var delay = {};
+
+        // Handle delay options
+        if (el.hasAttribute('data-bs-delay-hide')) {
+            delay['hide'] = el.getAttribute('data-bs-delay-hide');
+        }
+
+        if (el.hasAttribute('data-bs-delay-show')) {
+            delay['show'] = el.getAttribute('data-bs-delay-show');
+        }
+
+        if (delay) {
+            options['delay'] = delay;
+        }
+
+        // Handle dismiss option
+        if (el.getAttribute('data-bs-dismiss') == 'true') {
+            options['dismiss'] = true;
+        }
+
+        if (options['dismiss'] === true) {
+            options['template'] = '<div class="popover" role="tooltip"><div class="popover-arrow"></div><span class="popover-dismiss btn btn-icon"></span><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+        }
+
+        // Initialize popover
+        var popover = new bootstrap.Popover(el, options);
+
+        // Handle dismiss click
+        if (options['dismiss'] === true) {
+            var dismissHandler = function (e) {
+                popover.hide();
+            }
+
+            el.addEventListener('shown.bs.popover', function () {
+                var dismissEl = document.getElementById(el.getAttribute('aria-describedby'));
+                dismissEl.addEventListener('click', dismissHandler);
+            });
+
+            el.addEventListener('hide.bs.popover', function () {
+                var dismissEl = document.getElementById(el.getAttribute('aria-describedby'));
+                dismissEl.removeEventListener('click', dismissHandler);
+            });
+        }
+
+        el.setAttribute("data-kt-initialized", "1");
+
+        return popover;
+    }
+
+    var createBootstrapPopovers = function () {
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            createBootstrapPopover(popoverTriggerEl, {});
+        });
+    }
+
+    var createBootstrapToasts = function () {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+        var toastList = toastElList.map(function (toastEl) {
+            if (toastEl.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            toastEl.setAttribute("data-kt-initialized", "1");
+
+            return new bootstrap.Toast(toastEl, {})
+        });
+    }
+
+    var createButtons = function () {
+        var buttonsGroup = [].slice.call(document.querySelectorAll('[data-kt-buttons="true"]'));
+
+        buttonsGroup.map(function (group) {
+            if (group.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            var selector = group.hasAttribute('data-kt-buttons-target') ? group.getAttribute('data-kt-buttons-target') : '.btn';
+            var activeButtons = [].slice.call(group.querySelectorAll(selector));
+
+            // Toggle Handler
+            KTUtil.on(group, selector, 'click', function (e) {
+                activeButtons.map(function (button) {
+                    button.classList.remove('active');
+                });
+
+                this.classList.add('active');
+            });       
+
+            group.setAttribute("data-kt-initialized", "1");
+        });
+    }
+
+    var createDateRangePickers = function() {
+        // Check if jQuery included
+        if (typeof jQuery == 'undefined') {
+            return;
+        }
+
+        // Check if daterangepicker included
+        if (typeof $.fn.daterangepicker === 'undefined') {
+            return;
+        }
+
+        var elements = [].slice.call(document.querySelectorAll('[data-kt-daterangepicker="true"]'));
+        var start = moment().subtract(29, 'days');
+        var end = moment();
+        
+        elements.map(function (element) {
+            if (element.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            var display = element.querySelector('div');
+            var attrOpens  = element.hasAttribute('data-kt-daterangepicker-opens') ? element.getAttribute('data-kt-daterangepicker-opens') : 'left';
+            var range = element.getAttribute('data-kt-daterangepicker-range');
+
+            var cb = function(start, end) {
+                var current = moment();
+
+                if (display) {
+                    if ( current.isSame(start, "day") && current.isSame(end, "day") ) {
+                        display.innerHTML = start.format('D MMM YYYY');
+                    } else {
+                        display.innerHTML = start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY');
+                    }                    
+                }
+            }
+
+            if ( range === "today" ) {
+                start = moment();
+                end = moment();
+            }
+
+            $(element).daterangepicker({
+                startDate: start,
+                endDate: end,
+                opens: attrOpens,
+                ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+
+            cb(start, end);
+
+            element.setAttribute("data-kt-initialized", "1");
+        });
+    }
+
+    var createSelect2 = function () {
+        // Check if jQuery included
+        if (typeof jQuery == 'undefined') {
+            return;
+        }
+
+        // Check if select2 included
+        if (typeof $.fn.select2 === 'undefined') {
+            return;
+        }
+
+        var elements = [].slice.call(document.querySelectorAll('[data-control="select2"], [data-kt-select2="true"]'));
+
+        elements.map(function (element) {
+            if (element.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            var options = {
+                dir: document.body.getAttribute('direction')
+            };
+
+            if (element.getAttribute('data-hide-search') == 'true') {
+                options.minimumResultsForSearch = Infinity;
+            }
+
+            $(element).select2(options);
+
+            element.setAttribute("data-kt-initialized", "1");
+        });
+
+        /*
+        * Hacky fix for a bug in select2 with jQuery 3.6.0's new nested-focus "protection"
+        * see: https://github.com/select2/select2/issues/5993
+        * see: https://github.com/jquery/jquery/issues/4382
+        *
+        * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
+        */
+
+        if (select2FocusFixInitialized === false) {
+            select2FocusFixInitialized = true;
+            
+            $(document).on('select2:open', function(e) {
+                var elements = document.querySelectorAll('.select2-container--open .select2-search__field');
+                if (elements.length > 0) {
+                    elements[elements.length - 1].focus();
+                }                
+            });
+        }        
+    }
+
+    var createAutosize = function () {
+        if (typeof autosize === 'undefined') {
+            return;
+        }
+
+        var inputs = [].slice.call(document.querySelectorAll('[data-kt-autosize="true"]'));
+
+        inputs.map(function (input) {
+            if (input.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            autosize(input);
+
+            input.setAttribute("data-kt-initialized", "1");
+        });
+    }
+
+    var createCountUp = function () {
+        if (typeof countUp === 'undefined') {
+            return;
+        }
+
+        var elements = [].slice.call(document.querySelectorAll('[data-kt-countup="true"]:not(.counted)'));
+
+        elements.map(function (element) {
+            if (KTUtil.isInViewport(element) && KTUtil.visible(element)) {
+                if (element.getAttribute("data-kt-initialized") === "1") {
+                    return;
+                }
+
+                var options = {};
+
+                var value = element.getAttribute('data-kt-countup-value');
+                value = parseFloat(value.replace(/,/g, ""));
+
+                if (element.hasAttribute('data-kt-countup-start-val')) {
+                    options.startVal = parseFloat(element.getAttribute('data-kt-countup-start-val'));
+                }
+
+                if (element.hasAttribute('data-kt-countup-duration')) {
+                    options.duration = parseInt(element.getAttribute('data-kt-countup-duration'));
+                }
+
+                if (element.hasAttribute('data-kt-countup-decimal-places')) {
+                    options.decimalPlaces = parseInt(element.getAttribute('data-kt-countup-decimal-places'));
+                }
+
+                if (element.hasAttribute('data-kt-countup-prefix')) {
+                    options.prefix = element.getAttribute('data-kt-countup-prefix');
+                }
+
+                if (element.hasAttribute('data-kt-countup-separator')) {
+                    options.separator = element.getAttribute('data-kt-countup-separator');
+                }
+
+                if (element.hasAttribute('data-kt-countup-suffix')) {
+                    options.suffix = element.getAttribute('data-kt-countup-suffix');
+                }
+
+                var count = new countUp.CountUp(element, value, options);
+
+                count.start();
+
+                element.classList.add('counted');
+
+                element.setAttribute("data-kt-initialized", "1");
+            }
+        });
+    }
+
+    var createCountUpTabs = function () {
+        if (typeof countUp === 'undefined') {
+            return;
+        }
+
+        if (countUpInitialized === false) {
+            // Initial call
+            createCountUp();
+
+            // Window scroll event handler
+            window.addEventListener('scroll', createCountUp);
+        }      
+
+        // Tabs shown event handler
+        var tabs = [].slice.call(document.querySelectorAll('[data-kt-countup-tabs="true"][data-bs-toggle="tab"]'));
+        tabs.map(function (tab) {
+            if (tab.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            tab.addEventListener('shown.bs.tab', createCountUp);
+
+            tab.setAttribute("data-kt-initialized", "1");
+        });
+
+        countUpInitialized = true;
+    }
+
+    var createTinySliders = function () {
+        if (typeof tns === 'undefined') {
+            return;
+        }
+
+        // Sliders
+        const elements = Array.prototype.slice.call(document.querySelectorAll('[data-tns="true"]'), 0);
+
+        if (!elements && elements.length === 0) {
+            return;
+        }
+
+        elements.forEach(function (el) {
+            if (el.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            initTinySlider(el);
+
+            el.setAttribute("data-kt-initialized", "1");
+        });
+    }
+
+    var initTinySlider = function (el) {
+        if (!el) {
+            return;
+        }
+
+        const tnsOptions = {};
+
+        // Convert string boolean
+        const checkBool = function (val) {
+            if (val === 'true') {
+                return true;
+            }
+            if (val === 'false') {
+                return false;
+            }
+            return val;
+        };
+
+        // get extra options via data attributes
+        el.getAttributeNames().forEach(function (attrName) {
+            // more options; https://github.com/ganlanyuan/tiny-slider#options
+            if ((/^data-tns-.*/g).test(attrName)) {
+                let optionName = attrName.replace('data-tns-', '').toLowerCase().replace(/(?:[\s-])\w/g, function (match) {
+                    return match.replace('-', '').toUpperCase();
+                });
+
+                if (attrName === 'data-tns-responsive') {
+                    // fix string with a valid json
+                    const jsonStr = el.getAttribute(attrName).replace(/(\w+:)|(\w+ :)/g, function (matched) {
+                        return '"' + matched.substring(0, matched.length - 1) + '":';
+                    });
+                    try {
+                        // convert json string to object
+                        tnsOptions[optionName] = JSON.parse(jsonStr);
+                    }
+                    catch (e) {
+                    }
+                }
+                else {
+                    tnsOptions[optionName] = checkBool(el.getAttribute(attrName));
+                }
+            }
+        });
+
+        const opt = Object.assign({}, {
+            container: el,
+            slideBy: 'page',
+            autoplay: true,
+            center: true,
+            autoplayButtonOutput: false,
+        }, tnsOptions);
+
+        if (el.closest('.tns')) {
+            KTUtil.addClass(el.closest('.tns'), 'tns-initiazlied');
+        }
+
+        return tns(opt);
+    }
+
+    var initSmoothScroll = function () {
+        if (initialized === true) {
+            return;
+        }
+
+        if (typeof SmoothScroll === 'undefined') {
+            return;
+        }
+
+        new SmoothScroll('a[data-kt-scroll-toggle][href*="#"]', {
+            speed: 1000,
+            speedAsDuration: true,
+            offset: function (anchor, toggle) {
+                // Integer or Function returning an integer. How far to offset the scrolling anchor location in pixels
+                // This example is a function, but you could do something as simple as `offset: 25`
+
+                // An example returning different values based on whether the clicked link was in the header nav or not
+                if (anchor.hasAttribute('data-kt-scroll-offset')) {
+                    var val = KTUtil.getResponsiveValue(anchor.getAttribute('data-kt-scroll-offset'));
+                    
+                    return val;
+                } else {
+                    return 0;
+                }
+            }
+        });
+    }
+
+    var initCard = function() {
+        // Toggle Handler
+        KTUtil.on(document.body, '[data-kt-card-action="remove"]', 'click', function (e) {
+            e.preventDefault();
+            
+            const card = this.closest('.card');
+
+            if (!card) {
+                return;
+            }
+
+            const confirmMessage = this.getAttribute("data-kt-card-confirm-message");
+            const confirm = this.getAttribute("data-kt-card-confirm") === "true";
+
+            if (confirm) {
+                // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
+                Swal.fire({
+                    text: confirmMessage ? confirmMessage : "Are you sure to remove ?",
+                    icon: "warning",
+                    buttonsStyling: false,
+                    confirmButtonText: "Confirm",
+                    denyButtonText: "Cancel",
+                    customClass: {
+                        confirmButton: "btn btn-primary",
+                        denyButton: "btn btn-danger"
+                    }
+                }).then(function (result) {
+                    if (result.isConfirmed) { 
+                        card.remove();
+                    }
+                });
+            } else {
+                card.remove();
+            }            
+        });        
+    }
+
+    var initModal = function() {
+        var elements = Array.prototype.slice.call(document.querySelectorAll("[data-bs-stacked-modal]"));
+
+        if (elements && elements.length > 0) {
+            elements.forEach((element) => {
+                if (element.getAttribute("data-kt-initialized") === "1") {
+                    return;
+                }
+    
+                element.setAttribute("data-kt-initialized", "1");
+    
+                element.addEventListener("click", function(e) {
+                    e.preventDefault();
+    
+                    const modalEl = document.querySelector(this.getAttribute("data-bs-stacked-modal"));
+    
+                    if (modalEl) {
+                        const modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                    }                
+                }); 
+            });
+        }        
+    }
+
+    var initCheck = function () {
+        if (initialized === true) {
+            return;
+        }
+
+        // Toggle Handler
+        KTUtil.on(document.body, '[data-kt-check="true"]', 'change', function (e) {
+            var check = this;
+            var targets = document.querySelectorAll(check.getAttribute('data-kt-check-target'));
+
+            KTUtil.each(targets, function (target) {
+                if (target.type == 'checkbox') {
+                    target.checked = check.checked;
+                } else {
+                    target.classList.toggle('active');
+                }
+            });
+        });
+    }
+
+    var initBootstrapCollapse = function() {
+        if (initialized === true) {
+            return;
+        }
+
+        KTUtil.on(document.body,  '.collapsible[data-bs-toggle="collapse"]', 'click', function(e) {
+            if (this.classList.contains('collapsed')) {
+                this.classList.remove('active');
+                this.blur();
+            } else {
+                this.classList.add('active');
+            }
+
+            if (this.hasAttribute('data-kt-toggle-text')) {
+                var text = this.getAttribute('data-kt-toggle-text');
+                var target = this.querySelector('[data-kt-toggle-text-target="true"]');
+                var target = target ? target : this;
+
+                this.setAttribute('data-kt-toggle-text', target.innerText);
+                target.innerText = text;
+            }
+        });
+    }
+
+    var initBootstrapRotate = function() {
+        if (initialized === true) {
+            return;
+        }
+        
+        KTUtil.on(document.body,  '[data-kt-rotate="true"]', 'click', function(e) {
+            if (this.classList.contains('active')) {
+                this.classList.remove('active');
+                this.blur();
+            } else {
+                this.classList.add('active');
+            }
+        });
+    }
+
+    var initLozad = function() {
+        // Check if lozad included
+        if (typeof lozad === 'undefined') {
+            return;
+        }
+
+		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+        observer.observe();
+	}
+
+    var showPageLoading = function() {
+        document.body.classList.add('page-loading');
+        document.body.setAttribute('data-kt-app-page-loading', "on");
+    }
+
+    var hidePageLoading = function() {
+        // CSS3 Transitions only after page load(.page-loading or .app-page-loading class added to body tag and remove with JS on page load)
+        document.body.classList.remove('page-loading');
+        document.body.removeAttribute('data-kt-app-page-loading');
+    }
+
+    return {
+        init: function () {
+            initLozad();
+
+            initSmoothScroll();
+
+            initCard();
+
+            initModal();
+
+            initCheck();
+
+            initBootstrapCollapse();
+
+            initBootstrapRotate();            
+
+            createBootstrapTooltips();
+
+            createBootstrapPopovers();
+
+            createBootstrapToasts();
+
+            createDateRangePickers();
+
+            createButtons();
+
+            createSelect2();
+
+            createCountUp();
+
+            createCountUpTabs();
+
+            createAutosize();
+
+            createTinySliders();
+
+            initialized = true;
+        },
+
+        initTinySlider: function(el) {
+            initTinySlider(el);
+        },
+
+        showPageLoading: function () {
+            showPageLoading();
+        },
+
+        hidePageLoading: function () {
+            hidePageLoading();
+        },
+
+        createBootstrapPopover: function(el, options) {
+            return createBootstrapPopover(el, options);
+        },
+
+        createBootstrapTooltip: function(el, options) {
+            return createBootstrapTooltip(el, options);
+        }
+    };
+}();
+
+// Declare KTApp for Webpack support
+if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = KTApp;
+}
+"use strict";
+
+// Class definition
 var KTBlockUI = function(element, options) {
     //////////////////////////////
     // ** Private variables  ** //
@@ -523,18 +1207,13 @@ KTDialer.init = function() {
     KTDialer.createInstances();
 };
 
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTDialer.init);
-} else {
-    KTDialer.init();
-}
-
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTDialer;
 }
 "use strict";
+
+var KTDrawerHandlersInitialized = false; 
 
 // Class definition
 var KTDrawer = function(element, options) {
@@ -762,7 +1441,10 @@ var KTDrawer = function(element, options) {
 
             KTUtil.addEvent(the.overlayElement, 'click', function(e) {
                 e.preventDefault();
-                _hide();
+
+                if ( _getOption('permanent') !== true ) {
+                    _hide();
+                }
             });
         }
     }
@@ -978,17 +1660,15 @@ KTDrawer.handleResize = function() {
 // Global initialization
 KTDrawer.init = function() {
     KTDrawer.createInstances();
-    KTDrawer.handleResize();
-    KTDrawer.handleShow();
-    KTDrawer.handleDismiss();
-};
 
-// On document ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', KTDrawer.init);
-} else {
-    KTDrawer.init();
-}
+    if (KTDrawerHandlersInitialized === false) {
+        KTDrawer.handleResize();
+        KTDrawer.handleShow();
+        KTDrawer.handleDismiss();
+
+        KTDrawerHandlersInitialized = true;
+    }
+};
 
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -1433,7 +2113,7 @@ var KTImageInput = function(element, options) {
         return the.inputElement;
     }
 
-    the.goElement = function() {
+    the.getElement = function() {
         return the.element;
     }
     
@@ -1485,19 +2165,14 @@ KTImageInput.init = function() {
     KTImageInput.createInstances();
 };
 
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTImageInput.init);
-} else {
-    KTImageInput.init();
-}
-
 // Webpack Support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTImageInput;
 }
 
 "use strict";
+
+var KTMenuHandlersInitialized = false;
 
 // Class definition
 var KTMenu = function(element, options) {
@@ -1742,7 +2417,7 @@ var KTMenu = function(element, options) {
 
     // Set external trigger element
     var _setTriggerElement = function() {
-        var target = document.querySelector('[data-kt-menu-target="# ' + the.element.getAttribute('id')  + '"]');
+        var target = document.querySelector('[data-kt-menu-target="#' + the.element.getAttribute('id')  + '"]');
 
         if ( target !== null ) {
             the.triggerElement = target;
@@ -1876,7 +2551,7 @@ var KTMenu = function(element, options) {
         var sub = item.closest('.menu-sub');
         var parentItem;
 
-        if ( KTUtil.data(sub).has('item') ) {
+        if ( sub && KTUtil.data(sub).has('item') ) {
             return KTUtil.data(sub).get('item');
         }
 
@@ -2328,6 +3003,10 @@ var KTMenu = function(element, options) {
         return _hide(item);
     }
 
+    the.toggle = function(item) {
+        return _toggle(item);
+    }
+
     the.reset = function(item) {
         return _reset(item);
     }
@@ -2485,7 +3164,7 @@ KTMenu.updateDropdowns = function() {
 KTMenu.initHandlers = function() {
     // Dropdown handler
     document.addEventListener("click", function(e) {
-        var items = document.querySelectorAll('.show.menu-dropdown[data-kt-menu-trigger]');
+        var items = document.querySelectorAll('.show.menu-dropdown[data-kt-menu-trigger]:not([data-kt-menu-static="true"])');
         var menu;
         var item;
         var sub;
@@ -2582,7 +3261,7 @@ KTMenu.initHandlers = function() {
 
 // Render menus by url
 KTMenu.updateByLinkAttribute = function(value, name = "href") {
-    // Locate and update Offcanvas instances on window resize
+    // Set menu link active state by attribute value
     var elements = document.querySelectorAll('[data-kt-menu="true"]');
 
     if ( elements && elements.length > 0 ) {
@@ -2612,19 +3291,14 @@ KTMenu.createInstances = function(selector = '[data-kt-menu="true"]') {
 
 // Global initialization
 KTMenu.init = function() {
-    // Event handlers
-    KTMenu.initHandlers();
-
-    // Initialization
     KTMenu.createInstances();
-};
 
-// On document ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', KTMenu.init);
-} else {
-    KTMenu.init();
-}
+    if (KTMenuHandlersInitialized === false) {
+        KTMenu.initHandlers();
+
+        KTMenuHandlersInitialized = true;
+    }    
+};
 
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -2692,9 +3366,11 @@ var KTPasswordMeter = function(element, options) {
 
     // Handlers
     var _handlers = function() {
-        the.inputElement.addEventListener('input', function() {
-            _check();
-        });
+        if (the.highlightElement) {
+            the.inputElement.addEventListener('input', function() {
+                _check();
+            });
+        }
 
         if (the.visibilityElement) {
             the.visibilityElement.addEventListener('click', function() {
@@ -2796,8 +3472,8 @@ var KTPasswordMeter = function(element, options) {
     }
 
     var _visibility = function() {
-        var visibleIcon = the.visibilityElement.querySelector('i:not(.d-none), .svg-icon:not(.d-none)');
-        var hiddenIcon = the.visibilityElement.querySelector('i.d-none, .svg-icon.d-none');
+        var visibleIcon = the.visibilityElement.querySelector(':scope > i:not(.d-none)');
+        var hiddenIcon = the.visibilityElement.querySelector(':scope > i.d-none');
         
         if (the.inputElement.getAttribute('type').toLowerCase() === 'password' ) {
             the.inputElement.setAttribute('type', 'text');
@@ -2878,18 +3554,13 @@ KTPasswordMeter.init = function() {
     KTPasswordMeter.createInstances();
 };
 
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTPasswordMeter.init);
-} else {
-    KTPasswordMeter.init();
-}
-
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTPasswordMeter;
 }
 "use strict";
+
+var KTScrollHandlersInitialized = false;
 
 // Class definition
 var KTScroll = function(element, options) {
@@ -3047,6 +3718,8 @@ var KTScroll = function(element, options) {
         height = height - _getElementSpacing(the.element); 
 
         // Height dependencies
+        //console.log('Q:' + JSON.stringify(dependencies));
+
         if ( dependencies !== null ) {
             var elements = document.querySelectorAll(dependencies);
 
@@ -3231,15 +3904,13 @@ KTScroll.handleResize = function() {
 // Global initialization
 KTScroll.init = function() {
     KTScroll.createInstances();
-    KTScroll.handleResize();
-};
 
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTScroll.init);
-} else {
-    KTScroll.init();
-}
+    if (KTScrollHandlersInitialized === false) {
+        KTScroll.handleResize();
+
+        KTScrollHandlersInitialized = true;
+    }    
+};
 
 // Webpack Support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -3393,11 +4064,10 @@ KTScrolltop.getInstance = function(element) {
 KTScrolltop.createInstances = function(selector = '[data-kt-scrolltop="true"]') {
     // Initialize Menus
     var elements = document.body.querySelectorAll(selector);
-    var scrolltop;
 
     if ( elements && elements.length > 0 ) {
         for (var i = 0, len = elements.length; i < len; i++) {
-            scrolltop = new KTScrolltop(elements[i]);
+            new KTScrolltop(elements[i]);
         }
     }
 }
@@ -3406,13 +4076,6 @@ KTScrolltop.createInstances = function(selector = '[data-kt-scrolltop="true"]') 
 KTScrolltop.init = function() {
     KTScrolltop.createInstances();
 };
-
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTScrolltop.init);
-} else {
-    KTScrolltop.init();
-}
 
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -4209,6 +4872,8 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 
 "use strict";
 
+var KTStickyHandlersInitialized = false;
+
 // Class definition
 var KTSticky = function(element, options) {
     ////////////////////////////
@@ -4224,6 +4889,7 @@ var KTSticky = function(element, options) {
     var defaultOptions = {
         offset: 200,
         reverse: false,
+        release: null,
         animation: true,
         animationSpeed: '0.3s',
         animationClass: 'animation-slide-in-down'
@@ -4266,6 +4932,7 @@ var KTSticky = function(element, options) {
 
     var _scroll = function(e) {
         var offset = _getOption('offset');
+        var release = _getOption('release');
         var reverse = _getOption('reverse');
         var st;
         var attrName;
@@ -4277,11 +4944,15 @@ var KTSticky = function(element, options) {
         }
 
         offset = parseInt(offset);
+        release = release ? document.querySelector(release) : null;
+
         st = KTUtil.getScrollTop();
         diff = document.documentElement.scrollHeight - window.innerHeight - KTUtil.getScrollTop();
+        
+        var proceed = (!release || (release.offsetTop - release.clientHeight) > st);
 
         if ( reverse === true ) {  // Release on reverse scroll mode
-            if ( st > offset) {
+            if ( st > offset && proceed ) {
                 if ( document.body.hasAttribute(the.attributeName) === false) {
                     
                     if (_enable() === false) {
@@ -4290,6 +4961,7 @@ var KTSticky = function(element, options) {
 
                     document.body.setAttribute(the.attributeName, 'on');
                     document.body.setAttribute(the.attributeName2, 'on');
+                    the.element.setAttribute("data-kt-sticky-enabled", "true");
                 }
 
                 if ( the.eventTriggerState === true ) {
@@ -4303,6 +4975,7 @@ var KTSticky = function(element, options) {
                     _disable();
                     document.body.removeAttribute(the.attributeName);
                     document.body.removeAttribute(the.attributeName2);
+                    the.element.removeAttribute("data-kt-sticky-enabled");
                 }
 
                 if ( the.eventTriggerState === false ) {
@@ -4314,7 +4987,7 @@ var KTSticky = function(element, options) {
 
             the.lastScrollTop = st;
         } else { // Classic scroll mode
-            if ( st > offset) {
+            if ( st > offset && proceed ) {
                 if ( document.body.hasAttribute(the.attributeName) === false) {
                     
                     if (_enable() === false) {
@@ -4323,6 +4996,7 @@ var KTSticky = function(element, options) {
                     
                     document.body.setAttribute(the.attributeName, 'on');
                     document.body.setAttribute(the.attributeName2, 'on');
+                    the.element.setAttribute("data-kt-sticky-enabled", "true");
                 }
 
                 if ( the.eventTriggerState === true ) {
@@ -4335,6 +5009,7 @@ var KTSticky = function(element, options) {
                     _disable();
                     document.body.removeAttribute(the.attributeName);
                     document.body.removeAttribute(the.attributeName2);
+                    the.element.removeAttribute("data-kt-sticky-enabled");
                 }
 
                 if ( the.eventTriggerState === false ) {
@@ -4344,6 +5019,14 @@ var KTSticky = function(element, options) {
                 }
             }
         }      
+
+        if (release) {
+            if ( release.offsetTop - release.clientHeight > st ) {
+                the.element.setAttribute('data-kt-sticky-released', 'true');
+            } else {
+                the.element.removeAttribute('data-kt-sticky-released');
+            }
+        } 
     }
 
     var _enable = function(update) {
@@ -4379,7 +5062,7 @@ var KTSticky = function(element, options) {
             KTUtil.css(the.element, 'position', 'fixed');
         }
 
-        if ( top > 0 ) {
+        if ( top >= 0 ) {
             KTUtil.css(the.element, 'top', String(top) + 'px');
         }
 
@@ -4398,7 +5081,7 @@ var KTSticky = function(element, options) {
             if ( String(left).toLowerCase() === 'auto' ) {
                 var offsetLeft = KTUtil.offset(the.element).left;
 
-                if ( offsetLeft > 0 ) {
+                if ( offsetLeft >= 0 ) {
                     KTUtil.css(the.element, 'left', String(offsetLeft) + 'px');
                 }
             } else {
@@ -4585,15 +5268,12 @@ KTSticky.handleResize = function() {
 // Global initialization
 KTSticky.init = function() {
     KTSticky.createInstances();
-    KTSticky.handleResize();
-};
 
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTSticky.init);
-} else {
-    KTSticky.init();
-}
+    if (KTStickyHandlersInitialized === false) {
+        KTSticky.handleResize();
+        KTStickyHandlersInitialized = true;
+    }    
+};
 
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -4601,6 +5281,8 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 }
 
 "use strict";
+
+var KTSwapperHandlersInitialized = false;
 
 // Class definition
 var KTSwapper = function(element, options) {
@@ -4744,35 +5426,35 @@ KTSwapper.createInstances = function(selector = '[data-kt-swapper="true"]') {
 }
 
 // Window resize handler
-window.addEventListener('resize', function() {
-    var timer;
-
-    KTUtil.throttle(timer, function() {
-        // Locate and update Offcanvas instances on window resize
-        var elements = document.querySelectorAll('[data-kt-swapper="true"]');
-
-        if ( elements && elements.length > 0 ) {
-            for (var i = 0, len = elements.length; i < len; i++) {
-                var swapper = KTSwapper.getInstance(elements[i]);
-                if (swapper) {
-                    swapper.update();
-                }                
+KTSwapper.handleResize = function() {
+    window.addEventListener('resize', function() {
+        var timer;
+    
+        KTUtil.throttle(timer, function() {
+            // Locate and update Offcanvas instances on window resize
+            var elements = document.querySelectorAll('[data-kt-swapper="true"]');
+    
+            if ( elements && elements.length > 0 ) {
+                for (var i = 0, len = elements.length; i < len; i++) {
+                    var swapper = KTSwapper.getInstance(elements[i]);
+                    if (swapper) {
+                        swapper.update();
+                    }                
+                }
             }
-        }
-    }, 200);
-});
+        }, 200);
+    });
+};
 
 // Global initialization
 KTSwapper.init = function() {
     KTSwapper.createInstances();
-};
 
-// On document ready
-if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', KTSwapper.init);
-} else {
-    KTSwapper.init();
-}
+    if (KTSwapperHandlersInitialized === false) {
+        KTSwapper.handleResize();
+        KTSwapperHandlersInitialized = true;
+    }
+};
 
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -4990,13 +5672,6 @@ KTToggle.createInstances = function(selector = '[data-kt-toggle]') {
 KTToggle.init = function() {
     KTToggle.createInstances();
 };
-
-// On document ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', KTToggle.init);
-} else {
-    KTToggle.init();
-}
 
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
@@ -5307,7 +5982,7 @@ var KTUtil = function() {
          * @returns {number}
          */
         getBreakpoint: function(breakpoint) {
-            var value = this.getCssVariableValue('--kt-' + breakpoint);
+            var value = this.getCssVariableValue('--bs-' + breakpoint);
 
             if ( value ) {
                 value = parseInt(value.trim());
@@ -5836,19 +6511,15 @@ var KTUtil = function() {
             return !(el.offsetWidth === 0 && el.offsetHeight === 0);
         },
 
-        isVisibleInContainer: function (el, container) {
+        isVisibleInContainer: function (el, container, offset = 0) {
             const eleTop = el.offsetTop;
-            const eleBottom = eleTop + el.clientHeight;
-        
+            const eleBottom = eleTop + el.clientHeight + offset;
             const containerTop = container.scrollTop;
             const containerBottom = containerTop + container.clientHeight;
         
             // The element is fully visible in the container
             return (
-                (eleTop >= containerTop && eleBottom <= containerBottom) ||
-                // Some part of the element is visible in the container
-                (eleTop < containerTop && containerTop < eleBottom) ||
-                (eleTop < containerBottom && containerBottom < eleBottom)
+                (eleTop >= containerTop && eleBottom <= containerBottom)
             );
         },
 
@@ -6472,7 +7143,7 @@ var KTUtil = function() {
 
         getResponsiveValue: function(value, defaultValue) {
             var width = this.getViewPort().width;
-            var result;
+            var result = null;
 
             value = KTUtil.parseJson(value);
 
@@ -6566,6 +7237,22 @@ var KTUtil = function() {
             );
         },
 
+        isPartiallyInViewport: function(element) {        
+            let x = element.getBoundingClientRect().left;
+            let y = element.getBoundingClientRect().top;
+            let ww = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+            let hw = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            let w = element.clientWidth;
+            let h = element.clientHeight;
+
+            return (
+                (y < hw &&
+                y + h > 0) &&
+                (x < ww &&
+                x + w > 0)
+            );
+        },
+
         onDOMContentLoaded: function(callback) {
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', callback);
@@ -6592,576 +7279,47 @@ var KTUtil = function() {
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTUtil;
 }
-"use strict";
-
-// Class definition
-var KTApp = function () {
-    var select2FocusFixInitialized = false;
-    var countUpInitialized = false;
-
-    var createBootstrapTooltip = function (el, options) {
-        if (el.getAttribute("data-kt-initialized") === "1") {
-            return;
-        }
-
-        var delay = {};
-
-        // Handle delay options
-        if (el.hasAttribute('data-bs-delay-hide')) {
-            delay['hide'] = el.getAttribute('data-bs-delay-hide');
-        }
-
-        if (el.hasAttribute('data-bs-delay-show')) {
-            delay['show'] = el.getAttribute('data-bs-delay-show');
-        }
-
-        if (delay) {
-            options['delay'] = delay;
-        }
-
-        // Check dismiss options
-        if (el.hasAttribute('data-bs-dismiss') && el.getAttribute('data-bs-dismiss') == 'click') {
-            options['dismiss'] = 'click';
-        }
-
-        // Initialize popover
-        var tp = new bootstrap.Tooltip(el, options);        
-
-        // Handle dismiss
-        if (options['dismiss'] && options['dismiss'] === 'click') {
-            // Hide popover on element click
-            el.addEventListener("click", function (e) {
-                tp.hide();
-            });
-        }
-
-        el.setAttribute("data-kt-initialized", "1");
-
-        return tp;
-    }
-
-    var createBootstrapTooltips = function () {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            createBootstrapTooltip(tooltipTriggerEl, {});
-        });
-    }
-
-    var createBootstrapPopover = function (el, options) {
-        if (el.getAttribute("data-kt-initialized") === "1") {
-            return;
-        }
-
-        var delay = {};
-
-        // Handle delay options
-        if (el.hasAttribute('data-bs-delay-hide')) {
-            delay['hide'] = el.getAttribute('data-bs-delay-hide');
-        }
-
-        if (el.hasAttribute('data-bs-delay-show')) {
-            delay['show'] = el.getAttribute('data-bs-delay-show');
-        }
-
-        if (delay) {
-            options['delay'] = delay;
-        }
-
-        // Handle dismiss option
-        if (el.getAttribute('data-bs-dismiss') == 'true') {
-            options['dismiss'] = true;
-        }
-
-        if (options['dismiss'] === true) {
-            options['template'] = '<div class="popover" role="tooltip"><div class="popover-arrow"></div><span class="popover-dismiss btn btn-icon"></span><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
-        }
-
-        // Initialize popover
-        var popover = new bootstrap.Popover(el, options);
-
-        // Handle dismiss click
-        if (options['dismiss'] === true) {
-            var dismissHandler = function (e) {
-                popover.hide();
-            }
-
-            el.addEventListener('shown.bs.popover', function () {
-                var dismissEl = document.getElementById(el.getAttribute('aria-describedby'));
-                dismissEl.addEventListener('click', dismissHandler);
-            });
-
-            el.addEventListener('hide.bs.popover', function () {
-                var dismissEl = document.getElementById(el.getAttribute('aria-describedby'));
-                dismissEl.removeEventListener('click', dismissHandler);
-            });
-        }
-
-        el.setAttribute("data-kt-initialized", "1");
-
-        return popover;
-    }
-
-    var createBootstrapPopovers = function () {
-        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-
-        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-            createBootstrapPopover(popoverTriggerEl, {});
-        });
-    }
-
-    var createBootstrapToasts = function () {
-        var toastElList = [].slice.call(document.querySelectorAll('.toast'));
-        var toastList = toastElList.map(function (toastEl) {
-            if (toastEl.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            toastEl.setAttribute("data-kt-initialized", "1");
-
-            return new bootstrap.Toast(toastEl, {})
-        });
-    }
-
-    var createButtons = function () {
-        var buttonsGroup = [].slice.call(document.querySelectorAll('[data-kt-buttons="true"]'));
-
-        buttonsGroup.map(function (group) {
-            if (group.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            var selector = group.hasAttribute('data-kt-buttons-target') ? group.getAttribute('data-kt-buttons-target') : '.btn';
-            var activeButtons = [].slice.call(group.querySelectorAll(selector));
-
-            // Toggle Handler
-            KTUtil.on(group, selector, 'click', function (e) {
-                activeButtons.map(function (button) {
-                    button.classList.remove('active');
-                });
-
-                this.classList.add('active');
-            });       
-
-            group.setAttribute("data-kt-initialized", "1");
-        });
-    }
-
-    var createDateRangePickers = function() {
-        // Check if jQuery included
-        if (typeof jQuery == 'undefined') {
-            return;
-        }
-
-        // Check if daterangepicker included
-        if (typeof $.fn.daterangepicker === 'undefined') {
-            return;
-        }
-
-        var elements = [].slice.call(document.querySelectorAll('[data-kt-daterangepicker="true"]'));
-        var start = moment().subtract(29, 'days');
-        var end = moment();
-        
-        elements.map(function (element) {
-            if (element.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            var display = element.querySelector('div');
-            var attrOpens  = element.hasAttribute('data-kt-daterangepicker-opens') ? element.getAttribute('data-kt-daterangepicker-opens') : 'left';
-            var range = element.getAttribute('data-kt-daterangepicker-range');
-
-            var cb = function(start, end) {
-                var current = moment();
-
-                if (display) {
-                    if ( current.isSame(start, "day") && current.isSame(end, "day") ) {
-                        display.innerHTML = start.format('D MMM YYYY');
-                    } else {
-                        display.innerHTML = start.format('D MMM YYYY') + ' - ' + end.format('D MMM YYYY');
-                    }                    
-                }
-            }
-
-            if ( range === "today" ) {
-                start = moment();
-                end = moment();
-            }
-
-            $(element).daterangepicker({
-                startDate: start,
-                endDate: end,
-                opens: attrOpens,
-                ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                }
-            }, cb);
-
-            cb(start, end);
-
-            element.setAttribute("data-kt-initialized", "1");
-        });
-    }
-
-    var createSelect2 = function () {
-        // Check if jQuery included
-        if (typeof jQuery == 'undefined') {
-            return;
-        }
-
-        // Check if select2 included
-        if (typeof $.fn.select2 === 'undefined') {
-            return;
-        }
-
-        var elements = [].slice.call(document.querySelectorAll('[data-control="select2"], [data-kt-select2="true"]'));
-
-        elements.map(function (element) {
-            if (element.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            var options = {
-                dir: document.body.getAttribute('direction')
-            };
-
-            if (element.getAttribute('data-hide-search') == 'true') {
-                options.minimumResultsForSearch = Infinity;
-            }
-
-            $(element).select2(options);
-
-            element.setAttribute("data-kt-initialized", "1");
-        });
-
-        /*
-        * Hacky fix for a bug in select2 with jQuery 3.6.0's new nested-focus "protection"
-        * see: https://github.com/select2/select2/issues/5993
-        * see: https://github.com/jquery/jquery/issues/4382
-        *
-        * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
-        */
-
-        if (select2FocusFixInitialized === false) {
-            select2FocusFixInitialized = true;
-            
-            $(document).on('select2:open', function(e) {
-                var elements = document.querySelectorAll('.select2-container--open .select2-search__field');
-                if (elements.length > 0) {
-                    elements[elements.length - 1].focus();
-                }                
-            });
-        }        
-    }
-
-    var createAutosize = function () {
-        var inputs = [].slice.call(document.querySelectorAll('[data-kt-autosize="true"]'));
-
-        inputs.map(function (input) {
-            if (input.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            autosize(input);
-
-            input.setAttribute("data-kt-initialized", "1");
-        });
-    }
-
-    var createCountUp = function () {
-        var elements = [].slice.call(document.querySelectorAll('[data-kt-countup="true"]:not(.counted)'));
-
-        elements.map(function (element) {
-            if (KTUtil.isInViewport(element) && KTUtil.visible(element)) {
-                if (element.getAttribute("data-kt-initialized") === "1") {
-                    return;
-                }
-
-                var options = {};
-
-                var value = element.getAttribute('data-kt-countup-value');
-                value = parseFloat(value.replace(/,/g, ""));
-
-                if (element.hasAttribute('data-kt-countup-start-val')) {
-                    options.startVal = parseFloat(element.getAttribute('data-kt-countup-start-val'));
-                }
-
-                if (element.hasAttribute('data-kt-countup-duration')) {
-                    options.duration = parseInt(element.getAttribute('data-kt-countup-duration'));
-                }
-
-                if (element.hasAttribute('data-kt-countup-decimal-places')) {
-                    options.decimalPlaces = parseInt(element.getAttribute('data-kt-countup-decimal-places'));
-                }
-
-                if (element.hasAttribute('data-kt-countup-prefix')) {
-                    options.prefix = element.getAttribute('data-kt-countup-prefix');
-                }
-
-                if (element.hasAttribute('data-kt-countup-separator')) {
-                    options.separator = element.getAttribute('data-kt-countup-separator');
-                }
-
-                if (element.hasAttribute('data-kt-countup-suffix')) {
-                    options.suffix = element.getAttribute('data-kt-countup-suffix');
-                }
-
-                var count = new countUp.CountUp(element, value, options);
-
-                count.start();
-
-                element.classList.add('counted');
-
-                element.setAttribute("data-kt-initialized", "1");
-            }
-        });
-    }
-
-    var createCountUpTabs = function () {
-        if (countUpInitialized === false) {
-            // Initial call
-            createCountUp();
-
-            // Window scroll event handler
-            window.addEventListener('scroll', createCountUp);
-        }      
-
-        // Tabs shown event handler
-        var tabs = [].slice.call(document.querySelectorAll('[data-kt-countup-tabs="true"][data-bs-toggle="tab"]'));
-        tabs.map(function (tab) {
-            if (tab.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            tab.addEventListener('shown.bs.tab', createCountUp);
-
-            tab.setAttribute("data-kt-initialized", "1");
-        });
-
-        countUpInitialized = true;
-    }
-
-    var createTinySliders = function () {
-        // Init Slider
-        var initSlider = function (el) {
-            if (!el) {
-                return;
-            }
-
-            const tnsOptions = {};
-
-            // Convert string boolean
-            const checkBool = function (val) {
-                if (val === 'true') {
-                    return true;
-                }
-                if (val === 'false') {
-                    return false;
-                }
-                return val;
-            };
-
-            // get extra options via data attributes
-            el.getAttributeNames().forEach(function (attrName) {
-                // more options; https://github.com/ganlanyuan/tiny-slider#options
-                if ((/^data-tns-.*/g).test(attrName)) {
-                    let optionName = attrName.replace('data-tns-', '').toLowerCase().replace(/(?:[\s-])\w/g, function (match) {
-                        return match.replace('-', '').toUpperCase();
-                    });
-
-                    if (attrName === 'data-tns-responsive') {
-                        // fix string with a valid json
-                        const jsonStr = el.getAttribute(attrName).replace(/(\w+:)|(\w+ :)/g, function (matched) {
-                            return '"' + matched.substring(0, matched.length - 1) + '":';
-                        });
-                        try {
-                            // convert json string to object
-                            tnsOptions[optionName] = JSON.parse(jsonStr);
-                        }
-                        catch (e) {
-                        }
-                    }
-                    else {
-                        tnsOptions[optionName] = checkBool(el.getAttribute(attrName));
-                    }
-                }
-            });
-
-            const opt = Object.assign({}, {
-                container: el,
-                slideBy: 'page',
-                autoplay: true,
-                autoplayButtonOutput: false,
-            }, tnsOptions);
-
-            if (el.closest('.tns')) {
-                KTUtil.addClass(el.closest('.tns'), 'tns-initiazlied');
-            }
-
-            return tns(opt);
-        }
-
-        // Sliders
-        const elements = Array.prototype.slice.call(document.querySelectorAll('[data-tns="true"]'), 0);
-
-        if (!elements && elements.length === 0) {
-            return;
-        }
-
-        elements.forEach(function (el) {
-            if (el.getAttribute("data-kt-initialized") === "1") {
-                return;
-            }
-
-            initSlider(el);
-
-            el.setAttribute("data-kt-initialized", "1");
-        });
-    }
-
-    var initSmoothScroll = function () {
-        if (SmoothScroll) {
-            new SmoothScroll('a[data-kt-scroll-toggle][href*="#"]', {
-                speed: 1000,
-                speedAsDuration: true,
-                offset: function (anchor, toggle) {
-                    // Integer or Function returning an integer. How far to offset the scrolling anchor location in pixels
-                    // This example is a function, but you could do something as simple as `offset: 25`
-
-                    // An example returning different values based on whether the clicked link was in the header nav or not
-                    if (anchor.hasAttribute('data-kt-scroll-offset')) {
-                        var val = KTUtil.getResponsiveValue(anchor.getAttribute('data-kt-scroll-offset'));
-                        
-                        return val;
-                    } else {
-                        return 0;
-                    }
-                }
-            });
-        }
-    }
-
-    var initCheck = function () {
-        // Toggle Handler
-        KTUtil.on(document.body, '[data-kt-check="true"]', 'change', function (e) {
-            var check = this;
-            var targets = document.querySelectorAll(check.getAttribute('data-kt-check-target'));
-
-            KTUtil.each(targets, function (target) {
-                if (target.type == 'checkbox') {
-                    target.checked = check.checked;
-                } else {
-                    target.classList.toggle('active');
-                }
-            });
-        });
-    }
-
-    var initBootstrapCollapse = function() {
-        KTUtil.on(document.body,  '.collapsible[data-bs-toggle="collapse"]', 'click', function(e) {
-            if (this.classList.contains('collapsed')) {
-                this.classList.remove('active');
-                this.blur();
-            } else {
-                this.classList.add('active');
-            }
-
-            if (this.hasAttribute('data-kt-toggle-text')) {
-                var text = this.getAttribute('data-kt-toggle-text');
-                var target = this.querySelector('[data-kt-toggle-text-target="true"]');
-                var target = target ? target : this;
-
-                this.setAttribute('data-kt-toggle-text', target.innerText);
-                target.innerText = text;
-            }
-        });
-    }
-
-    var initBootstrapRotate = function() {
-        KTUtil.on(document.body,  '[data-kt-rotate="true"]', 'click', function(e) {
-            if (this.classList.contains('active')) {
-                this.classList.remove('active');
-                this.blur();
-            } else {
-                this.classList.add('active');
-            }
-        });
-    }
-
-    var initPageLoader = function () {
-        // CSS3 Transitions only after page load(.page-loading or .app-page-loading class added to body tag and remove with JS on page load)
-        KTUtil.removeClass(document.body, 'page-loading');
-        document.body.removeAttribute('data-kt-app-page-loading');
-    }
-
+//
+// Global init of core components
+//
+
+// Init components
+var KTComponents = function () {
+    // Public methods
     return {
         init: function () {
-            initSmoothScroll();
-
-            initCheck();
-
-            initBootstrapCollapse();
-
-            initBootstrapRotate();
-        },
-
-        initPageLoader: function () {
-            initPageLoader();
-        },
-
-        createBootstrapPopover: function(el, options) {
-            return createBootstrapPopover(el, options);
-        },
-
-        createBootstrapTooltip: function(el, options) {
-            return createBootstrapTooltip(el, options);
-        },
-
-        createInstances: function () {
-            createBootstrapTooltips();
-
-            createBootstrapPopovers();
-
-            createBootstrapToasts();
-
-            createDateRangePickers();
-
-            createButtons();
-
-            createSelect2();
-            createSelect2();
-            createSelect2();
-
-            createCountUp();
-
-            createCountUpTabs();
-
-            createAutosize();
-
-            createTinySliders();
+            KTApp.init();
+			KTDrawer.init();
+			KTMenu.init();
+			KTScroll.init();
+			KTSticky.init();
+			KTSwapper.init();
+			KTToggle.init();
+			KTScrolltop.init();
+			KTDialer.init();	
+			KTImageInput.init();
+			KTPasswordMeter.init();	
         }
-    };
+    }	
 }();
 
-// Initialize app on document ready
-KTUtil.onDOMContentLoaded(function () {
-    KTApp.init();
-    KTApp.createInstances();
-});
+// On document ready
+if (document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", function() {
+		KTComponents.init();
+	});
+ } else {
+	KTComponents.init();
+ }
 
-// Initialize page loader on window load
+ // Init page loader
 window.addEventListener("load", function() {
-    KTApp.initPageLoader();
+    KTApp.hidePageLoading();
 });
 
 // Declare KTApp for Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = KTApp;
+	window.KTComponents = module.exports = KTComponents;
 }
 "use strict";
 
@@ -7173,6 +7331,78 @@ var KTAppLayoutBuilder = function() {
 	var previewButton;
 	var exportButton;
 	var resetButton;
+
+	var engage;
+	var engageToggleOff;
+	var engageToggleOn;
+	var engagePrebuiltsModal;
+
+	var handleEngagePrebuilts = function() {	
+		if (engagePrebuiltsModal === null) {
+			return;
+		}	
+
+		if ( KTCookie.get("app_engage_prebuilts_modal_displayed") !== "1" ) {
+			setTimeout(function() {
+				const modal = new bootstrap.Modal(engagePrebuiltsModal);
+				modal.show();
+	
+				const date = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days from now
+				KTCookie.set("app_engage_prebuilts_modal_displayed", "1", {expires: date});
+			}, 3000);
+		} 
+	}
+
+	var handleEngagePrebuiltsViewMenu = function() {
+		const selected = engagePrebuiltsModal.querySelector('[data-kt-element="selected"]');
+		const selectedTitle = engagePrebuiltsModal.querySelector('[data-kt-element="title"]');
+		const menu = engagePrebuiltsModal.querySelector('[data-kt-menu="true"]');
+
+		// Toggle Handler
+		KTUtil.on(engagePrebuiltsModal, '[data-kt-mode]', 'click', function (e) {
+			const title = this.innerText;	
+			const mode = this.getAttribute("data-kt-mode");
+			const selectedLink = menu.querySelector('.menu-link.active');
+			const viewImage = document.querySelector('#kt_app_engage_prebuilts_view_image');
+			const viewText = document.querySelector('#kt_app_engage_prebuilts_view_text');
+			selectedTitle.innerText = title;
+
+			if (selectedLink) {
+				selectedLink.classList.remove('active');
+			}
+
+			this.classList.add('active');
+
+			if (mode === "image") {
+				viewImage.classList.remove("d-none");
+				viewImage.classList.add("d-block");
+				viewText.classList.remove("d-block");
+				viewText.classList.add("d-none");
+			} else {
+				viewText.classList.remove("d-none");
+				viewText.classList.add("d-block");
+				viewImage.classList.remove("d-block");
+				viewImage.classList.add("d-none");
+			}
+		});
+	}
+
+	var handleEngageToggle = function() {	
+		engageToggleOff.addEventListener("click", function (e) {
+			e.preventDefault();
+
+			const date = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000); // 1 days from now
+			KTCookie.set("app_engage_hide", "1", {expires: date});
+			engage.classList.add('app-engage-hide');
+		});
+
+		engageToggleOn.addEventListener("click", function (e) {
+			e.preventDefault();
+
+			KTCookie.remove("app_engage_hide");
+			engage.classList.remove('app-engage-hide');
+		});
+	}
 
 	var handlePreview = function() {
 		previewButton.addEventListener("click", function(e) {
@@ -7356,6 +7586,20 @@ var KTAppLayoutBuilder = function() {
 	return {
 		// Public functions
 		init: function() {
+			engage = document.querySelector('#kt_app_engage');
+			engageToggleOn = document.querySelector('#kt_app_engage_toggle_on');
+			engageToggleOff = document.querySelector('#kt_app_engage_toggle_off');
+			engagePrebuiltsModal = document.querySelector('#kt_app_engage_prebuilts_modal');
+
+			if ( engage && engagePrebuiltsModal) {
+				handleEngagePrebuilts();
+				handleEngagePrebuiltsViewMenu();
+			}
+
+			if ( engage && engageToggleOn && engageToggleOff ) {
+				handleEngageToggle();
+			}
+
             form = document.querySelector("#kt_app_layout_builder_form");
 
             if ( !form ) {
@@ -7366,7 +7610,7 @@ var KTAppLayoutBuilder = function() {
             actionInput = document.querySelector("#kt_app_layout_builder_action");            
             previewButton = document.querySelector("#kt_app_layout_builder_preview");
             exportButton = document.querySelector("#kt_app_layout_builder_export");
-            resetButton = document.querySelector("#kt_app_layout_builder_reset");
+            resetButton = document.querySelector("#kt_app_layout_builder_reset");			
     
 			if ( previewButton ) {
 				handlePreview();
@@ -7435,6 +7679,36 @@ var KTLayoutSearch = function() {
             // Complete search
             search.complete();
         }, 1500);
+    }
+
+    var processsAjax = function(search) {
+        // Hide recently viewed
+        mainElement.classList.add('d-none');
+
+        // Learn more: https://axios-http.com/docs/intro
+        axios.post('/search.php', {
+            query: searchObject.getQuery()
+        })
+        .then(function (response) {
+            // Populate results
+            resultsElement.innerHTML = response;
+            // Show results
+            resultsElement.classList.remove('d-none');
+            // Hide empty message 
+            emptyElement.classList.add('d-none');
+
+            // Complete search
+            search.complete();
+        })
+        .catch(function (error) {
+            // Hide results
+            resultsElement.classList.add('d-none');
+            // Show empty message 
+            emptyElement.classList.remove('d-none');
+
+            // Complete search
+            search.complete();
+        });
     }
 
     var clear = function(search) {
@@ -7507,8 +7781,11 @@ var KTLayoutSearch = function() {
             // Initialize search handler
             searchObject = new KTSearch(element);
 
-            // Search handler
+            // Demo search handler
             searchObject.on('kt.search.process', processs);
+
+            // Ajax search handler
+            //searchObject.on('kt.search.process', processsAjax);
 
             // Clear handler
             searchObject.on('kt.search.clear', clear);
@@ -7534,6 +7811,7 @@ var KTAppSidebar = function () {
 	var headerMenu;
 	var menuDashboardsCollapse;
 	var menuWrapper;
+	var toggle;
 
 	// Private functions
 	// Handle sidebar minimize mode toggle
@@ -7647,7 +7925,9 @@ var KTThemeModeUser = function () {
 		// Update chart on theme mode change
         KTThemeMode.on("kt.thememode.change", function() {                
             var menuMode = KTThemeMode.getMenuMode();
+            var mode = KTThemeMode.getMode();
             console.log("user selected theme mode:" + menuMode);
+            console.log("theme mode:" + mode);
 
             // Submit selected theme mode menu option via ajax and 
             // store it in user profile and set the user opted theme mode via HTML attribute
@@ -7682,10 +7962,10 @@ var KTThemeMode = function () {
     var getMode = function() {
 		var mode;
 
-		if ( document.documentElement.hasAttribute("data-theme") ) {
-            return document.documentElement.getAttribute("data-theme");
-        } else if ( localStorage.getItem("data-theme") !== null ) {
-			return localStorage.getItem("data-theme");
+		if ( document.documentElement.hasAttribute("data-bs-theme") ) {
+            return document.documentElement.getAttribute("data-bs-theme");
+        } else if ( localStorage.getItem("data-bs-theme") !== null ) {
+			return localStorage.getItem("data-bs-theme");
 		} else if ( getMenuMode() === "system" ) {
 			return getSystemMode();
 		}
@@ -7712,7 +7992,7 @@ var KTThemeMode = function () {
 		document.documentElement.setAttribute("data-kt-theme-mode-switching", "true");
 		
 		// Set mode to the target document.documentElement
-		document.documentElement.setAttribute("data-theme", mode);
+		document.documentElement.setAttribute("data-bs-theme", mode);
 
 		// Disable switching state
 		setTimeout(function() {
@@ -7720,11 +8000,11 @@ var KTThemeMode = function () {
 		}, 300);
 		
 		// Store mode value in storage
-        localStorage.setItem("data-theme", mode);			
+        localStorage.setItem("data-bs-theme", mode);			
 		
 		// Set active menu item
 		if ( activeMenuItem ) {
-			localStorage.setItem("data-theme-mode", menuMode);
+			localStorage.setItem("data-bs-theme-mode", menuMode);
 			setActiveMenuItem(activeMenuItem);
 		}			
 
@@ -7734,14 +8014,18 @@ var KTThemeMode = function () {
     }
 
 	var getMenuMode = function() {
+		if (!menu) {
+			return null;
+		}
+
 		var menuItem = menu ? menu.querySelector('.active[data-kt-element="mode"]') : null;
 
 		if ( menuItem && menuItem.getAttribute('data-kt-value') ) {
             return menuItem.getAttribute('data-kt-value');
-        } else if ( document.documentElement.hasAttribute("data-theme-mode") ) {
-			return document.documentElement.getAttribute("data-theme-mode")
-		} else if ( localStorage.getItem("data-theme-mode") !== null ) {
-			return localStorage.getItem("data-theme-mode");
+        } else if ( document.documentElement.hasAttribute("data-bs-theme-mode") ) {
+			return document.documentElement.getAttribute("data-bs-theme-mode")
+		} else if ( localStorage.getItem("data-bs-theme-mode") !== null ) {
+			return localStorage.getItem("data-bs-theme-mode");
 		} else {
 			return typeof defaultThemeMode !== "undefined" ? defaultThemeMode : "light";
 		}
@@ -7770,7 +8054,7 @@ var KTThemeMode = function () {
 		}
 
 		item.classList.add("active");
-		localStorage.setItem("data-theme-mode", menuMode);
+		localStorage.setItem("data-bs-theme-mode", menuMode);
 	}
 
 	var handleMenu = function() {

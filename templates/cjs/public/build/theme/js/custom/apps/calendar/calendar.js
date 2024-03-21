@@ -60,6 +60,7 @@ var KTAppCalendar = function () {
 
         // Init calendar --- more info: https://fullcalendar.io/docs/initialize-globals
         calendar = new FullCalendar.Calendar(calendarEl, {
+            //locale: 'es', // Set local --- more info: https://fullcalendar.io/docs/locale
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',

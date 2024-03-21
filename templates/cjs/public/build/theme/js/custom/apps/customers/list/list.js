@@ -34,6 +34,7 @@ var KTCustomersList = function () {
             initToggleToolbar();
             handleDeleteRows();
             toggleToolbars();
+            KTMenu.init(); // reinit KTMenu instances 
         });
     }
 

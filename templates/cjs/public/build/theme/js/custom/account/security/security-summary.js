@@ -55,7 +55,7 @@ var KTAccountSecuritySummary = function () {
                 },
                 labels: {
                     style: {
-                        colors: KTUtil.getCssVariableValue('--kt-gray-400'),
+                        colors: KTUtil.getCssVariableValue('--bs-gray-400'),
                         fontSize: '12px'
                     }
                 }
@@ -63,7 +63,7 @@ var KTAccountSecuritySummary = function () {
             yaxis: {
                 labels: {
                     style: {
-                        colors: KTUtil.getCssVariableValue('--kt-gray-400'),
+                        colors: KTUtil.getCssVariableValue('--bs-gray-400'),
                         fontSize: '12px'
                     }
                 }
@@ -102,9 +102,9 @@ var KTAccountSecuritySummary = function () {
                     }
                 }
             },
-            colors: [KTUtil.getCssVariableValue('--kt-primary'), KTUtil.getCssVariableValue('--kt-gray-200')],
+            colors: [KTUtil.getCssVariableValue('--bs-primary'), KTUtil.getCssVariableValue('--bs-gray-200')],
             grid: {
-                borderColor: KTUtil.getCssVariableValue('--kt-gray-200'),
+                borderColor: KTUtil.getCssVariableValue('--bs-gray-200'),
                 strokeDashArray: 4,
                 yaxis: {
                     lines: {
