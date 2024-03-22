@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.20] - 2024/3/22
+### Changed
+- Changed the default value of the template cookie secure attribute (`cookie_secure` in the `config/config.js` file) from true to false.  
+    If `cookie_secure` is enabled, the login will always fail because no session cookie is written when the demo is run on a local server (HTTP).
+
 ## [1.0.19] - 2024/3/21
 ### Fixed
 - The client build module (public/build) of the template was out of date, so it was updated to the latest version.
@@ -33,7 +38,8 @@ All notable changes to this project will be documented in this file.
      * The default is true, which sets the Secure attribute on the cookie.
      * @type {boolean|undefined}
      */
-    cookie_secure: true,
+    cookie_secure: false,
+    // cookie_secure: true,
 
     /**
      * Specifies the boolean value for the HttpOnly Set-Cookie attribute. 
@@ -271,3 +277,4 @@ All notable changes to this project will be documented in this file.
 [1.0.17]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.16...v1.0.17
 [1.0.18]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.17...v1.0.18
 [1.0.19]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.18...v1.0.19
+[1.0.20]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.19...v1.0.20

@@ -28,7 +28,7 @@ module.exports = {
    * The default is true, which sets the Secure attribute on the cookie.
    * @type {boolean|undefined}
    */
-  cookie_secure: true,
+  cookie_secure: false,
 
   /**
    * Specifies the boolean value for the HttpOnly Set-Cookie attribute. 
