@@ -2,7 +2,9 @@
 [Express Sweet](https://www.npmjs.com/package/express-sweet) application generator.
 
 ## Documentation
-For Express Sweet documentation, please click [here](https://takuya-motoshima.github.io/express-sweet/v1/).
+The latest API reference for Express Sweet can be found [here](https://takuya-motoshima.github.io/express-sweet/v2/).
+
+The API reference for previous versions can be found [here](https://takuya-motoshima.github.io/express-sweet/v1/).
 
 ## Release Notes
 All changes can be found [here](CHANGELOG.md).

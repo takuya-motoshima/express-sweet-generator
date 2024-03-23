@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2024/3/24
+### Changed
+- Express Sweet version 2 no longer depends on the AWS SDK.  
+    The `services.AWSRekognitionClient` and `services.AWSSesClient` have been migrated to the [AWS SDK Extension](https://www.npmjs.com/package/aws-sdk-extension) NPM package, so please install from there if needed.
+
 ## [1.0.20] - 2024/3/22
 ### Changed
 - Changed the default value of the template cookie secure attribute (`cookie_secure` in the `config/config.js` file) from true to false.  
@@ -209,12 +214,12 @@ All notable changes to this project will be documented in this file.
 - Removed dependent packages(aws-sdk,express,passport,passport-local,sequelize) already included in express-sweet from the template package.json.
 - Template application has been updated.
     <p align="center">
-      <img alt="login" src="screencaps/login.png" width="45%">
-      <img alt="users" src="screencaps/users.png" width="45%">
+      <img alt="login" src="screencaps/login.jpg" width="45%">
+      <img alt="users" src="screencaps/users.jpg" width="45%">
     </p>
     <p align="center">
-      <img alt="user-editing" src="screencaps/user-editing.png" width="45%">
-      <img alt="personal" src="screencaps/personal.png" width="45%">
+      <img alt="user-editing" src="screencaps/user-editing.jpg" width="45%">
+      <img alt="personal" src="screencaps/personal.jpg" width="45%">
     </p>
 
 ## [1.0.5] - 2022/7/27
@@ -278,3 +283,4 @@ All notable changes to this project will be documented in this file.
 [1.0.18]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.17...v1.0.18
 [1.0.19]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.18...v1.0.19
 [1.0.20]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.19...v1.0.20
+[2.0.0]: https://github.com/takuya-motoshima/express-sweet-generator/compare/v1.0.20...v2.0.0

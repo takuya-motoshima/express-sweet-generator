@@ -2,15 +2,15 @@
 
 The easiest way to get started with Express Sweet is to install express-sweet-generator and automatically create a template application.  
 The following application can be started immediately by executing the template.  
-See <a href="https://takuya-motoshima.github.io/express-sweet/v1/" target="_blank">here</a> for instructions on using express-sweet.
+See <a href="https://takuya-motoshima.github.io/express-sweet/v2/" target="_blank">here</a> for instructions on using express-sweet.
 
 <p align="center">
-  <img alt="login" src="screencaps/login.png" width="45%">
-  <img alt="users" src="screencaps/users.png" width="45%">
+  <img alt="login" src="screencaps/login.jpg" width="45%">
+  <img alt="users" src="screencaps/users.jpg" width="45%">
 </p>
 <p align="center">
-  <img alt="user-editing" src="screencaps/user-editing.png" width="45%">
-  <img alt="personal" src="screencaps/personal.png" width="45%">
+  <img alt="user-editing" src="screencaps/user-editing.jpg" width="45%">
+  <img alt="personal" src="screencaps/personal.jpg" width="45%">
 </p>
 
 1. Use the application generator tool, express-sweet-generator, to quickly create an application skeleton.  
