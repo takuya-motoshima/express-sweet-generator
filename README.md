@@ -7,7 +7,7 @@ The latest API reference for Express Sweet can be found [here](https://takuya-mo
 The API reference for previous versions can be found [here](https://takuya-motoshima.github.io/express-sweet/v1/).
 
 ## Release Notes
-All changes can be found [here](CHANGELOG.md).
+All changes can be found [here](https://github.com/takuya-motoshima/express-sweet/blob/HEAD/CHANGELOG.md).
 
 ## Quick Start
 See [here](QUICK_START.md).

@@ -4,7 +4,7 @@
 export default {
   development: {
     username: 'root',
-    // password: 'password',
+    password: 'password',
     database: 'express_sweet_db',
     host: 'localhost',
     port: undefined,
@@ -14,7 +14,7 @@ export default {
   },
   test: {
     username: 'root',
-    // password: 'password',
+    password: 'password',
     database: 'express_sweet_db',
     host: 'localhost',
     port: undefined,
@@ -24,7 +24,7 @@ export default {
   },
   production: {
     username: 'root',
-    // password: 'password',
+    password: 'password',
     database: 'express_sweet_db',
     host: 'localhost',
     port: undefined,
