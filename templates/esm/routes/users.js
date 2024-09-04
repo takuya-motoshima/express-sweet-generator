@@ -1,8 +1,8 @@
 import {Router} from 'express';
-import UserModel from '../models/UserModel';
+import UserModel from '../models/UserModel.js';
 
 const router = Router();
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
   res.render('users');
 });
 

@@ -1,12 +1,11 @@
 {
   "name": "express-sweet-generator",
   "version": "2.0.2",
-  "description": "Express Sweet application generator.",
+  "description": "EXPRESS SWEET application generator.",
   "main": "bin/express-sweet-cli.js",
   "files": [
     "LICENSE",
     "README.md",
-    "QUICK_START.md",
     "bin/",
     "templates/",
     "screencaps/"

@@ -1,4 +1,4 @@
-import UserModel from '../models/UserModel';
+import UserModel from '../models/UserModel.js';
 
 /**
  * User authentication configuration interface.
@@ -66,7 +66,6 @@ export default {
 
   /**
    * URL to redirect after log off, defaults to `/login`.
-   *
    * @example
    * // Set the URL to redirect to in case of login failure as a string.
    * failure_redirect: '/login',

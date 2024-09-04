@@ -5,7 +5,7 @@ module.exports = {
   development: {
     username: 'root',
     password: 'password',
-    database: 'express_sweet_db',
+    database: 'sample_db',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
@@ -15,7 +15,7 @@ module.exports = {
   test: {
     username: 'root',
     password: 'password',
-    database: 'express_sweet_db',
+    database: 'sample_db',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',
@@ -25,7 +25,7 @@ module.exports = {
   production: {
     username: 'root',
     password: 'password',
-    database: 'express_sweet_db',
+    database: 'sample_db',
     host: 'localhost',
     port: undefined,
     dialect: 'mariadb',

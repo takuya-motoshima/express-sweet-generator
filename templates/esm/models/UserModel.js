@@ -1,11 +1,11 @@
+import * as expressExtension from 'express-sweet';
 import {Media} from 'nodejs-shared';
-import * as sweet from 'express-sweet';
-import UserNotFound from '../exceptions/UserNotFound';
-import ProfileModel from './ProfileModel';
-import CommentModel from './CommentModel';
-import BookModel from './BookModel';
+import UserNotFound from '../exceptions/UserNotFound.js';
+import ProfileModel from './ProfileModel.js';
+import CommentModel from './CommentModel.js';
+import BookModel from './BookModel.js';
 
-export default class extends sweet.database.Model {
+export default class extends expressExtension.database.Model {
   static get table() {
     return 'user';
   }

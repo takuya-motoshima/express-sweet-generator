@@ -66,7 +66,6 @@ module.exports = {
 
   /**
    * URL to redirect after log off, defaults to `/login`.
-   *
    * @example
    * // Set the URL to redirect to in case of login failure as a string.
    * failure_redirect: '/login',

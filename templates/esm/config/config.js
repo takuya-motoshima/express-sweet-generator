@@ -1,7 +1,7 @@
-import path from 'path';
+import path from 'node:path';
 
 /**
- * Express Sweet basic configuration interface.
+ * EXPRESS SWEET basic configuration interface.
  */
 export default {
   /**
@@ -38,7 +38,6 @@ export default {
    * This is a hook that rewrites the base URL.
    * If you want to rewrite the app.locals.baseUrl property and the view's baseUrl variable, use this hook to return a new base URL.
    * The default value is the referrer's origin (eg https://example.com).
-   *
    * @example
    * rewrite_base_url: baseUrl => {
    *   return `${baseUrl}/admin`;
@@ -54,7 +53,6 @@ export default {
   * How to determine if it is an ajax request.
   * The default is that if there is an XMLHttpRequest in the request header (req.xhr) returns true.
   * For example, if there is no XMLHttpRequest in req(express.Request) and the Ajax endpoint starts with /api, a custom Ajax decision can be made like "return /^\/api\//.test(req.path)".
-  *
   * @type {(req: express.Request) => boolean}
   * @example
   * is_ajax: req => {
@@ -68,7 +66,6 @@ export default {
   /**
    * Hooks the default behavior on request errors.
    * If unset, simply returns an error HTTP status. (<code>res.status(err.status||500).end();</code>)
-   *
    * @type {(err: any, req: express.Request, res: express.Response, next: express.NextFunction) => void}
    * @example
    * hook_handle_error: (err, req, res, next) => {

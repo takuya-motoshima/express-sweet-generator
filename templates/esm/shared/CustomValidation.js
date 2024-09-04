@@ -1,4 +1,4 @@
-import empty from './empty';
+import empty from './empty.js';
 
 /**
  * Image Data URL validation.

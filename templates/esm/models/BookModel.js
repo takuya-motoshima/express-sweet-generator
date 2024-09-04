@@ -1,6 +1,6 @@
-import * as sweet from 'express-sweet';
+import * as expressExtension from 'express-sweet';
 
-export default class extends sweet.database.Model {
+export default class extends expressExtension.database.Model {
   static get table() {
     return 'book';
   }

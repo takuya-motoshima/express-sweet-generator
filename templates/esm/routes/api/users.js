@@ -1,12 +1,11 @@
+import * as expressExtension from 'express-sweet';
 import {Router} from 'express';
-import * as sweet from 'express-sweet';
 import {query, body, validationResult} from 'express-validator';
-import UserModel from '../../models/UserModel';
-import UserNotFound from '../../exceptions/UserNotFound';
-import * as CustomValidation from '../../shared/CustomValidation';
+import UserModel from '../../models/UserModel.js';
+import UserNotFound from '../../exceptions/UserNotFound.js';
+import * as CustomValidation from '../../shared/CustomValidation.js';
 
 const router = Router();
-const Authentication = sweet.services.Authentication;
 router.post('/login', [
   body('email').trim().not().isEmpty().isEmail(),
   body('password').trim().not().isEmpty()
@@ -14,12 +13,12 @@ router.post('/login', [
   const errs = validationResult(req);
   if (!errs.isEmpty())
     return void res.status(400).json({errors: errs.array()});
-  const isAuthenticated = await Authentication.authenticate(req, res, next);
+  const isAuthenticated = await expressExtension.services.Authentication.authenticate(req, res, next);
   res.json(isAuthenticated);
 });
 
 router.get('/logout', (req, res) => {
-  Authentication.logout(req);
+  expressExtension.services.Authentication.logout(req);
   res.redirect('/');
 });
 

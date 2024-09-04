@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 /**
  * View's configuration interface.
@@ -37,7 +37,6 @@ export default {
   /**
    * Hook function just before the view is rendered.
    * For example, you can set your own local variables that can be used within the view.
-   *
    * @example
    * // The message set here can be referenced in the view as {{message}}.
    * beforeRender: (req, res) => {

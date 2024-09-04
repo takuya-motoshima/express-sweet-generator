@@ -1,10 +1,10 @@
 const express = require('express');
-const sweet = require('express-sweet');
+const expressExtension = require('express-sweet');
 
 // Creates and configures an ExpressJS web server.
 const app = express();
 
 // Mount the extension.
-sweet.mount(app);
+expressExtension.mount(app);
 
 module.exports = app;

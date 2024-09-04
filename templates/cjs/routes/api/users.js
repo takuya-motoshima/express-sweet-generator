@@ -1,11 +1,11 @@
 const express = require('express');
-const Authentication = require('express-sweet').services.Authentication;
+const expressExtension = require('express-sweet');
 const {query, body, validationResult} = require('express-validator');
-const router = express.Router();
 const UserModel = require('../../models/UserModel');
 const UserNotFound = require('../../exceptions/UserNotFound');
 const CustomValidation = require('../../shared/CustomValidation');
 
+const router = express.Router();
 router.post('/login', [
   body('email').trim().not().isEmpty().isEmail(),
   body('password').trim().not().isEmpty()
@@ -13,12 +13,12 @@ router.post('/login', [
   const errs = validationResult(req);
   if (!errs.isEmpty())
     return void res.status(400).json({errors: errs.array()});
-  const isAuthenticated = await Authentication.authenticate(req, res, next);
+  const isAuthenticated = await expressExtension.services.Authentication.authenticate(req, res, next);
   res.json(isAuthenticated);
 });
 
 router.get('/logout', (req, res) => {
-  Authentication.logout(req);
+  expressExtension.services.Authentication.logout(req);
   res.redirect('/');
 });
 
