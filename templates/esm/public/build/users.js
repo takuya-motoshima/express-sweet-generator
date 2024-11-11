@@ -156,10 +156,168 @@ var build = __webpack_require__(776);
 var build_default = /*#__PURE__*/__webpack_require__.n(build);
 // EXTERNAL MODULE: ./node_modules/metronic-extension/dist/build.js
 var dist_build = __webpack_require__(236);
+;// CONCATENATED MODULE: ./src/shared/Datatable.js
+
+
+/**
+ * Custom DataTable class extending Metronic's Datatable component.
+ */
+/* harmony default export */ const Datatable = (class extends dist_build.components.Datatable {
+  /**
+   * Initializes the DataTable with custom options.
+   * @param {string|HTMLTableElement|JQuery} table The table element selector, DOM element, or jQuery object.
+   * @param {object} options The DataTable options.
+   */
+  constructor(table, options) {
+    // Initialize options with default values.
+    options = Object.assign({
+      // Option to show the column visibility toggle button.
+      columnVisibility: false,
+
+      // Selector for columns to be visible by default.
+      visibleColumns: undefined,
+    }, options);
+
+    if (options.columnVisibility) {
+      // If column visibility option is enabled.
+      // Place the column visibility toggle button in the DOM.
+      options.dom = `<'row align-items-center'<'col dataTables_pager'p><'col-auto'B>><'row'<'col-12'tr>><'row'<'col-12 dataTables_pager'p>>`;
+
+      // Add the column visibility toggle button.
+      options.buttons = {
+        dom: {
+          button: {
+            className: null,
+          },
+          buttonLiner: {
+            tag: null,
+          },
+        },
+        buttons: [
+          {
+            extend: 'colvis',
+            columns: options.visibleColumns,
+            text: '<i class="ki-solid ki-gear fs-1"></i>',
+            // className: 'btn btn-sm btn-icon btn-color-primary btn-active-light-primary',
+            className: 'btn btn-icon btn-color-gray-500 btn-active-color-primary',
+            align: 'container',
+          },
+        ],
+      };
+
+      // Remove custom options as they are no longer needed.
+      delete options.columnVisibility;
+      delete options.visibleColumns;
+    }
+
+    /**
+     * Generates a unique state key for the DataTable.
+     * @param {object} settings DataTables settings object.
+     * @return {string} The generated state key.
+     */
+    const getStateKey = (settings) => {
+      let stateKey = settings.sTableId;
+      stateKey += '_';
+      stateKey += location.pathname;
+      if (settings.nTable.getAttribute('data-ref')) {
+        stateKey += '/_';
+        stateKey += settings.nTable.getAttribute('data-ref');
+      }
+      return stateKey;
+    };
+
+
+    // // Set locale to Japanese.
+    // options.locale = 'ja';
+
+    // Save sorting criteria.
+    options.stateSave = true;
+    options.stateSaveCallback = (settings, data) => {
+      // Save state with a name that doesn't conflict with other tables.
+      localStorage.setItem(getStateKey(settings), JSON.stringify(data));
+    };
+    options.stateLoadCallback = (settings) => {
+      // Return the saved state.
+      return JSON.parse(localStorage.getItem(getStateKey(settings)));
+    };
+    options.stateSaveParams = (settings, data) => {
+      // Don't save search criteria and offset.
+      delete data.search;
+      delete data.start;
+    };
+
+    super(table, options);
+  }
+
+  /**
+   * Handles AJAX errors.
+   * @param {number} code The HTTP status code of the error.
+   * @return {void}
+   */
+  ajaxErrorHook(code) {
+    if (code === 401) {
+      // Redirect to login page if authentication error occurs.
+      location.replace('/');
+    }
+  }
+});
+
+;// CONCATENATED MODULE: ./src/shared/Api.js
+
+
+/**
+ * Base API client class.
+ */
+/* harmony default export */ const Api = (class extends dist_build.components.Api {
+  /**
+   * Initializes the API client.
+   * @param {string} path The base URL for requests.
+   */
+  constructor(path) {
+    super(path, null, {
+      headers: {
+        // Indicate an AJAX request to the server.
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    });
+  }
+
+  // /**
+  //  * Initializes the API client.
+  //  * @param {string} path The base URL for requests.
+  //  * @param {string} [origin] The origin for requests.
+  //  * @param {import('axios').AxiosRequestConfig} [options] Additional options for the Axios instance.
+  //  */
+  // constructor(path, origin, options) {
+  //   super(path, origin, Object.assign({}, {
+  //     headers: {
+  //       // Indicate an AJAX request to the server.
+  //       'X-Requested-With': 'XMLHttpRequest',
+  //     },
+  //   }, options));
+  // }
+
+  /**
+   * Handles API errors.
+   * @param {number} code The HTTP status code.
+   * @param {Error} err The error object.
+   * @return {void}
+   */
+  errorHook(code, err) {
+    // Check if the error object and request properties exist to avoid runtime errors
+    if (err && err.request && err.request.responseURL) {
+      const {pathname} = new URL(err.request.responseURL);
+      if (pathname !== '/api/users/login' && code === 401) {
+        // Redirect to the login page if an authentication error occurs on a non-login request.
+        location.replace('/');
+      }
+    }
+  }
+});
 ;// CONCATENATED MODULE: ./src/api/UserApi.js
 
 
-/* harmony default export */ const UserApi = (class extends dist_build.components.Api {
+/* harmony default export */ const UserApi = (class extends components.Api {
   constructor() {
     super('/api/users');
   }
@@ -192,7 +350,7 @@ var dist_build = __webpack_require__(236);
     return this.client.put('/profile', formData);
   }
 });
-;// CONCATENATED MODULE: ./src/pages/UserModal.js
+;// CONCATENATED MODULE: ./src/modals/UserModal.js
 
 
 
@@ -552,7 +710,8 @@ var dist_build = __webpack_require__(236);
     dist_build.components.Dialog.close();
   }
 });
-;// CONCATENATED MODULE: ./src/pages/users.js
+;// CONCATENATED MODULE: ./src/users.js
+
 
 
 
@@ -560,7 +719,7 @@ var dist_build = __webpack_require__(236);
 
 
 function initTable() {
-  userTable = new dist_build.components.Datatable(ref.userTable, {
+  userTable = new Datatable(ref.userTable, {
     ajax: {
       url: '/api/users',
       data: d => {

@@ -1,6 +1,8 @@
 # EXPRESS SWEET
 [EXPRESS SWEET](https://www.npmjs.com/package/express-sweet)'s application generator.
 
+A comprehensive list of changes in each version may be found in the [CHANGELOG](CHANGELOG.md).
+
 ## Installation
 ```sh
 npm install -g express-sweet-generator

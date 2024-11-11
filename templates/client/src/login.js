@@ -1,4 +1,4 @@
-import '~/pages/login.css';
+import '~/login.css';
 import {components} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 

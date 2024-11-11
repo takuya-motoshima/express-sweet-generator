@@ -1,4 +1,4 @@
-import '~/pages/editPersonal.css';
+import '~/editPersonal.css';
 import {components, utils} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 

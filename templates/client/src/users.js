@@ -1,11 +1,12 @@
-import '~/pages/users.css';
+import '~/users.css';
 import hbs from 'handlebars-extd';
 import {components} from 'metronic-extension';
+import Datatable from '~/shared/Datatable';
 import UserApi from '~/api/UserApi';
-import UserModal from '~/pages/UserModal';
+import UserModal from '~/modals/UserModal';
 
 function initTable() {
-  userTable = new components.Datatable(ref.userTable, {
+  userTable = new Datatable(ref.userTable, {
     ajax: {
       url: '/api/users',
       data: d => {
