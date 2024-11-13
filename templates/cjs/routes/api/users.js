@@ -6,6 +6,7 @@ const UserNotFound = require('../../exceptions/UserNotFound');
 const CustomValidation = require('../../shared/CustomValidation');
 
 const router = express.Router();
+
 router.post('/login', [
   body('email').trim().not().isEmpty().isEmail(),
   body('password').trim().not().isEmpty()
@@ -111,4 +112,5 @@ router.put('/profile', [
       next(err);
   }
 });
+
 module.exports = router;

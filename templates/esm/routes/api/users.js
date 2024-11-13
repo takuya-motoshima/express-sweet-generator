@@ -6,6 +6,7 @@ import UserNotFound from '../../exceptions/UserNotFound.js';
 import * as CustomValidation from '../../shared/CustomValidation.js';
 
 const router = Router();
+
 router.post('/login', [
   body('email').trim().not().isEmpty().isEmail(),
   body('password').trim().not().isEmpty()
@@ -111,4 +112,5 @@ router.put('/profile', [
       next(err);
   }
 });
+
 export default router;

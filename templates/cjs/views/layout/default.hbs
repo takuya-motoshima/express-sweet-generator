@@ -23,7 +23,7 @@
 <!--begin::Body-->
 <body
   id="kt_app_body"
-  {{#if session}}
+  {{#if (and (notEmpty session) (neq isErrorPage true))}}
     data-kt-app-layout="light-sidebar"
     data-kt-app-header-fixed="true"
     data-kt-app-sidebar-enabled="true"
@@ -55,7 +55,7 @@
     }
   </script>
   <!--end::Theme mode setup on page load-->
-  {{#if session}}
+  {{#if (and (notEmpty session) (neq isErrorPage true))}}
     <!--begin::App-->
     <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
       <!--begin::Page-->

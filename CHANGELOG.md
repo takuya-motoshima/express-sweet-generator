@@ -1,6 +1,28 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.5] - 2024/11/13
+### Changed
+- Added error page handling for 404 and 500 errors.
+    - Added `isErrorPage` flag check to `views/layout/default.hbs`.
+    - The side menu will not be displayed on error pages when `isErrorPage` is true.
+
+    config/config.js:
+    ```js
+    hook_handle_error: (err, req, res, next) => {
+      if (err.status === 404)
+        res.status(404).render('errors/404', {isErrorPage: true});
+      else
+        res.status(500).render('errors/500', {isErrorPage: true});
+    },
+    ```
+
+    Examples of error pages:
+    * **404 Page (Not Found):**
+        ![404-error.jpeg](screencaps/404-error.jpeg)
+    * **500 Page (Internal Server Error):**
+        ![500-error.jpeg](screencaps/500-error.jpeg)
+
 ## [2.0.4] - 2024/11/11
 ### Changed
 - Extended [API (templates/client/src/shared/Api.js)](templates/client/src/shared/Api.js) and [Datatable (templates/client/src/shared/Datatable.js)](templates/client/src/shared/Datatable.js) classes were added to the frontend JavaScript templates.
@@ -29,3 +51,4 @@ All notable changes to this project will be documented in this file.
     ```
 
 [2.0.4]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.3...v2.0.4
+[2.0.5]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.4...v2.0.5
