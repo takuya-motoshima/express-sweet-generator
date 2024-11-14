@@ -35,13 +35,13 @@ export default class extends components.Api {
   /**
    * Handles API errors.
    * @param {number} code The HTTP status code.
-   * @param {Error} err The error object.
+   * @param {Error} error The error object.
    * @return {void}
    */
-  errorHook(code, err) {
+  errorHook(code, error) {
     // Check if the error object and request properties exist to avoid runtime errors
-    if (err && err.request && err.request.responseURL) {
-      const {pathname} = new URL(err.request.responseURL);
+    if (error && error.request && error.request.responseURL) {
+      const {pathname} = new URL(error.request.responseURL);
       if (pathname !== '/api/users/login' && code === 401) {
         // Redirect to the login page if an authentication error occurs on a non-login request.
         location.replace('/');

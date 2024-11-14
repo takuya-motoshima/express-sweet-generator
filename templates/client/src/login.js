@@ -28,10 +28,10 @@ function initForm() {
       if (!data)
         return void validation.setError('email', 'userNotFound');
       location.href = '/';
-    } catch (err) {
+    } catch (error) {
       validation.offIndicator();
       components.Dialog.unknownError();
-      throw err;
+      throw error;
     }
   });
 }

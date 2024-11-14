@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.6] - The release date is yet to be determined.
+### Changed
+- Refactored variable names.
+
 ## [2.0.5] - 2024/11/13
 ### Changed
 - Added error page handling for 404 and 500 errors.
@@ -9,8 +13,8 @@ All notable changes to this project will be documented in this file.
 
     config/config.js:
     ```js
-    hook_handle_error: (err, req, res, next) => {
-      if (err.status === 404)
+    hook_handle_error: (error, req, res, next) => {
+      if (error.status === 404)
         res.status(404).render('errors/404', {isErrorPage: true});
       else
         res.status(500).render('errors/500', {isErrorPage: true});
@@ -35,13 +39,13 @@ All notable changes to this project will be documented in this file.
     /**
       * Handles API errors.
       * @param {number} code The HTTP status code.
-      * @param {Error} err The error object.
+      * @param {Error} error The error object.
       * @return {void}
       */
-    errorHook(code, err) {
+    errorHook(code, error) {
       // Check if the error object and request properties exist to avoid runtime errors
-      if (err && err.request && err.request.responseURL) {
-        const {pathname} = new URL(err.request.responseURL);
+      if (error && error.request && error.request.responseURL) {
+        const {pathname} = new URL(error.request.responseURL);
         if (pathname !== '/api/users/login' && code === 401) {
           // Redirect to the login page if an authentication error occurs on a non-login request.
           location.replace('/');

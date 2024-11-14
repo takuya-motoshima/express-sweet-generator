@@ -65,11 +65,11 @@ export default {
 
   /**
    * Hooks the default behavior on request errors.
-   * If unset, simply returns an error HTTP status. (<code>res.status(err.status||500).end();</code>)
-   * @type {(err: any, req: express.Request, res: express.Response, next: express.NextFunction) => void}
+   * If unset, simply returns an error HTTP status. (<code>res.status(error.status||500).end();</code>)
+   * @type {(error: any, req: express.Request, res: express.Response, next: express.NextFunction) => void}
    * @example
-   * hook_handle_error: (err, req, res, next) => {
-   *   if (err.status === 404)
+   * hook_handle_error: (error, req, res, next) => {
+   *   if (error.status === 404)
    *     // If the URL cannot be found, a 404 error screen (views/errors/404.hbs) is displayed.
    *     res.render('errors/404');
    *   else
@@ -77,8 +77,8 @@ export default {
    *     res.render('error/500');
    * },
    */
-  hook_handle_error: (err, req, res, next) => {
-    if (err.status === 404)
+  hook_handle_error: (error, req, res, next) => {
+    if (error.status === 404)
       res.status(404).render('errors/404', {isErrorPage: true});
     else
       res.status(500).render('errors/500', {isErrorPage: true});

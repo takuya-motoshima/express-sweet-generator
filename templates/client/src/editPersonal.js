@@ -61,10 +61,10 @@ function initForm() {
         await components.Dialog.info('Email address has been changed. Please re-login.');
         return void userApi.logout();
       }
-    } catch (err) {
+    } catch (error) {
       validation.offIndicator();
       components.Dialog.unknownError();
-      throw err;
+      throw error;
     }
   });
   ref.personalForm

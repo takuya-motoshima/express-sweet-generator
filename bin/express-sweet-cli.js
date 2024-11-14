@@ -112,9 +112,9 @@ function getAppName(installDir) {
  * @param {Function} fn
  */
 function existsInstallationDirectory(dir, fn) {
-  fs.readdir(dir, (err, files) => {
-    if (err && err.code !== 'ENOENT')
-      throw err;
+  fs.readdir(dir, (error, files) => {
+    if (error && error.code !== 'ENOENT')
+      throw error;
     fn(!files || !files.length);
   });
 }

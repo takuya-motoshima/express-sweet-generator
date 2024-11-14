@@ -105,10 +105,10 @@ export default class extends expressExtension.database.Model {
       }, {transaction});
       await this.#updateUserIcon(user, set.icon, transaction);
       await transaction.commit();
-    } catch (err) {
+    } catch (error) {
       if (transaction)
         await transaction.rollback();
-      throw err;
+      throw error;
     }
   }
 
@@ -133,10 +133,10 @@ export default class extends expressExtension.database.Model {
       await user.save({transaction});
       await this.#updateUserIcon(user, set.icon, transaction);
       await transaction.commit();
-    } catch (err) {
+    } catch (error) {
       if (transaction)
         await transaction.rollback();
-      throw err;
+      throw error;
     }
   }
 

@@ -87,9 +87,9 @@ function initForm() {
             throw Error('Unknown error');
         components.Toast.success(`${name} was deleted.`);
         userTable.reload();
-      } catch (err) {
+      } catch (error) {
         components.Dialog.unknownError();
-        throw err;
+        throw error;
       }
     })
     .on('input', '[data-on-search-change]' , evnt => {

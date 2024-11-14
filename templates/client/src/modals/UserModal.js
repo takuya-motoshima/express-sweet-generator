@@ -250,10 +250,10 @@ export default class extends components.Modal {
         this.#validator.offIndicator();
         components.Toast.success('User created.');
         super.hide(true);
-      } catch (err) {
+      } catch (error) {
         this.#validator.offIndicator();
         components.Dialog.unknownError();
-        throw err;
+        throw error;
       }
     });
   }
@@ -275,10 +275,10 @@ export default class extends components.Modal {
         }
         components.Toast.success('User updated.');
         super.hide(true);
-      } catch (err) {
+      } catch (error) {
         this.#validator.offIndicator();
         components.Dialog.unknownError();
-        throw err;
+        throw error;
       }
     });
   }
