@@ -1,6 +1,6 @@
 import Api from '~/shared/Api';
 
-export default class extends components.Api {
+export default class extends Api {
   constructor() {
     super('/api/users');
   }

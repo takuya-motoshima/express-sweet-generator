@@ -124,13 +124,13 @@ var build = __webpack_require__(236);
   /**
    * Handles API errors.
    * @param {number} code The HTTP status code.
-   * @param {Error} err The error object.
+   * @param {Error} error The error object.
    * @return {void}
    */
-  errorHook(code, err) {
+  errorHook(code, error) {
     // Check if the error object and request properties exist to avoid runtime errors
-    if (err && err.request && err.request.responseURL) {
-      const {pathname} = new URL(err.request.responseURL);
+    if (error && error.request && error.request.responseURL) {
+      const {pathname} = new URL(error.request.responseURL);
       if (pathname !== '/api/users/login' && code === 401) {
         // Redirect to the login page if an authentication error occurs on a non-login request.
         location.replace('/');
@@ -141,7 +141,7 @@ var build = __webpack_require__(236);
 ;// CONCATENATED MODULE: ./src/api/UserApi.js
 
 
-/* harmony default export */ const UserApi = (class extends components.Api {
+/* harmony default export */ const UserApi = (class extends Api {
   constructor() {
     super('/api/users');
   }
@@ -238,10 +238,10 @@ function initForm() {
         await build.components.Dialog.info('Email address has been changed. Please re-login.');
         return void userApi.logout();
       }
-    } catch (err) {
+    } catch (error) {
       validation.offIndicator();
       build.components.Dialog.unknownError();
-      throw err;
+      throw error;
     }
   });
   ref.personalForm

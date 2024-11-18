@@ -2,6 +2,7 @@ import '~/users.css';
 import hbs from 'handlebars-extd';
 import {components} from 'metronic-extension';
 import Datatable from '~/shared/Datatable';
+import reloadDataTableWithDelay from '~/shared/reloadDataTableWithDelay';
 import UserApi from '~/api/UserApi';
 import UserModal from '~/modals/UserModal';
 
@@ -92,17 +93,12 @@ function initForm() {
         throw error;
       }
     })
-    .on('input', '[data-on-search-change]' , evnt => {
-      if (searchTimer)
-        clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => userTable.reload(), 300);
-    });
+    .on('input', '[data-on-search-change]' , reloadDataTableWithDelay(userTable));
 }
 
 const userApi = new UserApi();
 const userModal = new UserModal();
 const ref = components.selectRef('#kt_app_content_container');
 let userTable;
-let searchTimer;
 initTable();
 initForm();

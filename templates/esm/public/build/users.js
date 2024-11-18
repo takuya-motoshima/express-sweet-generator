@@ -262,6 +262,19 @@ var dist_build = __webpack_require__(236);
   }
 });
 
+;// CONCATENATED MODULE: ./src/shared/reloadDataTableWithDelay.js
+/**
+ * Reloads a DataTable after a specified delay.
+ * @param {object} dataTable The DataTable instance to reload.
+ * @param {number} delay The delay in milliseconds before reloading.
+ */
+/* harmony default export */ const reloadDataTableWithDelay = ((dataTable, delay = 500) => {
+  let timer;
+  return function() { // Preserve the timer using a closure
+    clearTimeout(timer);
+    timer = setTimeout(() => dataTable.reload(), delay);
+  };
+});
 ;// CONCATENATED MODULE: ./src/shared/Api.js
 
 
@@ -300,13 +313,13 @@ var dist_build = __webpack_require__(236);
   /**
    * Handles API errors.
    * @param {number} code The HTTP status code.
-   * @param {Error} err The error object.
+   * @param {Error} error The error object.
    * @return {void}
    */
-  errorHook(code, err) {
+  errorHook(code, error) {
     // Check if the error object and request properties exist to avoid runtime errors
-    if (err && err.request && err.request.responseURL) {
-      const {pathname} = new URL(err.request.responseURL);
+    if (error && error.request && error.request.responseURL) {
+      const {pathname} = new URL(error.request.responseURL);
       if (pathname !== '/api/users/login' && code === 401) {
         // Redirect to the login page if an authentication error occurs on a non-login request.
         location.replace('/');
@@ -317,7 +330,7 @@ var dist_build = __webpack_require__(236);
 ;// CONCATENATED MODULE: ./src/api/UserApi.js
 
 
-/* harmony default export */ const UserApi = (class extends components.Api {
+/* harmony default export */ const UserApi = (class extends Api {
   constructor() {
     super('/api/users');
   }
@@ -603,10 +616,10 @@ var dist_build = __webpack_require__(236);
         this.#validator.offIndicator();
         dist_build.components.Toast.success('User created.');
         super.hide(true);
-      } catch (err) {
+      } catch (error) {
         this.#validator.offIndicator();
         dist_build.components.Dialog.unknownError();
-        throw err;
+        throw error;
       }
     });
   }
@@ -628,10 +641,10 @@ var dist_build = __webpack_require__(236);
         }
         dist_build.components.Toast.success('User updated.');
         super.hide(true);
-      } catch (err) {
+      } catch (error) {
         this.#validator.offIndicator();
         dist_build.components.Dialog.unknownError();
-        throw err;
+        throw error;
       }
     });
   }
@@ -711,6 +724,7 @@ var dist_build = __webpack_require__(236);
   }
 });
 ;// CONCATENATED MODULE: ./src/users.js
+
 
 
 
@@ -800,23 +814,18 @@ function initForm() {
             throw Error('Unknown error');
         dist_build.components.Toast.success(`${name} was deleted.`);
         userTable.reload();
-      } catch (err) {
+      } catch (error) {
         dist_build.components.Dialog.unknownError();
-        throw err;
+        throw error;
       }
     })
-    .on('input', '[data-on-search-change]' , evnt => {
-      if (searchTimer)
-        clearTimeout(searchTimer);
-      searchTimer = setTimeout(() => userTable.reload(), 300);
-    });
+    .on('input', '[data-on-search-change]' , reloadDataTableWithDelay(userTable));
 }
 
 const userApi = new UserApi();
 const userModal = new UserModal();
 const ref = dist_build.components.selectRef('#kt_app_content_container');
 let userTable;
-let searchTimer;
 initTable();
 initForm();
 })();

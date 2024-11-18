@@ -1,9 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [2.0.6] - The release date is yet to be determined.
+## [2.0.6] - 2024/11/18
 ### Changed
 - Refactored variable names.
+- Fixed a bug in the [user API](templates/client/src/api/UserApi.js) client module of templates.
+- Frontend: Consolidated the datatable filtering logic within templates, introducing a shared function in [templates/client/src/shared/reloadDataTableWithDelay.js](templates/client/src/shared/reloadDataTableWithDelay.js).
 
 ## [2.0.5] - 2024/11/13
 ### Changed
@@ -54,5 +56,5 @@ All notable changes to this project will be documented in this file.
     }
     ```
 
-[2.0.4]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.3...v2.0.4
 [2.0.5]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.4...v2.0.5
+[2.0.6]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.5...v2.0.6
