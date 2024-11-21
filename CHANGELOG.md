@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.8] - 2024/11/21
+### Changed
+- Consolidated request data validation with `express-validator` into a common middleware (`middlewares/checkValidationResult.js`).
+- Renamed `shard/empty` to `shard\isEmpty`.
+- Change `shared/CustomValidation.js` to `validators/isValidImageDataUrl.js`.
+
 ## [2.0.7] - 2024/11/21
 ### Changed
 - **Refactor:** Renamed the directory for storing custom error classes in the template from `exceptions` to `errors`.
@@ -64,3 +70,4 @@ All notable changes to this project will be documented in this file.
 [2.0.5]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.4...v2.0.5
 [2.0.6]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.5...v2.0.6
 [2.0.7]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.6...v2.0.7
+[2.0.8]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.7...v2.0.8

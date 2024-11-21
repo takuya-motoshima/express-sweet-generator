@@ -145,6 +145,8 @@ Use the application generator tool, `express-sweet-generator`, to quickly create
     │   └── view.js
     ├── errors
     │   └── NotFoundError.js
+    ├── middlewares
+    │   └── checkValidationResult.js
     ├── models
     │   ├── BookModel.js
     │   ├── CommentModel.js
@@ -159,8 +161,9 @@ Use the application generator tool, `express-sweet-generator`, to quickly create
     │   └── api
     │       └── users.js
     ├── shared
-    │   ├── CustomValidation.js
-    │   └── empty.js
+    │   └── isEmpty.js
+    ├── validators
+    │   └── isValidImageDataUrl.js
     └── views
         ├── edit-personal.hbs
         ├── error.hbs
@@ -170,7 +173,10 @@ Use the application generator tool, `express-sweet-generator`, to quickly create
         ├── layout
         │   └── default.hbs
         └── partials
-            └── .gitkeep
+        │   └── .gitkeep
+        └── errors
+            ├── 404.hbs
+            └── 500.hbs
     ```
 
 ## Author
