@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.9] - The release date is undecided.
+### Changed
+- Validation errors in request data are now logged if the `LOG_VALIDATION_ERRORS` environment variable is set to `true` (`middlewares/checkValidationResult.js`).
+
 ## [2.0.8] - 2024/11/21
 ### Changed
 - Consolidated request data validation with `express-validator` into a common middleware (`middlewares/checkValidationResult.js`).
