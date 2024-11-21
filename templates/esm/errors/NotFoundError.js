@@ -4,7 +4,7 @@
 export default class extends Error {
   /**
    * Creates a new NotFoundError instance.
-   * @param {string} [message='The requested record could not be found.'] - The error message.
+   * @param {string} [message='The requested record could not be found.'] The error message.
    */
   constructor(message = 'The requested record could not be found.') {
     super(message);
