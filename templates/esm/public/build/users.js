@@ -635,7 +635,7 @@ var dist_build = __webpack_require__(236);
         // User update request.
         const {data} = await this.#userApi.updateUser(this.#userId, new FormData(this.#validator.form));
         this.#validator.offIndicator();
-        if (data?.error === 'UserNotFound') {
+        if (data?.error === 'NotFoundError') {
           await dist_build.components.Dialog.warning('This user has been deleted.');
           return void super.hide(true);
         }

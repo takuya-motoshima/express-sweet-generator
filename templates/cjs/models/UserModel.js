@@ -1,6 +1,6 @@
 const expressExtension = require('express-sweet');
 const {Media} = require('nodejs-shared');
-const UserNotFound = require('../exceptions/UserNotFound');
+const NotFoundError = require('../errors/NotFoundError');
 
 module.exports = class extends expressExtension.database.Model {
   static get table() {
@@ -123,7 +123,7 @@ module.exports = class extends expressExtension.database.Model {
       }, set);
       const user = await this.getUser(userId);
       if (!user)
-        throw new UserNotFound();
+        throw new NotFoundError();
       transaction = await super.begin();
       user.email = set.email;
       user.name = set.name;

@@ -2,7 +2,7 @@ import * as expressExtension from 'express-sweet';
 import {Router} from 'express';
 import {query, body, validationResult} from 'express-validator';
 import UserModel from '../../models/UserModel.js';
-import UserNotFound from '../../exceptions/UserNotFound.js';
+import NotFoundError from '../../errors/NotFoundError.js';
 import * as CustomValidation from '../../shared/CustomValidation.js';
 
 const router = Router();
@@ -81,7 +81,7 @@ router.put('/:userId(\\d+)', [
     await UserModel.updateUser(req.params.userId, req.body.user);
     res.json(true);
   } catch (error) {
-    if (error instanceof UserNotFound)
+    if (error instanceof NotFoundError)
       res.json({error: error.name});
     else
       next(error);
@@ -106,7 +106,7 @@ router.put('/profile', [
     await UserModel.updateUser(req.user.id, req.body.user);
     res.json(true);
   } catch (error) {
-    if (error instanceof UserNotFound)
+    if (error instanceof NotFoundError)
       res.json({error: error.name});
     else
       next(error);

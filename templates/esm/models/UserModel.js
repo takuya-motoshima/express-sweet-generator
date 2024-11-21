@@ -1,6 +1,6 @@
 import * as expressExtension from 'express-sweet';
 import {Media} from 'nodejs-shared';
-import UserNotFound from '../exceptions/UserNotFound.js';
+import NotFoundError from '../errors/NotFoundError.js';
 import ProfileModel from './ProfileModel.js';
 import CommentModel from './CommentModel.js';
 import BookModel from './BookModel.js';
@@ -123,7 +123,7 @@ export default class extends expressExtension.database.Model {
       }, set);
       const user = await this.getUser(userId);
       if (!user)
-        throw new UserNotFound();
+        throw new NotFoundError();
       transaction = await super.begin();
       user.email = set.email;
       user.name = set.name;

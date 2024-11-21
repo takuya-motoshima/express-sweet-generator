@@ -269,7 +269,7 @@ export default class extends components.Modal {
         // User update request.
         const {data} = await this.#userApi.updateUser(this.#userId, new FormData(this.#validator.form));
         this.#validator.offIndicator();
-        if (data?.error === 'UserNotFound') {
+        if (data?.error === 'NotFoundError') {
           await components.Dialog.warning('This user has been deleted.');
           return void super.hide(true);
         }

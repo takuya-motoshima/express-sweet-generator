@@ -227,7 +227,7 @@ function initForm() {
       const {data} = await userApi.updateProfile(new FormData(validation.form));
       validation.offIndicator();
       if (data.error)
-        if (data.error === 'UserNotFound') {
+        if (data.error === 'NotFoundError') {
           await build.components.Dialog.warning('The account you are using has been deleted and you will be forcibly logged out.');
           return void userApi.logout();
         } else

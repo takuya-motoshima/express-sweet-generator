@@ -143,8 +143,8 @@ Use the application generator tool, `express-sweet-generator`, to quickly create
     │   ├── config.js
     │   ├── database.js
     │   └── view.js
-    ├── exceptions
-    │   └── UserNotFound.js
+    ├── errors
+    │   └── NotFoundError.js
     ├── models
     │   ├── BookModel.js
     │   ├── CommentModel.js
