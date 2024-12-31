@@ -67,19 +67,21 @@ module.exports = class extends expressExtension.database.Model {
       dir: 'asc',
       search: null,
     }, options);
+
     const recordsTotal = await super.count();
-    let where;
+
+    const whereClause = {};
     if (options.search)
-      where = {
-        [super.Op.or]: [
-          {email: {[super.Op.like]: `%${options.search}%`}},
-          {name: {[super.Op.like]: `%${options.search}%`}}
-        ]
-      };
-    const recordsFiltered = await super.count({where});
+      whereClause[super.Op.or] = [
+        {email: {[super.Op.like]: `%${options.search}%`}},
+        {name: {[super.Op.like]: `%${options.search}%`}}
+      ];
+
+    const recordsFiltered = await super.count({where: whereClause});
+
     const data = await super.findAll({
       attributes: ['id', 'name', 'email', 'icon', 'modified'],
-      where,
+      where: whereClause,
       order: [[options.order, options.dir]],
       offset: parseInt(options.start, 10),
       limit: parseInt(options.length),
@@ -88,23 +90,27 @@ module.exports = class extends expressExtension.database.Model {
     return {recordsTotal, recordsFiltered, data};
   }
 
-  static async createUser(set) {
+  static async createUser(userData) {
     let transaction;
     try {
-      set = Object.assign({
+      userData = Object.assign({
         email: null,
         name: null,
         password: null,
         icon: null
-      }, set);
+      }, userData);
       transaction = await super.begin();
       const user = await  super.create({
-        name: set.name,
-        email: set.email,
-        password: set.password,
+        name: userData.name,
+        email: userData.email,
+        password: userData.password,
       }, {transaction});
-      await this.#updateUserIcon(user, set.icon, transaction);
+
+      await this.#updateUserIcon(user, userData.icon, transaction);
+
       await transaction.commit();
+
+      console.log('Successfully created a new user with ID:', user.id);
     } catch (error) {
       if (transaction)
         await transaction.rollback();
@@ -112,27 +118,31 @@ module.exports = class extends expressExtension.database.Model {
     }
   }
 
-  static async updateUser(userId, set) {
+  static async updateUser(userId, userData) {
     let transaction;
     try {
-      set = Object.assign({
+      userData = Object.assign({
         email: null,
         name: null,
         password: null,
         icon: null
-      }, set);
+      }, userData);
       const user = await this.getUser(userId);
       if (!user)
         throw new NotFoundError();
       transaction = await super.begin();
-      user.email = set.email;
-      user.name = set.name;
+      user.email = userData.email;
+      user.name = userData.name;
       user.modified = super.literal('CURRENT_TIMESTAMP');
-      if (set.password)
-        user.password = set.password;
+      if (userData.password)
+        user.password = userData.password;
+
       await user.save({transaction});
-      await this.#updateUserIcon(user, set.icon, transaction);
+      await this.#updateUserIcon(user, userData.icon, transaction);
+
       await transaction.commit();
+
+      console.log(`Successfully updated user with ID: ${userId}`);
     } catch (error) {
       if (transaction)
         await transaction.rollback();
@@ -144,26 +154,25 @@ module.exports = class extends expressExtension.database.Model {
     user.icon = `/upload/${user.id}.${Media.getExtensionFromDataUrl(dataUrl)}`;
     await user.save({transaction});
     const iconPath = `${global.APP_DIR}/public${user.icon}`;
-    console.log(`Write ${iconPath}`);
     Media.writeDataUrlToFile(iconPath, dataUrl);
   }
 
   static async deleteUser(userId) {
-    console.log(`Delete a user whose ID is ${userId}`);
-    return super.destroy({where: {id: userId}});
+    await super.destroy({where: {id: userId}});
+    console.log(`Successfully deleted user with ID: ${userId}`);
   }
 
   static async emailExists(email, excludeUserId = null) {
-    const where = {email};
+    const whereClause = {email};
     if (excludeUserId)
-      where.id = {[super.Op.ne]: excludeUserId};
-    return await super.count({where}) > 0;
+      whereClause.id = {[super.Op.ne]: excludeUserId};
+    return await super.count({where: whereClause}) > 0;
   }
 
   static async userIdExists(userId) {
-    const where = {email};
+    const whereClause = {email};
     if (excludeUserId)
-      where.id = {[super.Op.ne]: excludeUserId};
-    return await super.count({where}) > 0;
+      whereClause.id = {[super.Op.ne]: excludeUserId};
+    return await super.count({where: whereClause}) > 0;
   }
 }
