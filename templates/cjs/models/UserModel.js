@@ -59,22 +59,22 @@ module.exports = class extends expressExtension.database.Model {
     });
   }
 
-  static async paginate(options) {
-    options = Object.assign({
+  static async paginate(paginationOptions) {
+    paginationOptions = Object.assign({
       start: 0,
       length: 30,
       order: null,
       dir: 'asc',
       search: null,
-    }, options);
+    }, paginationOptions);
 
     const recordsTotal = await super.count();
 
     const whereClause = {};
-    if (options.search)
+    if (paginationOptions.search)
       whereClause[super.Op.or] = [
-        {email: {[super.Op.like]: `%${options.search}%`}},
-        {name: {[super.Op.like]: `%${options.search}%`}}
+        {email: {[super.Op.like]: `%${paginationOptions.search}%`}},
+        {name: {[super.Op.like]: `%${paginationOptions.search}%`}}
       ];
 
     const recordsFiltered = await super.count({where: whereClause});
@@ -82,9 +82,9 @@ module.exports = class extends expressExtension.database.Model {
     const data = await super.findAll({
       attributes: ['id', 'name', 'email', 'icon', 'modified'],
       where: whereClause,
-      order: [[options.order, options.dir]],
-      offset: parseInt(options.start, 10),
-      limit: parseInt(options.length),
+      order: [[paginationOptions.order, paginationOptions.dir]],
+      offset: parseInt(paginationOptions.start, 10),
+      limit: parseInt(paginationOptions.length),
       raw: true
     });
     return {recordsTotal, recordsFiltered, data};

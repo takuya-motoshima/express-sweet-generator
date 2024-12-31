@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.10] - 2024/12/31
+### Changed
+- Refactored variable names used in the skeleton processing.
+
 ## [2.0.9] - 2024/12/31
 ### Changed
 - Validation errors in request data are now logged if the `LOG_VALIDATION_ERRORS` environment variable is set to `true` (`middlewares/checkValidationResult.js`).
@@ -77,3 +81,4 @@ All notable changes to this project will be documented in this file.
 [2.0.7]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.6...v2.0.7
 [2.0.8]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.7...v2.0.8
 [2.0.9]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.8...v2.0.9
+[2.0.10]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.9...v2.0.10
