@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [2.0.9] - Unscheduled
+## [2.0.9] - 2024/12/31
 ### Changed
 - Validation errors in request data are now logged if the `LOG_VALIDATION_ERRORS` environment variable is set to `true` (`middlewares/checkValidationResult.js`).
 - Refactor the skeleton model class.
