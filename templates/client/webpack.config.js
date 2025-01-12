@@ -59,6 +59,9 @@ module.exports = {
       }
     ]
   },
+  experiments: {
+    topLevelAwait: true,
+  },
   optimization: {
     minimizer: [
       new CssMinimizerPlugin()

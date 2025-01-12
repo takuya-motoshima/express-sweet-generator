@@ -1,6 +1,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.11] - TBD
+### Changed
+- Added an option to `client/webpack.config.js` in the template to allow top-level await.
+
+    `webpack.config.js`:
+    ```js
+    module.exports = {
+      // ... other configurations ...
+
+      experiments: {
+        topLevelAwait: true,
+      },
+
+      // ... other configurations ...
+    };
+    ```
+
 ## [2.0.10] - 2024/12/31
 ### Changed
 - Refactored variable names used in the skeleton processing.
