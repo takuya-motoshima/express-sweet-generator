@@ -38,12 +38,11 @@ module.exports = {
    * This is a hook that rewrites the base URL.
    * If you want to rewrite the app.locals.baseUrl property and the view's baseUrl variable, use this hook to return a new base URL.
    * The default value is the referrer's origin (eg https://example.com).
+   * @type {(baseUrl: string): string}
    * @example
    * rewrite_base_url: baseUrl => {
    *   return `${baseUrl}/admin`;
    * }
-   * 
-   * @type {(baseUrl: string): string}
    */
   rewrite_base_url: baseUrl => {
     return baseUrl;
