@@ -58,7 +58,8 @@ function createApplication(appName, installDir) {
   compile(path.join(installDir, 'bin/www'), {name: appName});
 
   // Copy ecosystem.config.js.
-  compile(path.join(installDir, 'ecosystem.config.js'), {name: appName, port});
+  compile(path.join(installDir, program.output === 'esm' ? 'ecosystem.config.cjs' : 'ecosystem.config.js'), {name: appName, port});
+  // compile(path.join(installDir, 'ecosystem.config.js'), {name: appName, port});
 
   // Copy nginx.sample.conf.
   compile(path.join(installDir, 'nginx.sample.conf'), {name: appName, port});

@@ -1,7 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [2.0.11] - TBD
+<!-- ## [2.0.12] - TBD -->
+
+## [2.0.11] - 2025/1/17
 ### Changed
 - Added an option to `client/webpack.config.js` in the template to allow top-level await.
 
@@ -17,6 +19,15 @@ All notable changes to this project will be documented in this file.
       // ... other configurations ...
     };
     ```
+- Added `log_date_format: 'YYYY-MM-DD HH:mm:ss'` to `ecosystem.config.js.ejs` for ESM and CJS templates to format PM2 log messages with timestamps.
+    ```javascript
+    // Instead of:
+    import MyModule from '../utils/MyModule.js';
+
+    // You can now use:
+    import MyModule from '#~/utils/MyModule.js';
+    ```
+- Added the `log_date_format` option (`YYYY-MM-DD HH:mm:ss`) to `ecosystem.config.js.ejs` for ESM and CJS templates to specify the date format for log messages in PM2, making it easier to track the time of events in the logs. 
 
 ## [2.0.10] - 2024/12/31
 ### Changed
@@ -99,3 +110,4 @@ All notable changes to this project will be documented in this file.
 [2.0.8]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.7...v2.0.8
 [2.0.9]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.8...v2.0.9
 [2.0.10]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.9...v2.0.10
+[2.0.11]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.10...v2.0.11
