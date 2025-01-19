@@ -44,5 +44,9 @@ export default {
    *   res.locals.extra = 'Extra';
    * }
    */
-  beforeRender: (req, res) => {}
+  beforeRender: (req, res) => {
+    // Set the initial sidebar state from the cookie, defaulting to 'off'.
+    res.locals.sidebar_minimize_state = req.cookies.sidebar_minimize_state || 'off';
+    // console.log('Sidebar minimize state from cookie:', req.cookies.sidebar_minimize_state);
+  }
 }
