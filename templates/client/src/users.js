@@ -7,6 +7,7 @@ import UserApi from '~/api/UserApi';
 import UserModal from '~/modals/UserModal';
 
 function initTable() {
+  let targetIndex = 0;
   userTable = new Datatable(ref.userTable, {
     ajax: {
       url: '/api/users',
@@ -16,15 +17,15 @@ function initTable() {
     },
     dom: `<'row'<'col-12 dataTables_pager'p>><'row'<'col-12'tr>><'row'<'col-12 dataTables_pager'p>>`,
     columnDefs: [
-      {targets: 0, data: 'name', className: 'd-flex align-items-center', render: (data, type, row) => hbs.compile(
+      {targets: targetIndex++, data: 'name', className: 'd-flex align-items-center', render: (data, type, row) => hbs.compile(
         `<div class="symbol symbol-35px me-3">
           <img src="{{row.icon}}?{{formatDate 'x' row.modified}}">
         </div>
         <span class="text-gray-800">{{row.name}}</span>`)({row})
       },
-      {targets: 1, data: 'email'},
-      {targets: 2, data: 'modified', render: data => hbs.compile(`{{formatDate 'YYYY/M/D HH:mm:ss' data}}`)({data})},
-      {targets: -1, className: 'text-end', data: 'actions', orderable: false, render: (data, type, row) =>
+      {targets: targetIndex++, data: 'email'},
+      {targets: targetIndex++, data: 'modified', render: data => hbs.compile(`{{formatDate 'YYYY/M/D HH:mm:ss' data}}`)({data})},
+      {targets: targetIndex++, className: 'text-end', data: 'actions', orderable: false, render: (data, type, row) =>
         hbs.compile(
           `<button data-on-update-user data-id="{{row.id}}" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Update user." type="button" class="btn btn-sm btn-icon btn-light btn-icon-gray-800 btn-active-light-primary me-3">
             <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
