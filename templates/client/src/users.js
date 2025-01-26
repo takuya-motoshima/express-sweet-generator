@@ -52,7 +52,9 @@ function initTable() {
           {{/if}}`)({row})
       }
     ],
-    order: [[0, 'asc']]
+    order: [
+      [0, 'asc'],
+    ]
   });
 }
 

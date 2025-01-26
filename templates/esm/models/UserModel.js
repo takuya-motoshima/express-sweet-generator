@@ -82,7 +82,9 @@ export default class extends expressExtension.database.Model {
     const data = await super.findAll({
       attributes: ['id', 'name', 'email', 'icon', 'modified'],
       where: whereClause,
-      order: [[paginationOptions.order, paginationOptions.dir]],
+      order: [
+        [super.col(paginationOptions.order), paginationOptions.dir],
+      ],
       offset: parseInt(paginationOptions.start, 10),
       limit: parseInt(paginationOptions.length),
       raw: true
