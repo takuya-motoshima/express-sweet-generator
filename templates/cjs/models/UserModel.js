@@ -68,6 +68,7 @@ module.exports = class extends expressExtension.database.Model {
       search: null,
     }, paginationOptions);
 
+    // Calculate total records.
     const recordsTotal = await super.count();
 
     const whereClause = {};
@@ -77,6 +78,7 @@ module.exports = class extends expressExtension.database.Model {
         {name: {[super.Op.like]: `%${paginationOptions.search}%`}}
       ];
 
+    // Calculate filtered records.
     const recordsFiltered = await super.count({where: whereClause});
 
     const data = await super.findAll({
