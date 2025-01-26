@@ -71,6 +71,7 @@ export default class extends expressExtension.database.Model {
     // Calculate total records.
     const recordsTotal = await super.count();
 
+    // Where clause for filtering data.
     const whereClause = {};
     if (paginationOptions.search)
       whereClause[super.Op.or] = [
@@ -168,6 +169,7 @@ export default class extends expressExtension.database.Model {
   }
 
   static async emailExists(email, excludeUserId = null) {
+    // Where clause for filtering data.
     const whereClause = {email};
     if (excludeUserId)
       whereClause.id = {[super.Op.ne]: excludeUserId};
@@ -175,6 +177,7 @@ export default class extends expressExtension.database.Model {
   }
 
   static async userIdExists(userId) {
+    // Where clause for filtering data.
     const whereClause = {email};
     if (excludeUserId)
       whereClause.id = {[super.Op.ne]: excludeUserId};
