@@ -81,6 +81,7 @@ export default class extends expressExtension.database.Model {
     // Calculate filtered records.
     const recordsFiltered = await super.count({where: whereClause});
 
+    // Fetch paginated data.
     const data = await super.findAll({
       attributes: ['id', 'name', 'email', 'icon', 'modified'],
       where: whereClause,
