@@ -12,6 +12,7 @@ function initTable() {
     ajax: {
       url: '/api/users',
       data: d => {
+        // Set filter parameters.
         d.search = ref.keyword.val()
       }
     },
