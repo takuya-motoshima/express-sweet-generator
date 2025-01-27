@@ -2,6 +2,9 @@ import {components} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
 import '~/login.css';
 
+/**
+ * Initializes form validation.
+ */
 const initValidation = () => {
   validation = new components.Validation(ref.loginForm.get(0), {
     email: {
@@ -19,6 +22,9 @@ const initValidation = () => {
   });
 }
 
+/**
+ * Handles form events.
+ */
 const handleForm = () => {
   validation.onValid(async () => {
     try {
@@ -37,7 +43,13 @@ const handleForm = () => {
 }
 
 const userApi = new UserApi();
+
+// Get references to elements with data-ref attributes.
 const ref = components.selectRef();
+
+// Initializes form validation.
 let validation;
 initValidation();
+
+// Handles form events.
 handleForm();

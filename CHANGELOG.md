@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- ## [x.x.x] - TBD -->
 
+## [2.0.14] - 2025/1/28
+### Changed
+- Fixed JSDoc and comments in the template frontend JS. 
+
 ## [2.0.13] - 2025/1/27
 ### Changed
 - Refactored templates, endpoints, view structure, and frontend JavaScript code.
@@ -121,3 +125,4 @@ All notable changes to this project will be documented in this file.
 [2.0.11]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.10...v2.0.11
 [2.0.12]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.11...v2.0.12
 [2.0.13]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.12...v2.0.13
+[2.0.14]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.13...v2.0.14

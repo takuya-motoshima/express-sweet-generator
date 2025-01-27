@@ -3,6 +3,9 @@ import ProfileApi from '~/api/ProfileApi';
 import UserApi from '~/api/UserApi';
 import '~/profile-edit.css';
 
+/**
+ * Initializes form validation.
+ */
 const initValidation = () => {
   validation = new components.Validation(ref.profileEditForm.get(0), {
     'user[email]': {
@@ -44,6 +47,9 @@ const initValidation = () => {
   });
 }
 
+/**
+ * Handles form events.
+ */
 const handleForm = () => {
   validation.onValid(async () => {
     try {
@@ -99,8 +105,14 @@ const handleForm = () => {
 
 const profileApi = new ProfileApi();
 const userApi = new UserApi();
+
+// Get references to elements with data-ref attributes.
 const ref = components.selectRef('#kt_app_content_container');
 const originalEmail = utils.trim(ref.user.email.val(), true);
+
+// Initializes form validation.
 let validation;
 initValidation();
+
+// Handles form events.
 handleForm();

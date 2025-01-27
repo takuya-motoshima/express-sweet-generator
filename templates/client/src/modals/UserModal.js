@@ -48,10 +48,10 @@ export default class extends components.Modal {
     this.#mode = mode;
     this.#userId = userId;
 
-    // Get elements.
+    // Get references to elements with data-ref attributes.
     this.#ref = components.selectRef(super.element);
 
-    // Form validation initialization.
+    // Initializes form validation.
     this.#initValidation();
 
     // Image input component initialization.
@@ -284,7 +284,7 @@ export default class extends components.Modal {
   }
 
   /**
-   * Form validation initialization.
+   * Initializes form validation.
    */
   #initValidation() {
     this.#validator = new components.Validation(this.#ref.form.get(0), {

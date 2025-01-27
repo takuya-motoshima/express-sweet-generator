@@ -6,6 +6,9 @@ import UserApi from '~/api/UserApi';
 import UserModal from '~/modals/UserModal';
 import '~/users.css';
 
+/**
+ * Initializes the data table.
+ */
 const initDatatable = () => {
   let targetIndex = 0;
   userTable = new Datatable(ref.userTable, {
@@ -59,6 +62,9 @@ const initDatatable = () => {
   });
 }
 
+/**
+ * Handles form events.
+ */
 const handleForm = () => {
   $('body')
     .on('click', '[data-on-create-user]', async () => {
@@ -102,7 +108,13 @@ const handleForm = () => {
 
 const userApi = new UserApi();
 const userModal = new UserModal();
+
+// Get references to elements with data-ref attributes.
 const ref = components.selectRef('#kt_app_content_container');
 let userTable;
+
+// Initialize the data table.
 initDatatable();
+
+// Handles form events.
 handleForm();
