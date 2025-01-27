@@ -17,7 +17,7 @@ module.exports = {
     app: './src/app.js',
     login: './src/login.js',
     users: './src/users.js',
-    editPersonal: './src/editPersonal.js'
+    'profile-edit': './src/profile-edit.js'
   },
   output: {
     path: path.resolve(__dirname, '../public/build'),

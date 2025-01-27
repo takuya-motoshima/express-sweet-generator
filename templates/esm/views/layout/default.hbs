@@ -112,9 +112,9 @@
                   </div>
                   <!--end:Menu item-->
                   <!--begin:Menu item-->
-                  <div class="menu-item menu-here-bg me-0 me-lg-2 {{#if (eq currentPath '/users/personal')}}here{{/if}}">
+                  <div class="menu-item menu-here-bg me-0 me-lg-2 {{#if (eq currentPath '/profile')}}here{{/if}}">
                     <!--begin:Menu link-->
-                    <a class="menu-link" href="/users/personal">
+                    <a class="menu-link" href="/profile">
                       <span class="menu-title">Profile Settings</span>
                     </a>
                     <!--end:Menu link-->
@@ -233,7 +233,7 @@
                     <!--end::Menu separator-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-5">
-                      <a href="/users/personal" class="menu-link px-5">Profile Settings</a>
+                      <a href="/profile" class="menu-link px-5">Profile Settings</a>
                     </div>
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
@@ -337,7 +337,7 @@
                   <!--begin:Menu item-->
                   <div class="menu-item">
                     <!--begin:Menu link-->
-                    <a class="menu-link {{#if (or (eq currentPath '/users/personal') (eq currentPath '/users/edit-personal'))}}active{{/if}}" href="/users/personal">
+                    <a class="menu-link {{#if (or (eq currentPath '/profile') (eq currentPath '/profile/edit'))}}active{{/if}}" href="/profile">
                       <span class="menu-icon">
                         <i class="ki-duotone ki-address-book fs-2">
                           <span class="path1"></span>

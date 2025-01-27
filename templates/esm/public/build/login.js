@@ -169,17 +169,13 @@ var build = __webpack_require__(236);
   async deleteUser(userId) {
     return this.client.delete(`/${userId}`);
   }
-
-  async updateProfile(formData) {
-    return this.client.put('/profile', formData);
-  }
 });
 ;// CONCATENATED MODULE: ./src/login.js
 
 
 
 
-function initValidation() {
+const initValidation = () => {
   validation = new build.components.Validation(ref.loginForm.get(0), {
     email: {
       validators: {
@@ -196,7 +192,7 @@ function initValidation() {
   });
 }
 
-function initForm() {
+const handleForm = () => {
   validation.onValid(async () => {
     try {
       validation.onIndicator();
@@ -217,7 +213,7 @@ const userApi = new UserApi();
 const ref = build.components.selectRef();
 let validation;
 initValidation();
-initForm();
+handleForm();
 })();
 
 /******/ })()

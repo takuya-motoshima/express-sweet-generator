@@ -1,9 +1,10 @@
-import '~/editPersonal.css';
 import {components, utils} from 'metronic-extension';
+import ProfileApi from '~/api/ProfileApi';
 import UserApi from '~/api/UserApi';
+import '~/profile-edit.css';
 
-function initValidation() {
-  validation = new components.Validation(ref.personalForm.get(0), {
+const initValidation = () => {
+  validation = new components.Validation(ref.profileEditForm.get(0), {
     'user[email]': {
       validators: {
         notEmpty: {message: 'Email is required.'},
@@ -43,11 +44,11 @@ function initValidation() {
   });
 }
 
-function initForm() {
+const handleForm = () => {
   validation.onValid(async () => {
     try {
       validation.onIndicator();
-      const {data} = await userApi.updateProfile(new FormData(validation.form));
+      const {data} = await profileApi.updateProfile(new FormData(validation.form));
       validation.offIndicator();
       if (data.error)
         if (data.error === 'NotFoundError') {
@@ -67,7 +68,7 @@ function initForm() {
       throw error;
     }
   });
-  ref.personalForm
+  ref.profileEditForm
     .on('show.bs.collapse hide.bs.collapse', '#passwordCollapse', evnt => {
       if (evnt.type === 'show') {
         validation.enableValidator('user[password]');
@@ -96,9 +97,10 @@ function initForm() {
   });
 }
 
+const profileApi = new ProfileApi();
 const userApi = new UserApi();
 const ref = components.selectRef('#kt_app_content_container');
 const originalEmail = utils.trim(ref.user.email.val(), true);
 let validation;
 initValidation();
-initForm();
+handleForm();

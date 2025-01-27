@@ -157,23 +157,27 @@ Use the application generator tool, `express-sweet-generator`, to quickly create
     │   └── upload
     ├── routes
     │   ├── login.js
+    │   ├── profile.js
     │   ├── users.js
     │   └── api
+    │       ├── profile.js
     │       └── users.js
     ├── shared
     │   └── isEmpty.js
     ├── validators
     │   └── isValidImageDataUrl.js
     └── views
-        ├── edit-personal.hbs
         ├── error.hbs
         ├── login.hbs
-        ├── personal.hbs
-        ├── users.hbs
         ├── layout
         │   └── default.hbs
-        └── partials
+        ├── partials
         │   └── .gitkeep
+        ├── users
+        │   └── index.hbs
+        ├── profile
+        │   ├── show.hbs
+        │   └── edit.hbs
         └── errors
             ├── 404.hbs
             └── 500.hbs

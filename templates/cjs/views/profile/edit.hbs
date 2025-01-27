@@ -1,14 +1,14 @@
 {{!< default}}
 {{#contentFor 'title'}}Edit personal settings{{/contentFor}}
-{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cacheBusting '/build/editPersonal.css' ''}}">{{/contentFor}}
-{{#contentFor 'script'}}<script src="{{cacheBusting '/build/editPersonal.js' ''}}"></script>{{/contentFor}}
+{{#contentFor 'style'}}<link rel="stylesheet" type="text/css" href="{{cacheBusting '/build/profile-edit.css' ''}}">{{/contentFor}}
+{{#contentFor 'script'}}<script src="{{cacheBusting '/build/profile-edit.js' ''}}"></script>{{/contentFor}}
 <input data-ref="user.iconPath" type="hidden" value="{{user.icon}}">
 <input data-ref="user.modified" type="hidden" value="{{formatDate 'x' user.modified}}">
 
 <!--begin::Basic info-->
 <div class="card mb-5 mb-xl-10">
   <!--begin::Form-->
-  <form data-ref="personalForm" class="form" novalidate="novalidate">
+  <form data-ref="profileEditForm" class="form" novalidate="novalidate">
     <!--begin::Card body-->
     <div class="card-body p-9">
       <!--begin::Input group-->
@@ -85,7 +85,7 @@
     <!--end::Card body-->
     <!--begin::Actions-->
     <div class="card-footer d-flex justify-content-end py-6 px-9">
-      <a href="/users/personal" class="btn btn-light btn-active-light-primary me-2">Back to Profile</a>
+      <a href="/profile" class="btn btn-light btn-active-light-primary me-2">Back to Profile</a>
       <button type="submit" class="btn btn-primary">Update Profile</button>
     </div>
     <!--end::Actions-->

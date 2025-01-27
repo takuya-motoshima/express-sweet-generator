@@ -358,10 +358,6 @@ var dist_build = __webpack_require__(236);
   async deleteUser(userId) {
     return this.client.delete(`/${userId}`);
   }
-
-  async updateProfile(formData) {
-    return this.client.put('/profile', formData);
-  }
 });
 ;// CONCATENATED MODULE: ./src/modals/UserModal.js
 
@@ -732,25 +728,27 @@ var dist_build = __webpack_require__(236);
 
 
 
-function initTable() {
+const initDatatable = () => {
+  let targetIndex = 0;
   userTable = new Datatable(ref.userTable, {
     ajax: {
       url: '/api/users',
       data: d => {
+        // Set filter parameters.
         d.search = ref.keyword.val()
       }
     },
     dom: `<'row'<'col-12 dataTables_pager'p>><'row'<'col-12'tr>><'row'<'col-12 dataTables_pager'p>>`,
     columnDefs: [
-      {targets: 0, data: 'name', className: 'd-flex align-items-center', render: (data, type, row) => build_default().compile(
+      {targets: targetIndex++, data: 'name', className: 'd-flex align-items-center', render: (data, type, row) => build_default().compile(
         `<div class="symbol symbol-35px me-3">
           <img src="{{row.icon}}?{{formatDate 'x' row.modified}}">
         </div>
         <span class="text-gray-800">{{row.name}}</span>`)({row})
       },
-      {targets: 1, data: 'email'},
-      {targets: 2, data: 'modified', render: data => build_default().compile(`{{formatDate 'YYYY/M/D HH:mm:ss' data}}`)({data})},
-      {targets: -1, className: 'text-end', data: 'actions', orderable: false, render: (data, type, row) =>
+      {targets: targetIndex++, data: 'email'},
+      {targets: targetIndex++, data: 'modified', render: data => build_default().compile(`{{formatDate 'YYYY/M/D HH:mm:ss' data}}`)({data})},
+      {targets: targetIndex++, className: 'text-end', data: 'actions', orderable: false, render: (data, type, row) =>
         build_default().compile(
           `<button data-on-update-user data-id="{{row.id}}" data-bs-toggle="tooltip" data-bs-dismiss="click" title="Update user." type="button" class="btn btn-sm btn-icon btn-light btn-icon-gray-800 btn-active-light-primary me-3">
             <!--begin::Svg Icon | path: icons/duotune/general/gen019.svg-->
@@ -777,11 +775,13 @@ function initTable() {
           {{/if}}`)({row})
       }
     ],
-    order: [[0, 'asc']]
+    order: [
+      [0, 'asc'],
+    ]
   });
 }
 
-function initForm() {
+const handleForm = () => {
   $('body')
     .on('click', '[data-on-create-user]', async () => {
       if (await userModal.show('create') !== false)
@@ -826,8 +826,8 @@ const userApi = new UserApi();
 const userModal = new UserModal();
 const ref = dist_build.components.selectRef('#kt_app_content_container');
 let userTable;
-initTable();
-initForm();
+initDatatable();
+handleForm();
 })();
 
 /******/ })()

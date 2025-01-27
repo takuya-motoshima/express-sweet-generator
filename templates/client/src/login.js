@@ -1,8 +1,8 @@
-import '~/login.css';
 import {components} from 'metronic-extension';
 import UserApi from '~/api/UserApi';
+import '~/login.css';
 
-function initValidation() {
+const initValidation = () => {
   validation = new components.Validation(ref.loginForm.get(0), {
     email: {
       validators: {
@@ -19,7 +19,7 @@ function initValidation() {
   });
 }
 
-function initForm() {
+const handleForm = () => {
   validation.onValid(async () => {
     try {
       validation.onIndicator();
@@ -40,4 +40,4 @@ const userApi = new UserApi();
 const ref = components.selectRef();
 let validation;
 initValidation();
-initForm();
+handleForm();

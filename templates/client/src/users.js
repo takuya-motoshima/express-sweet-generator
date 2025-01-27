@@ -1,12 +1,12 @@
-import '~/users.css';
 import hbs from 'handlebars-extd';
 import {components} from 'metronic-extension';
 import Datatable from '~/shared/Datatable';
 import reloadDataTableWithDelay from '~/shared/reloadDataTableWithDelay';
 import UserApi from '~/api/UserApi';
 import UserModal from '~/modals/UserModal';
+import '~/users.css';
 
-function initTable() {
+const initDatatable = () => {
   let targetIndex = 0;
   userTable = new Datatable(ref.userTable, {
     ajax: {
@@ -59,7 +59,7 @@ function initTable() {
   });
 }
 
-function initForm() {
+const handleForm = () => {
   $('body')
     .on('click', '[data-on-create-user]', async () => {
       if (await userModal.show('create') !== false)
@@ -104,5 +104,5 @@ const userApi = new UserApi();
 const userModal = new UserModal();
 const ref = components.selectRef('#kt_app_content_container');
 let userTable;
-initTable();
-initForm();
+initDatatable();
+handleForm();

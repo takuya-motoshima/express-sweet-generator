@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- ## [x.x.x] - TBD -->
 
+## [2.0.13] - 2025/1/27
+### Changed
+- Refactored templates, endpoints, view structure, and frontend JavaScript code.
+
 ## [2.0.12] - 2025/1/19
 ### Changed
 - Added logic to control the initial display state of the sidebar based on the sidebar minimize state (sidebar_minimize_state) stored in the cookie.
@@ -116,3 +120,4 @@ All notable changes to this project will be documented in this file.
 [2.0.10]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.9...v2.0.10
 [2.0.11]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.10...v2.0.11
 [2.0.12]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.11...v2.0.12
+[2.0.13]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.12...v2.0.13
