@@ -103,6 +103,7 @@ const handleForm = () => {
   });
 }
 
+// API client.
 const profileApi = new ProfileApi();
 const userApi = new UserApi();
 

@@ -42,6 +42,7 @@ const handleForm = () => {
   });
 }
 
+// API client.
 const userApi = new UserApi();
 
 // Get references to elements with data-ref attributes.

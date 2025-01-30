@@ -106,6 +106,7 @@ const handleForm = () => {
     .on('input', '[data-on-search-change]' , reloadDataTableWithDelay(userTable));
 }
 
+// API client.
 const userApi = new UserApi();
 const userModal = new UserModal();
 
