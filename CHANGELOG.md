@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- ## [x.x.x] - TBD -->
 
+## [2.0.16] - 2025/1/31
+### Changed
+- Updated the Metronic extension package version from 3.0.9 to 3.0.15 for templates.
+
 ## [2.0.15] - 2025/1/30
 ### Changed
 - Fixed front-end JS comments in templates.
@@ -131,3 +135,4 @@ All notable changes to this project will be documented in this file.
 [2.0.13]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.12...v2.0.13
 [2.0.14]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.13...v2.0.14
 [2.0.15]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.14...v2.0.15
+[2.0.16]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.15...v2.0.16
