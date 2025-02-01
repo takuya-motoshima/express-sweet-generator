@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- ## [x.x.x] - TBD -->
 
+## [2.0.17] - 2025/2/2
+### Changed
+- The template's express-validator result validation process (`middlewares/checkValidationResult.js`) was modified to return an error message in addition to the HTTP status 400 when the input data is invalid.
+
 ## [2.0.16] - 2025/1/31
 ### Changed
 - Updated the Metronic extension package version from 3.0.9 to 3.0.15 for templates.
@@ -136,3 +140,4 @@ All notable changes to this project will be documented in this file.
 [2.0.14]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.13...v2.0.14
 [2.0.15]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.14...v2.0.15
 [2.0.16]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.15...v2.0.16
+[2.0.17]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.16...v2.0.17

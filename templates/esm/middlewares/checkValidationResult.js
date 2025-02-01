@@ -11,6 +11,9 @@ export default (req, res, next) => {
     // Log validation errors only if LOG_VALIDATION_ERRORS is enabled
     if (process.env.LOG_VALIDATION_ERRORS === 'true')
       console.error('Validation errors:', result.array());
-    res.status(400).end();
+
+    // Return validation errors as JSON.
+    res.status(400).json({errors: result.array()});
+    // res.status(400).end();
   }
 }
