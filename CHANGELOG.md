@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 <!-- ## [x.x.x] - TBD -->
 
+## [2.0.18] - 2025/2/4
+### Changed
+- Updated express-sweet package version from 2.0.3 to 2.0.5, which the template depends on.
+
 ## [2.0.17] - 2025/2/2
 ### Changed
 - The template's express-validator result validation process (`middlewares/checkValidationResult.js`) was modified to return an error message in addition to the HTTP status 400 when the input data is invalid.
@@ -141,3 +145,4 @@ All notable changes to this project will be documented in this file.
 [2.0.15]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.14...v2.0.15
 [2.0.16]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.15...v2.0.16
 [2.0.17]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.16...v2.0.17
+[2.0.18]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.17...v2.0.18
