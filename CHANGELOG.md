@@ -1,7 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-<!-- ## [x.x.x] - TBD -->
+## [2.0.19] - 2025/2/9
+### Changed
+- Reduced container padding and increased content width on tablet and smaller screens.
+- Updated metronic-extension from version 3.0.15 to ^3.0.16.
+- Changed the login page background to a simple blue image.
 
 ## [2.0.18] - 2025/2/4
 ### Changed
@@ -146,3 +150,4 @@ All notable changes to this project will be documented in this file.
 [2.0.16]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.15...v2.0.16
 [2.0.17]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.16...v2.0.17
 [2.0.18]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.17...v2.0.18
+[2.0.19]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.18...v2.0.19

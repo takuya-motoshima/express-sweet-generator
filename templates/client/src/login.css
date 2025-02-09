@@ -1,7 +1,8 @@
 body {
-  background-image: url('/build/theme/media/auth/bg6.jpg');
+  background-image: url('/build/theme/media/misc/auth-bg.png');
+  /* background-image: url('/build/theme/media/auth/bg6.jpg'); */
 }
 
-[data-bs-theme="dark"] body {
+/* [data-bs-theme="dark"] body {
   background-image: url('/build/theme/media/auth/bg6-dark.jpg');
-}
+} */
