@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.20] - 2025/2/18
+### Changed
+- Improved error handling in the template's API client and Datatable. Specifically, added error logging to the errorHook and ajaxErrorHook methods.
+
 ## [2.0.19] - 2025/2/9
 ### Changed
 - Reduced container padding and increased content width on tablet and smaller screens.
@@ -151,3 +155,4 @@ All notable changes to this project will be documented in this file.
 [2.0.17]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.16...v2.0.17
 [2.0.18]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.17...v2.0.18
 [2.0.19]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.18...v2.0.19
+[2.0.20]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.19...v2.0.20

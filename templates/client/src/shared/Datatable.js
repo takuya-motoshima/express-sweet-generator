@@ -96,8 +96,11 @@ export default class extends components.Datatable {
    * @return {void}
    */
   ajaxErrorHook(code) {
+    // Log the error details.
+    console.error(`DataTable AJAX error: Status code ${code}`);
+
+    // Redirect to login page if authentication error occurs.
     if (code === 401) {
-      // Redirect to login page if authentication error occurs.
       location.replace('/');
     }
   }

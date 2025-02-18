@@ -41,9 +41,17 @@ export default class extends components.Api {
   errorHook(code, error) {
     // Check if the error object and request properties exist to avoid runtime errors
     if (error && error.request && error.request.responseURL) {
+      // Log the error details.
+      console.error(`API Error: Code ${code}, Message: ${error.message}, URL: ${error.request.responseURL}`);
+
+      // Get the pathname from the request URL.
       const {pathname} = new URL(error.request.responseURL);
-      if (pathname !== '/api/users/login' && code === 401) {
-        // Redirect to the login page if an authentication error occurs on a non-login request.
+
+      // Define paths that should be excluded from the redirect.
+      const excludedPaths = ['/api/users/login']; 
+
+      // Redirect to the login page if an authentication error occurs on a non-login request.
+      if (!excludedPaths.includes(pathname) && code === 401) {
         location.replace('/');
       }
     }
