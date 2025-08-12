@@ -1,5 +1,5 @@
 const express = require('express');
-const expressExtension = require('express-sweet');
+const expx = require('express-sweet');
 const {query, body} = require('express-validator');
 const UserModel = require('../../models/UserModel');
 const NotFoundError = require('../../errors/NotFoundError');
@@ -13,12 +13,12 @@ router.post('/login', [
   body('password').trim().not().isEmpty(),
   checkValidationResult,
 ], async (req, res, next) => {
-  const isAuthenticated = await expressExtension.services.Authentication.authenticate(req, res, next);
+  const isAuthenticated = await expx.services.Authentication.authenticate(req, res, next);
   res.json(isAuthenticated);
 });
 
 router.get('/logout', (req, res) => {
-  expressExtension.services.Authentication.logout(req);
+  expx.services.Authentication.logout(req);
   res.redirect('/');
 });
 

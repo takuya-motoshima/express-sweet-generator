@@ -1,7 +1,7 @@
-import * as expressExtension from 'express-sweet';
+import * as expx from 'express-sweet';
 import UserModel from './UserModel.js';
 
-export default class extends expressExtension.database.Model {
+export default class extends expx.database.Model {
   static get table() {
     return 'profile';
   }

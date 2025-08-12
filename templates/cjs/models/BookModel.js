@@ -1,6 +1,6 @@
-const expressExtension = require('express-sweet');
+const expx = require('express-sweet');
 
-module.exports = class extends expressExtension.database.Model {
+module.exports = class extends expx.database.Model {
   static get table() {
     return 'book';
   }

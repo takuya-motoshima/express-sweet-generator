@@ -1,6 +1,6 @@
-import * as expressExtension from 'express-sweet';
+import * as expx from 'express-sweet';
 
-export default class extends expressExtension.database.Model {
+export default class extends expx.database.Model {
   static get table() {
     return 'comment';
   }

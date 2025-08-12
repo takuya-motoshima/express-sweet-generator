@@ -1,5 +1,5 @@
 const express = require('express');
-// const expressExtension = require('express-sweet');
+// const expx = require('express-sweet');
 const {body} = require('express-validator');
 const UserModel = require('../../models/UserModel');
 const NotFoundError = require('../../errors/NotFoundError');

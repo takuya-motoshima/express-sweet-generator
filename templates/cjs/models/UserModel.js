@@ -1,8 +1,8 @@
-const expressExtension = require('express-sweet');
+const expx = require('express-sweet');
 const {Media} = require('nodejs-shared');
 const NotFoundError = require('../errors/NotFoundError');
 
-module.exports = class extends expressExtension.database.Model {
+module.exports = class extends expx.database.Model {
   static get table() {
     return 'user';
   }

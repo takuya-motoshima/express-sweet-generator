@@ -1,4 +1,4 @@
-// import * as expressExtension from 'express-sweet';
+// import * as expx from 'express-sweet';
 import {Router} from 'express';
 import {body} from 'express-validator';
 import UserModel from '../../models/UserModel.js';

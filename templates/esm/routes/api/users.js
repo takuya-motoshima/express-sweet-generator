@@ -1,4 +1,4 @@
-import * as expressExtension from 'express-sweet';
+import * as expx from 'express-sweet';
 import {Router} from 'express';
 import {query, body} from 'express-validator';
 import UserModel from '../../models/UserModel.js';
@@ -13,12 +13,12 @@ router.post('/login', [
   body('password').trim().not().isEmpty(),
   checkValidationResult,
 ], async (req, res, next) => {
-  const isAuthenticated = await expressExtension.services.Authentication.authenticate(req, res, next);
+  const isAuthenticated = await expx.services.Authentication.authenticate(req, res, next);
   res.json(isAuthenticated);
 });
 
 router.get('/logout', (req, res) => {
-  expressExtension.services.Authentication.logout(req);
+  expx.services.Authentication.logout(req);
   res.redirect('/');
 });
 

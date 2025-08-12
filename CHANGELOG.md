@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.22] - 2025/8/12
+
+### Changed
+
+- Updated `express-sweet` to v2.0.9 for latest fixes and improvements.
+
 ## [2.0.21] - 2025/7/22
 
 ### Changed
@@ -202,3 +208,4 @@ All notable changes to this project will be documented in this file.
 [2.0.19]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.18...v2.0.19
 [2.0.20]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.19...v2.0.20
 [2.0.21]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.20...v2.0.21
+[2.0.22]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.21...v2.0.22

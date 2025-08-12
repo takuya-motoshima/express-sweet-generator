@@ -1,11 +1,11 @@
-import * as expressExtension from 'express-sweet';
+import * as expx from 'express-sweet';
 import {Media} from 'nodejs-shared';
 import NotFoundError from '../errors/NotFoundError.js';
 import ProfileModel from './ProfileModel.js';
 import CommentModel from './CommentModel.js';
 import BookModel from './BookModel.js';
 
-export default class extends expressExtension.database.Model {
+export default class extends expx.database.Model {
   static get table() {
     return 'user';
   }
