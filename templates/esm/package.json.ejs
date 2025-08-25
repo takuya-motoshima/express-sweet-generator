@@ -6,7 +6,7 @@
     "#~/*": "./*"
   },
   "scripts": {
-    "start": "nodemon --ignore client/ --ignore public/ --ignore views/ bin/www",
+    "start": "PORT=<%- port %> nodemon --ignore client/ --ignore public/ --ignore views/ bin/www",
     "//start": "pm2 start ecosystem.config.cjs",
     "//restart": "pm2 restart ecosystem.config.cjs",
     "//stop": "pm2 stop ecosystem.config.cjs"

@@ -1,5 +1,19 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
+
+## [2.0.23] - 2025/8/25
+
+### Changed
+
+- **Security Updates**: Updated dependencies to address security vulnerabilities
+  - commander: 2.15.1 → 14.0.0
+  - ejs: 2.6.1 → 3.1.10
+  - fs-extra: 9.1.0 → 11.3.1
+
+- **Port Configuration Enhancement**: Modified the generated application's `package.json` to include the port specified via express-sweet-generator CLI in the nodemon start script
+  - The `npm start` script now uses the port specified with the `-p, --port` option
+  - Example: `express-sweet -p 4000 myapp` generates `"start": "PORT=4000 nodemon ..."`
 
 ## [2.0.22] - 2025/8/12
 
@@ -209,3 +223,4 @@ All notable changes to this project will be documented in this file.
 [2.0.20]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.19...v2.0.20
 [2.0.21]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.20...v2.0.21
 [2.0.22]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.21...v2.0.22
+[2.0.23]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.22...v2.0.23
