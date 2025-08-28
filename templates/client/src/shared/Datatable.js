@@ -54,7 +54,7 @@ export default class extends components.Datatable {
     /**
      * Generates a unique state key for the DataTable.
      * @param {object} settings DataTables settings object.
-     * @return {string} The generated state key.
+     * @returns {string} The generated state key.
      */
     const getStateKey = (settings) => {
       let stateKey = settings.sTableId;
@@ -93,7 +93,7 @@ export default class extends components.Datatable {
   /**
    * Handles AJAX errors.
    * @param {number} code The HTTP status code of the error.
-   * @return {void}
+   * @returns {void}
    */
   ajaxErrorHook(code) {
     // Log the error details.

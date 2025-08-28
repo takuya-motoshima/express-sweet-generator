@@ -2,8 +2,6 @@
 
 [EXPRESS SWEET](https://www.npmjs.com/package/express-sweet)'s application generator.
 
-A comprehensive list of changes in each version may be found in the [CHANGELOG](CHANGELOG.md).
-
 ## Installation
 
 ```bash
@@ -199,61 +197,104 @@ The generated application has the following directory structure:
 
 ```
 .
-├── .env                          # Environment variables
-├── app.js                        # Main application file
-├── ecosystem.config.js           # PM2 configuration
-├── nginx.sample.conf             # Sample Nginx configuration
+├── .env                          # Environment variables configuration
+├── app.js                        # Main application entry point
+├── ecosystem.config.js           # PM2 process manager configuration
+├── nginx.sample.conf             # Sample Nginx reverse proxy configuration
 ├── package.json                  # Node.js dependencies and scripts
 ├── bin
 │   └── www                       # Application startup script
-├── client                        # Frontend application
+├── client                        # Frontend application directory
 │   ├── package.json              # Frontend dependencies
-│   ├── webpack.config.js         # Webpack configuration
+│   ├── webpack.config.js         # Webpack bundler configuration
 │   └── src                       # Frontend source code
-├── config                        # Application configuration
-│   ├── authentication.js         # Authentication settings
-│   ├── config.js                 # General configuration
-│   ├── database.js               # Database configuration
-│   └── view.js                   # View engine configuration
+├── config                        # Application configuration files
+│   ├── authentication.js         # Authentication and session settings
+│   ├── config.js                 # Core application configuration
+│   ├── database.js               # Database connection settings
+│   ├── logging.js                # HTTP request logging configuration
+│   └── view.js                   # Template engine configuration
 ├── errors                        # Custom error classes
-│   └── NotFoundError.js          # 404 error handler
+│   └── NotFoundError.js          # Custom error definitions
 ├── middlewares                   # Express middlewares
 │   └── checkValidationResult.js  # Validation middleware
-├── models                        # Sequelize models
-│   ├── BookModel.js              # Book model
-│   ├── CommentModel.js           # Comment model
-│   ├── ProfileModel.js           # Profile model
-│   └── UserModel.js              # User model
-├── public                        # Static assets
-│   ├── build                     # Built frontend assets
+├── models                        # Database models (Sequelize ORM)
+│   ├── BookModel.js              # Book entity model
+│   ├── CommentModel.js           # Comment entity model
+│   ├── ProfileModel.js           # User profile model
+│   └── UserModel.js              # User entity model
+├── public                        # Static assets directory
+│   ├── build                     # Compiled frontend assets
 │   └── upload                    # User uploaded files
-├── routes                        # Express routes
-│   ├── login.js                  # Login routes
-│   ├── profile.js                # Profile routes
-│   ├── users.js                  # User routes
-│   └── api                       # API routes
+├── routes                        # Express route definitions
+│   ├── login.js                  # Authentication routes
+│   ├── profile.js                # Profile management routes
+│   ├── users.js                  # User management routes
+│   └── api                       # API endpoints
 │       ├── profile.js            # Profile API routes
 │       └── users.js              # User API routes
-├── shared                        # Shared utilities
+├── shared                        # Shared utilities and helpers
 │   └── isEmpty.js                # Utility functions
-├── validators                    # Custom validators
+├── validators                    # Custom validation functions
 │   └── isValidImageDataUrl.js    # Image validation
-└── views                         # Handlebars templates
+└── views                         # Handlebars template files
     ├── error.hbs                 # Error page template
     ├── login.hbs                 # Login page template
-    ├── layout
-    │   └── default.hbs           # Default layout template
-    ├── partials
-    │   └── .gitkeep              # Partial templates directory
+    ├── layout                    # Layout templates
+    │   └── default.hbs           # Default page layout
+    ├── partials                  # Reusable template components
+    │   └── .gitkeep              # Placeholder for partial templates
     ├── users
-    │   └── index.hbs             # Users index template
+    │   └── index.hbs             # Users listing template
     ├── profile
-    │   ├── show.hbs              # Profile show template
-    │   └── edit.hbs              # Profile edit template
+    │   ├── show.hbs              # Profile display template
+    │   └── edit.hbs              # Profile editing template
     └── errors
         ├── 404.hbs               # 404 error template
         └── 500.hbs               # 500 error template
 ```
+
+### Key Directories Explained
+
+**Configuration (`config/`)**  
+Contains all application settings divided by functionality. Modify these files to customize database connections, authentication behavior, view rendering, and logging.
+
+**Models (`models/`)**  
+Database entities using Sequelize ORM. Each model represents a database table and defines the schema, relationships, and business logic for that entity.
+
+**Routes (`routes/`)**  
+URL endpoint handlers organized by feature. The file structure automatically maps to URL paths - for example, `routes/api/users.js` handles requests to `/api/users`.
+
+**Views (`views/`)**  
+Handlebars templates for rendering HTML pages. The `layout/` directory contains base templates, while `partials/` holds reusable components.
+
+**Public (`public/`)**  
+Static files served directly by the web server. The `build/` directory contains compiled frontend assets, while `upload/` stores user-generated content.
+
+## Getting Started with Your Generated App
+
+Once your application is generated and running, you can:
+
+1. **Explore the Features**: Visit the main framework documentation to understand routing, models, authentication, and view system
+2. **Customize Configuration**: Modify files in the `config/` directory to suit your needs
+3. **Add New Models**: Create additional models in the `models/` directory following the existing patterns
+4. **Build Routes**: Add new routes in the `routes/` directory for your application logic
+5. **Create Views**: Design templates in the `views/` directory using Handlebars
+
+For detailed tutorials and advanced usage, visit the [EXPRESS SWEET Documentation](https://takuya-motoshima.github.io/express-sweet/).
+
+## API Reference
+
+For comprehensive documentation on using the generated application, refer to the **[EXPRESS SWEET Documentation](https://takuya-motoshima.github.io/express-sweet/)**.
+
+The complete API reference includes:
+
+- **[Database](https://takuya-motoshima.github.io/express-sweet/modules/database.html)**: Model classes and database management
+- **[Authentication](https://takuya-motoshima.github.io/express-sweet/classes/services.Authentication.html)**: User authentication and session management  
+- **[Routing](https://takuya-motoshima.github.io/express-sweet/modules/routing.html)**: Advanced routing functionality
+- **[Handlebars Helpers](https://takuya-motoshima.github.io/express-sweet/modules/handlebars_helpers.html)**: Template helpers for views
+- **[Configuration](https://takuya-motoshima.github.io/express-sweet/modules/interfaces.html)**: All configuration interfaces
+- **[Middlewares](https://takuya-motoshima.github.io/express-sweet/modules/middlewares.html)**: Built-in middleware components
 
 ## Command Options
 
@@ -267,6 +308,10 @@ Options:
   -V, --version           Display version number
   -h, --help              Display help for command
 ```
+
+## Release Notes
+
+All changes and version history can be found in the [CHANGELOG.md](CHANGELOG.md).
 
 ## Author
 

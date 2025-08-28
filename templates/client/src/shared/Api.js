@@ -36,7 +36,7 @@ export default class extends components.Api {
    * Handles API errors.
    * @param {number} code The HTTP status code.
    * @param {Error} error The error object.
-   * @return {void}
+   * @returns {void}
    */
   errorHook(code, error) {
     // Check if the error object and request properties exist to avoid runtime errors

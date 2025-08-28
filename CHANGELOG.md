@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2025/8/26
+
+### Changed
+
+- **Breaking Change**: Updated `express-sweet` dependency from v2.0.9 to v3.0.0
+  - Templates now use the new `DatabaseManager` singleton pattern instead of the deprecated `Database` class
+  - All generated models automatically benefit from improved database connection management and performance
+  - See the [express-sweet changelog](https://github.com/takuya-motoshima/express-sweet/blob/main/CHANGELOG.md) for detailed breaking changes
+
+### Added
+
+- **Logging Configuration**: Added `config/logging.js` to templates for Morgan logging configuration
+  - Provides centralized logging settings with configurable format and skip options
+  - Default format set to 'combined' with skip property set to undefined for all requests
+  - Includes comprehensive JSDoc documentation with usage examples
+
+### Migration Notes
+
+Generated applications using v3.0.0+ templates will automatically use the new database architecture. No manual changes are required for new projects.
+
+For existing projects, update your `package.json` to use `express-sweet@^3.0.0` and follow the migration guide in the [express-sweet changelog](https://github.com/takuya-motoshima/express-sweet/blob/main/CHANGELOG.md).
+
 ## [2.0.23] - 2025/8/25
 
 ### Changed
@@ -191,7 +213,7 @@ All notable changes to this project will be documented in this file.
       * Handles API errors.
       * @param {number} code The HTTP status code.
       * @param {Error} error The error object.
-      * @return {void}
+      * @returns {void}
       */
     errorHook(code, error) {
       // Check if the error object and request properties exist to avoid runtime errors
@@ -224,3 +246,4 @@ All notable changes to this project will be documented in this file.
 [2.0.21]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.20...v2.0.21
 [2.0.22]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.21...v2.0.22
 [2.0.23]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.22...v2.0.23
+[3.0.0]: https://github.com/takuya-motoshima/express-sweet/compare/v2.0.23...v3.0.0

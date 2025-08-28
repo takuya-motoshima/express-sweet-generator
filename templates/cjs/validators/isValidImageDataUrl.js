@@ -3,7 +3,7 @@ const isEmpty = require('../shared/isEmpty');
 /**
  * Validates if a value is a valid image Data URL.
  * @param {string} value The value to validate.
- * @return {boolean} True if the value is a valid image Data URL or empty, otherwise throws an error.
+ * @returns {boolean} True if the value is a valid image Data URL or empty, otherwise throws an error.
  * @throws {Error} If the value is not a valid image Data URL format.
  */
 module.exports = (value) => {

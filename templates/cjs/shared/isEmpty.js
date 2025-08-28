@@ -1,7 +1,7 @@
 /**
  * Checks if a string is empty or contains only whitespace characters.
  * @param {string|null|false} str The string to check.
- * @return {boolean} True if the string is empty or contains only whitespace, false otherwise.
+ * @returns {boolean} True if the string is empty or contains only whitespace, false otherwise.
  */
 module.exports = str => {
   if (str == null || str === false)

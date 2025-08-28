@@ -40,9 +40,11 @@ export default {
    * The default value is the referrer's origin (eg https://example.com).
    * @type {(baseUrl: string): string}
    * @example
+   * ```js
    * rewrite_base_url: baseUrl => {
    *   return `${baseUrl}/admin`;
    * }
+   * ```
    */
   rewrite_base_url: baseUrl => {
     return baseUrl;
@@ -54,11 +56,13 @@ export default {
   * For example, if there is no XMLHttpRequest in req(express.Request) and the Ajax endpoint starts with /api, a custom Ajax decision can be made like "return /^\/api\//.test(req.path)".
   * @type {(req: express.Request) => boolean}
   * @example
+  * ```js
   * is_ajax: req => {
   *   // If the request URL begins with /api, it is assumed to be Ajax.
   *   return /^\/api/.test(req.path);
   *   // return !!req.xhr;
   * }
+  * ```
   */
   is_ajax: req => !!req.xhr,
 
@@ -67,6 +71,7 @@ export default {
    * If unset, simply returns an error HTTP status. (<code>res.status(error.status||500).end();</code>)
    * @type {(error: any, req: express.Request, res: express.Response, next: express.NextFunction) => void}
    * @example
+   * ```js
    * hook_handle_error: (error, req, res, next) => {
    *   if (error.status === 404)
    *     // If the URL cannot be found, a 404 error screen (views/errors/404.hbs) is displayed.
@@ -75,6 +80,7 @@ export default {
    *     // For other errors, unknown error screen (views/error/500.hbs) is displayed.
    *     res.render('error/500');
    * },
+   * ```
    */
   hook_handle_error: (error, req, res, next) => {
     if (error.status === 404)

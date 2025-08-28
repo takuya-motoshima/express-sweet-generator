@@ -14,7 +14,7 @@ export default class extends Api {
   /**
    * Logs in a user.
    * @param {FormData} formData The form data containing the user's login credentials.
-   * @return {Promise<object>} The API response.
+   * @returns {Promise<object>} The API response.
    */
   async login(formData) {
     return this.client.post('login', formData);
@@ -22,7 +22,7 @@ export default class extends Api {
 
   /**
    * Logs out the current user.
-   * @return {void} 
+   * @returns {void} 
    */
   async logout() {
     location.assign('/api/users/logout');
@@ -31,7 +31,7 @@ export default class extends Api {
   /**
    * Creates a new user.
    * @param {FormData} formData The form data containing the new user's information.
-   * @return {Promise<object>} The API response.
+   * @returns {Promise<object>} The API response.
    */
   async createUser(formData) {
     return this.client.post('/', formData);
@@ -40,7 +40,7 @@ export default class extends Api {
   /**
    * Retrieves a user by ID.
    * @param {number} userId The ID of the user to retrieve.
-   * @return {Promise<object>} The API response.
+   * @returns {Promise<object>} The API response.
    */
   async getUser(userId) {
     return this.client.get(`/${userId}`);
@@ -50,7 +50,7 @@ export default class extends Api {
    * Updates a user by ID.
    * @param {number} userId The ID of the user to update.
    * @param {FormData} formData - The form data containing the updated user information.
-   * @return {Promise<object>} The API response.
+   * @returns {Promise<object>} The API response.
    */
   async updateUser(userId, formData) {
     return this.client.put(`/${userId}`, formData);
@@ -59,7 +59,7 @@ export default class extends Api {
   /**
    * Deletes a user by ID.
    * @param {number} userId The ID of the user to delete.
-   * @return {Promise<object>} The API response.
+   * @returns {Promise<object>} The API response.
    */
   async deleteUser(userId) {
     return this.client.delete(`/${userId}`);

@@ -72,7 +72,7 @@ export default class extends components.Modal {
    * Render Modal.
    * @param {'create'|'update'} mode Processing mode.
    * @param {number|undefined} userId Update User ID.
-   * @return {string} Modal HTML.
+   * @returns {string} Modal HTML.
    */
   async render(mode, userId = null) {
     // In case of update, the target user is retrieved.

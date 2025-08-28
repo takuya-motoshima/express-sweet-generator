@@ -68,6 +68,7 @@ export default {
    * URL to redirect after log off, defaults to `/login`.
    * @type {string|((req: express.Request, res: express.Response) => string)}
    * @example
+   * ```js
    * // Set the URL to redirect to in case of login failure as a string.
    * failure_redirect: '/login',
    *
@@ -76,6 +77,7 @@ export default {
    *   // If the role stored in the cookie is admin, redirect to the admin login screen.
    *   return req.cookies.role === 'admin' ? '/adminlogin' : 'login';
    * },
+   * ```
    */
   failure_redirect: '/login',
 

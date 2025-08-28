@@ -39,10 +39,12 @@ export default {
    * For example, you can set your own local variables that can be used within the view.
    * @type {(res: express.Response) => Promise<void>|void}
    * @example
+   * ```js
    * // The message set here can be referenced in the view as {{message}}.
    * beforeRender: (req, res) => {
    *   res.locals.extra = 'Extra';
    * }
+   * ```
    */
   beforeRender: (req, res) => {
     // Set the initial sidebar state from the cookie, defaulting to 'off'.

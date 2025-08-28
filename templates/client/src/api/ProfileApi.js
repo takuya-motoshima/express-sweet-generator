@@ -14,7 +14,7 @@ export default class extends Api {
   /**
    * Updates the user's profile.
    * @param {FormData} formData The form data containing the updated profile information.
-   * @return {Promise<object>} The API response.
+   * @returns {Promise<object>} The API response.
    */
   async updateProfile(formData) {
     return this.client.put('/', formData);
