@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.1] - 2025/9/2
+
+### Changed
+
+- Add connection pool configuration examples and JSDoc documentation to database configuration template.
+
 ## [3.0.0] - 2025/8/26
 
 ### Changed
