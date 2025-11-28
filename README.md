@@ -1,6 +1,8 @@
-# EXPRESS SWEET
+# EXPRESS SWEET Generator
 
-[EXPRESS SWEET](https://www.npmjs.com/package/express-sweet)'s application generator.
+**Scaffold production-ready Express.js applications in seconds.**
+
+A powerful application generator for [EXPRESS SWEET](https://www.npmjs.com/package/express-sweet) that creates a complete, feature-rich web application with authentication, database ORM, frontend bundling, and professional project structure out of the box.
 
 ## Installation
 
@@ -10,13 +12,13 @@ npm install -g express-sweet-generator
 
 ## Quick Start
 
-Use the application generator tool, `express-sweet-generator`, to quickly create an application skeleton.
+Use the `express-sweet-generator` tool to quickly create a fully-featured application skeleton with all the essentials preconfigured.
 
 ![Image](screencaps/demonstration.webp)
 
 ### 1. Generate Application
 
-Create an Express app named `myapp`. The app will be created in a folder named `myapp` in the current working directory.
+Create an Express app named `myapp`. The application will be created in a folder named `myapp` in the current working directory.
 
 ```bash
 # Generate ESM (ECMAScript Modules) application
@@ -189,7 +191,7 @@ npm start
 
 ### 7. Access the Application
 
-Open your browser and navigate to `http://localhost:3000/` to access the app.
+Open your browser and navigate to `http://localhost:3000/` to access the application.
 
 ## Application Structure
 
@@ -271,12 +273,12 @@ Handlebars templates for rendering HTML pages. The `layout/` directory contains 
 **Public (`public/`)**  
 Static files served directly by the web server. The `build/` directory contains compiled frontend assets, while `upload/` stores user-generated content.
 
-## Getting Started with Your Generated App
+## Getting Started with Your Generated Application
 
 Once your application is generated and running, you can:
 
-1. **Explore the Features**: Visit the main framework documentation to understand routing, models, authentication, and view system
-2. **Customize Configuration**: Modify files in the `config/` directory to suit your needs
+1. **Explore the Features**: Visit the main framework documentation to understand routing, models, authentication, and the view system
+2. **Customize Configuration**: Modify files in the `config/` directory to suit your project needs
 3. **Add New Models**: Create additional models in the `models/` directory following the existing patterns
 4. **Build Routes**: Add new routes in the `routes/` directory for your application logic
 5. **Create Views**: Design templates in the `views/` directory using Handlebars
