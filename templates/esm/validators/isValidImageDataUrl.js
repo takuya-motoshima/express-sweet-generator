@@ -1,5 +1,3 @@
-import isEmpty from '../shared/isEmpty.js';
-
 /**
  * Validates if a value is a valid image Data URL.
  * @param {string} value The value to validate.
@@ -7,7 +5,8 @@ import isEmpty from '../shared/isEmpty.js';
  * @throws {Error} If the value is not a valid image Data URL format.
  */
 export default value => {
-  if (isEmpty(value))
+  // Check if value is empty or contains only whitespace
+  if (value == null || value === false || value.toString().trim() === '')
     return true; // Empty values are considered valid
   const dataUrlRegex = /^data:image\/[\w-+\d.]+;\w+,/;
   if (!dataUrlRegex.test(value))

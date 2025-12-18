@@ -4,6 +4,31 @@
 
 A powerful application generator for [EXPRESS SWEET](https://www.npmjs.com/package/express-sweet) that creates a complete, feature-rich web application with authentication, database ORM, frontend bundling, and professional project structure out of the box.
 
+## Express 5 Ready
+
+**Version 4.0+ generates applications with full Express 5 compatibility:**
+
+- **Express 5.2.1** - Latest Express version with modern features
+- **Node.js 18+** - Requires Node.js 18.x or higher
+- **express-handlebars v7.1.3** - Maintained at v7 for Node.js 18+ compatibility (v8 requires Node.js 20+)
+- **Modern Route Patterns** - Templates use RegExp with named capture groups for route validation
+- **File Upload Support** - Includes `config/upload.js` for Multer configuration
+
+For more details on Express 5 changes, see the [Express.js Release Notes](https://expressjs.com/en/changelog/).
+
+## Table of Contents
+
+- [Express 5 Ready](#express-5-ready)
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Application Structure](#application-structure)
+- [Getting Started](#getting-started-with-your-generated-application)
+- [API Reference](#api-reference)
+- [Command Options](#command-options)
+- [Release Notes](#release-notes)
+- [Author](#author)
+- [License](#license)
+
 ## Installation
 
 ```bash
@@ -15,6 +40,9 @@ npm install -g express-sweet-generator
 Use the `express-sweet-generator` tool to quickly create a fully-featured application skeleton with all the essentials preconfigured.
 
 ![Image](screencaps/demonstration.webp)
+
+<details>
+<summary><strong>Detailed Setup Guide</strong></summary>
 
 ### 1. Generate Application
 
@@ -37,7 +65,9 @@ npm install
 
 ### 3. Database Setup
 
-The skeleton application uses a MySQL/MariaDB database. Create a database with the following SQL:
+The generated template uses MySQL/MariaDB as an example database. EXPRESS SWEET supports any Sequelize-compatible database (MySQL, PostgreSQL, SQLite, etc.).
+
+Create a database with the following SQL:
 
 ```sql
 -- Create database
@@ -193,6 +223,11 @@ npm start
 
 Open your browser and navigate to `http://localhost:3000/` to access the application.
 
+</details>
+
+<details>
+<summary><strong>Application Structure</strong></summary>
+
 ## Application Structure
 
 The generated application has the following directory structure:
@@ -215,6 +250,7 @@ The generated application has the following directory structure:
 │   ├── config.js                 # Core application configuration
 │   ├── database.js               # Database connection settings
 │   ├── logging.js                # HTTP request logging configuration
+│   ├── upload.js                 # File upload (Multer) configuration
 │   └── view.js                   # Template engine configuration
 ├── errors                        # Custom error classes
 │   └── NotFoundError.js          # Custom error definitions
@@ -235,8 +271,6 @@ The generated application has the following directory structure:
 │   └── api                       # API endpoints
 │       ├── profile.js            # Profile API routes
 │       └── users.js              # User API routes
-├── shared                        # Shared utilities and helpers
-│   └── isEmpty.js                # Utility functions
 ├── validators                    # Custom validation functions
 │   └── isValidImageDataUrl.js    # Image validation
 └── views                         # Handlebars template files
@@ -258,8 +292,8 @@ The generated application has the following directory structure:
 
 ### Key Directories Explained
 
-**Configuration (`config/`)**  
-Contains all application settings divided by functionality. Modify these files to customize database connections, authentication behavior, view rendering, and logging.
+**Configuration (`config/`)**
+Contains all application settings divided by functionality. Modify these files to customize database connections, authentication behavior, view rendering, logging, and file uploads.
 
 **Models (`models/`)**  
 Database entities using Sequelize ORM. Each model represents a database table and defines the schema, relationships, and business logic for that entity.
@@ -270,8 +304,10 @@ URL endpoint handlers organized by feature. The file structure automatically map
 **Views (`views/`)**  
 Handlebars templates for rendering HTML pages. The `layout/` directory contains base templates, while `partials/` holds reusable components.
 
-**Public (`public/`)**  
+**Public (`public/`)**
 Static files served directly by the web server. The `build/` directory contains compiled frontend assets, while `upload/` stores user-generated content.
+
+</details>
 
 ## Getting Started with Your Generated Application
 
@@ -313,7 +349,15 @@ Options:
 
 ## Release Notes
 
-All changes and version history can be found in the [CHANGELOG.md](CHANGELOG.md).
+**Latest Release: v4.0.0 (2025-12-05)**
+
+Major update with Express 5 migration and file upload support:
+
+- **Express 5 Migration**: Upgraded to Express 5.2.1 with Node.js 18+ requirement
+- **File Upload Support**: Added Multer configuration (`config/upload.js`) for flexible file handling
+- **Template Updates**: Express 5 path pattern syntax for regex validation
+
+For complete version history and migration guides, see [CHANGELOG.md](CHANGELOG.md).
 
 ## Author
 

@@ -56,12 +56,12 @@ router.post('/', [
   res.json(true);
 });
 
-router.get('/:userId(\\d+)', async (req, res) => {
+router.get(/^\/(?<userId>\d+)$/, async (req, res) => {
   const user = await UserModel.getUser(req.params.userId);
   res.json(user.toJSON());
 });
 
-router.put('/:userId(\\d+)', [
+router.put(/^\/(?<userId>\d+)$/, [
   body('user.email').trim().not().isEmpty().isEmail(),
   body('user.name').trim().not().isEmpty().isLength({max: 30}),
   body('user.password').trim().optional({nullable: true, checkFalsy: true}).isLength({max: 128}),
@@ -79,7 +79,7 @@ router.put('/:userId(\\d+)', [
   }
 });
 
-router.delete('/:userId(\\d+)', async (req, res) => {
+router.delete(/^\/(?<userId>\d+)$/, async (req, res) => {
   await UserModel.deleteUser(req.params.userId);
   res.json(true);
 });

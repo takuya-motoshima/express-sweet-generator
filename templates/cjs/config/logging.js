@@ -25,13 +25,14 @@ module.exports = {
    * ```js
    * // Skip logging for successful requests
    * skip: (req, res) => res.statusCode < 400,
-   * 
+   *
    * // Skip logging for specific routes
    * skip: (req, res) => req.path === '/health',
-   * 
+   *
    * // Skip logging in test environment
    * skip: (req, res) => process.env.NODE_ENV === 'test',
    * ```
    */
-  skip: undefined
+  // Skip logging for static files to reduce noise in logs
+  skip: (req, res) => req.path.startsWith('/build/') || req.path.startsWith('/upload/')
 }

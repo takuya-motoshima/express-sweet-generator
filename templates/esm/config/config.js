@@ -11,8 +11,8 @@ export default {
   env_path: '.env',
 
   /**
-   * CORS permission, defaults to invalid (false).
-   * @type {{enabled: boolean}}
+   * CORS permission, defaults to disabled (false).
+   * @type {boolean}
    */
   cors_enabled: true,
 
@@ -37,11 +37,12 @@ export default {
   /**
    * This is a hook that rewrites the base URL.
    * If you want to rewrite the app.locals.baseUrl property and the view's baseUrl variable, use this hook to return a new base URL.
-   * The default value is the referrer's origin (eg https://example.com).
-   * @type {(baseUrl: string): string}
+   * The baseUrl parameter may be undefined if URL construction fails (e.g., invalid Host header).
+   * @type {(baseUrl: string | undefined) => string | undefined}
    * @example
    * ```js
    * rewrite_base_url: baseUrl => {
+   *   if (!baseUrl) return 'http://localhost:3000'; // Fallback for undefined
    *   return `${baseUrl}/admin`;
    * }
    * ```
@@ -83,9 +84,14 @@ export default {
    * ```
    */
   hook_handle_error: (error, req, res, next) => {
+    // Log error with request context for debugging
+    console.error(`Error occurred while processing ${req.method} ${req.originalUrl}:`, error);
+
+    // Handle 404 errors separately
     if (error.status === 404)
       res.status(404).render('errors/404', {isErrorPage: true});
     else
+      // Handle all other errors as 500 Internal Server Error
       res.status(500).render('errors/500', {isErrorPage: true});
   },
 }

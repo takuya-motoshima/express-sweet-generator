@@ -1,5 +1,6 @@
 const expx = require('express-sweet');
-const {Media} = require('nodejs-shared');
+const fs = require('fs');
+const path = require('path');
 const NotFoundError = require('../errors/NotFoundError');
 
 module.exports = class extends expx.database.Model {
@@ -157,10 +158,35 @@ module.exports = class extends expx.database.Model {
   }
 
   static async #updateUserIcon(user, dataUrl, transaction) {
-    user.icon = `/upload/${user.id}.${Media.getExtensionFromDataUrl(dataUrl)}`;
+    const extension = this.#getExtensionFromDataUrl(dataUrl);
+    user.icon = `/upload/${user.id}.${extension}`;
     await user.save({transaction});
     const iconPath = `${global.APP_DIR}/public${user.icon}`;
-    Media.writeDataUrlToFile(iconPath, dataUrl);
+    this.#writeDataUrlToFile(iconPath, dataUrl);
+  }
+
+  static #getExtensionFromDataUrl(dataUrl) {
+    const mimeType = dataUrl.match(/data:([^;]+);/)?.[1];
+    const mimeToExt = {
+      'image/jpeg': 'jpg',
+      'image/jpg': 'jpg',
+      'image/png': 'png',
+      'image/gif': 'gif',
+      'image/webp': 'webp',
+      'image/svg+xml': 'svg',
+      'image/bmp': 'bmp'
+    };
+    return mimeToExt[mimeType] || 'jpg';
+  }
+
+  static #writeDataUrlToFile(filePath, dataUrl) {
+    const base64Data = dataUrl.replace(/^data:[^;]+;base64,/, '');
+    const buffer = Buffer.from(base64Data, 'base64');
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, {recursive: true});
+    }
+    fs.writeFileSync(filePath, buffer);
   }
 
   static async deleteUser(userId) {

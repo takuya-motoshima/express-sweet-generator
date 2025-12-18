@@ -8,9 +8,12 @@ export default (req, res, next) => {
   if (result.isEmpty())
     next();
   else {
-    // Log validation errors only if LOG_VALIDATION_ERRORS is enabled
-    if (process.env.LOG_VALIDATION_ERRORS === 'true')
-      console.error('Validation errors:', result.array());
+    // Log request information and validation errors
+    console.error('Validation failed:', {
+      method: req.method,
+      url: req.originalUrl,
+      errors: result.array()
+    });
 
     // Return validation errors as JSON.
     res.status(400).json({errors: result.array()});
